@@ -15,7 +15,7 @@ export const products: Product[] = [
       "A rich sounding harmonic resonator supporting 7 voices, configurable states, and MIDI input.",
     price: 0,
     downloadUrl: "/assets/products/resonator/resonator.zip",
-    thumbnail: "/assets/products/resonator/thumbnail.png",
+    thumbnail: "/assets/products/resonator/Resonator.png",
     demoImages: [],
     demoVideoUrl: undefined,
     features: [

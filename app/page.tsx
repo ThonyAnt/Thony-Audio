@@ -2,59 +2,11 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { useRef } from "react"
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion"
+import { motion } from "framer-motion"
 import { products } from "@/data/products"
+import TiltCard from "@/components/TiltCard"
 
 const featured = products[0]
-
-function PluginTiltCard() {
-  const cardRef = useRef<HTMLDivElement>(null)
-  const mouseX = useMotionValue(0)
-  const mouseY = useMotionValue(0)
-
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [7, -7]), {
-    stiffness: 300,
-    damping: 30,
-  })
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-7, 7]), {
-    stiffness: 300,
-    damping: 30,
-  })
-
-  function onMouseMove(e: React.MouseEvent<HTMLDivElement>) {
-    const rect = cardRef.current?.getBoundingClientRect()
-    if (!rect) return
-    mouseX.set((e.clientX - rect.left) / rect.width - 0.5)
-    mouseY.set((e.clientY - rect.top) / rect.height - 0.5)
-  }
-
-  function onMouseLeave() {
-    mouseX.set(0)
-    mouseY.set(0)
-  }
-
-  return (
-    <div style={{ perspective: 900 }}>
-      <motion.div
-        ref={cardRef}
-        onMouseMove={onMouseMove}
-        onMouseLeave={onMouseLeave}
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        className="cursor-pointer"
-      >
-        <Image
-          src="/assets/products/resonator/Resonator.png"
-          alt="Resonator plugin"
-          width={4396}
-          height={3040}
-          style={{ maxWidth: "100%", height: "auto", filter: "drop-shadow(0 24px 48px rgba(0,0,0,0.18))" }}
-          priority
-        />
-      </motion.div>
-    </div>
-  )
-}
 
 export default function Home() {
   return (
@@ -113,7 +65,16 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
           >
-            <PluginTiltCard />
+            <TiltCard>
+              <Image
+                src="/assets/products/resonator/Resonator.png"
+                alt="Resonator plugin"
+                width={4396}
+                height={3040}
+                style={{ maxWidth: "100%", height: "auto", filter: "drop-shadow(0 24px 48px rgba(0,0,0,0.18))" }}
+                priority
+              />
+            </TiltCard>
           </motion.div>
         </div>
       </section>

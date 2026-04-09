@@ -3,7 +3,7 @@ import FadeIn from "@/components/FadeIn"
 const extras = [
   {
     title: "Presets",
-    body: "Save your full plugin state — chord modules, voice settings, waveform mode — as a preset. Load your favorite progressions instantly across any project.",
+    body: "Store all your settings in a preset, allowing you to load your favorite chord progressions on the fly across projects.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
@@ -14,7 +14,7 @@ const extras = [
   },
   {
     title: "Lifetime Updates",
-    body: "Once you own Resonator, every future update is yours — free, forever. As the plugin grows, so does what you own.",
+    body: "Once you own Resonator, updates will be free forever.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="23 4 23 10 17 10" />

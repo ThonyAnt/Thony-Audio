@@ -74,7 +74,7 @@ export default function AudioSection() {
             hear it
           </h2>
           <p className="mt-5 text-[#8a837c] leading-relaxed max-w-sm">
-            Listen to what Resonator can do — from subtle shimmer to dense harmonic textures.
+            Listen to what Resonator can do!
           </p>
         </FadeIn>
 

@@ -15,14 +15,17 @@ export default function ProductCard({ product }: ProductCardProps) {
       className="group block bg-[#edeae4] hover:bg-[#e5e1da] rounded-2xl overflow-hidden transition-colors"
     >
       {/* Thumbnail */}
-      <div className="aspect-[4/3] bg-[#d8d4ce] relative overflow-hidden">
+      <div className="aspect-[4/3] bg-[#edeae4] relative overflow-hidden">
         {product.thumbnail ? (
-          <Image
-            src={product.thumbnail}
-            alt={product.name}
-            fill
-            className="object-cover"
-          />
+          <div className="absolute inset-0 flex items-center justify-center p-6">
+            <Image
+              src={product.thumbnail}
+              alt={product.name}
+              fill
+              className="object-contain"
+              style={{ filter: "drop-shadow(0 12px 24px rgba(0,0,0,0.15))" }}
+            />
+          </div>
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
             <span className="font-display text-4xl text-[#8a837c] tracking-wider">

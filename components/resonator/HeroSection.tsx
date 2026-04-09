@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
+import TiltCard from "@/components/TiltCard"
 
 export default function HeroSection() {
   return (
@@ -65,14 +66,16 @@ export default function HeroSection() {
           transition={{ duration: 0.9, delay: 0.2, ease: "easeOut" }}
           className="flex items-center justify-center"
         >
-          <Image
-            src="/assets/products/resonator/Resonator.png"
-            alt="Resonator plugin"
-            width={4396}
-            height={3040}
-            style={{ maxWidth: "100%", height: "auto", filter: "drop-shadow(0 24px 48px rgba(0,0,0,0.18))" }}
-            priority
-          />
+          <TiltCard>
+            <Image
+              src="/assets/products/resonator/Resonator.png"
+              alt="Resonator plugin"
+              width={4396}
+              height={3040}
+              style={{ maxWidth: "100%", height: "auto", filter: "drop-shadow(0 24px 48px rgba(0,0,0,0.18))" }}
+              priority
+            />
+          </TiltCard>
         </motion.div>
       </div>
     </section>

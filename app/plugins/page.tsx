@@ -12,7 +12,7 @@ export default function PluginsPage() {
       <div className="mb-14">
         <h1 className="font-display text-6xl text-[#1a1a1a]">plugins</h1>
         <p className="mt-3 text-[#8a837c] text-base max-w-sm">
-          every plugin is built to add character, not just process.
+          Stay tuned for more : )
         </p>
       </div>
 
