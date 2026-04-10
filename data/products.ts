@@ -14,7 +14,7 @@ export const products: Product[] = [
     description:
       "A rich sounding harmonic resonator supporting 7 voices, configurable states, and MIDI input.",
     price: 0,
-    downloadUrl: "/assets/products/resonator/resonator.zip",
+    downloadUrl: "/assets/products/resonator/Thony Audio - Resonator.zip",
     thumbnail: "/assets/products/resonator/Resonator.png",
     demoImages: [],
     demoVideoUrl: undefined,
