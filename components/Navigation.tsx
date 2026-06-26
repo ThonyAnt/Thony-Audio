@@ -23,6 +23,9 @@ export default function Navigation() {
           <NavLink href="/support" active={pathname === "/support"}>
             support
           </NavLink>
+          <NavLink href="/account" active={pathname.startsWith("/account")}>
+            account
+          </NavLink>
         </div>
       </nav>
     </header>

@@ -30,6 +30,31 @@ export const products: Product[] = [
     releaseDate: "2024",
     available: true,
   },
+  {
+    id: "chorale",
+    slug: "chorale",
+    name: "Chorale",
+    tagline: "A reverb that resonates in key with your music.",
+    description:
+      "A per-note convolution reverb — every note can carry its own impulse response, and a pitch-track mode tunes one IR to follow your MIDI. The reverb resonates in key with what you play.",
+    price: 39, // TODO: set your price
+    downloadUrl: "#", // paid — delivered via /account after purchase
+    checkoutUrl: "", // TODO: paste the Lemon Squeezy / Paddle checkout link
+    thumbnail: "",
+    demoImages: [],
+    demoVideoUrl: undefined,
+    features: [
+      "Per-note impulse responses across 12 pitch classes",
+      "Pitch-track mode — one IR tunes to your MIDI",
+      "Mono and polyphonic voices",
+      "Per-note EQ and ADSR with chain links",
+      "Master transpose and key-shift",
+      "Presets with embedded or referenced IRs",
+      "VST3, AU, and standalone (mac + windows)",
+    ],
+    releaseDate: "2026",
+    available: true,
+  },
 ]
 
 export function getProductBySlug(slug: string): Product | undefined {
