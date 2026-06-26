@@ -39,7 +39,7 @@ export const products: Product[] = [
       "A per-note convolution reverb — every note can carry its own impulse response, and a pitch-track mode tunes one IR to follow your MIDI. The reverb resonates in key with what you play.",
     price: 39, // TODO: set your price
     downloadUrl: "#", // paid — delivered via /account after purchase
-    checkoutUrl: "", // TODO: paste the Lemon Squeezy / Paddle checkout link
+    checkoutUrl: "", // TODO: paste your PayPal Buy Now / payment link (see supabase/functions/README.md)
     thumbnail: "",
     demoImages: [],
     demoVideoUrl: undefined,

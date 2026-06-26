@@ -1,46 +1,58 @@
 # Supabase Edge Functions
 
-## `lemonsqueezy-webhook` — auto-mint a license on purchase
-
-On a Lemon Squeezy `order_created` event: verifies LS's signature, mints a Chorale
-license (the TS port — byte-compatible with the plugin), and upserts it into the
-`licenses` table. The buyer then signs into `/account` with their purchase email and
-downloads it (RLS scopes the row to their email).
+Two webhook functions that do the same job — **auto-mint a Chorale license on purchase
+and store it** — for two payment setups. **`paypal-webhook` is the active path**
+(PayPal-direct, works for a China-based seller). `lemonsqueezy-webhook` is the
+Merchant-of-Record alternative, kept for if you ever switch.
 
 ```
-buy → Lemon Squeezy checkout → webhook → mint + insert → buyer's /account → download → plugin unlock
+buy → PayPal checkout → webhook → mint + insert → buyer's /account → download → plugin unlock
 ```
 
-### One-time setup
+Both mint with `_shared/chorale-license.ts` (the TS port — verified byte-compatible
+with the plugin's C++ `--verify`).
 
-1. **Database** — run [`../schema.sql`](../schema.sql) in the SQL Editor (creates `licenses` + RLS).
+## `paypal-webhook` — PayPal-direct (active)
 
-2. **Function secrets** — Supabase → Edge Functions → Secrets (or CLI):
-   ```
-   supabase secrets set CHORALE_PRIVATE_KEY="expHex,modHex"      # the license private key — SECRET
-   supabase secrets set LEMONSQUEEZY_WEBHOOK_SECRET="whsec_..."   # from the LS webhook setup
-   ```
-   (`SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` are injected automatically.)
+### 1. Database
+Run [`../schema.sql`](../schema.sql) in the SQL Editor (creates `licenses` + RLS).
 
-3. **Deploy** (needs the Supabase CLI, `supabase login`, `supabase link`):
-   ```
-   supabase functions deploy lemonsqueezy-webhook --no-verify-jwt
-   ```
-   `--no-verify-jwt` because Lemon Squeezy calls it unauthenticated — we authenticate
-   via the HMAC signature instead. Note the function URL it prints.
+### 2. PayPal Developer dashboard (developer.paypal.com)
+- Create a **REST API app** → copy its **Client ID** + **Secret**.
+- Create a **Webhook** → URL = the deployed function URL (step 4), subscribe to
+  **`PAYMENT.CAPTURE.COMPLETED`** → copy the **Webhook ID**.
+- Create a **Buy Now button / payment link** for Chorale → paste that link into
+  `data/products.ts` → Chorale's `checkoutUrl` (the buy button goes live).
 
-4. **Lemon Squeezy dashboard**:
-   - Create the **Chorale** product → copy its **checkout URL** → paste into
-     `data/products.ts` → Chorale's `checkoutUrl` (the buy button goes live).
-   - Settings → **Webhooks** → add the function URL, set a **signing secret** (the same
-     value you put in `LEMONSQUEEZY_WEBHOOK_SECRET`), and subscribe to **`order_created`**.
+### 3. Function secrets
+```
+supabase secrets set CHORALE_PRIVATE_KEY="expHex,modHex"     # license private key — SECRET
+supabase secrets set PAYPAL_CLIENT_ID="..."
+supabase secrets set PAYPAL_CLIENT_SECRET="..."
+supabase secrets set PAYPAL_WEBHOOK_ID="..."
+# optional, to test against PayPal sandbox first:
+supabase secrets set PAYPAL_API_BASE="https://api-m.sandbox.paypal.com"
+```
+(`SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` are injected automatically.)
 
-### Keep in sync
+### 4. Deploy
+```
+supabase functions deploy paypal-webhook --no-verify-jwt
+```
+`--no-verify-jwt` because PayPal calls it unauthenticated — we authenticate by handing
+the event back to PayPal's verify-webhook-signature API.
 
+### 5. ⚠ Test before going live
+PayPal's payload shape varies by checkout type, and the buyer email isn't always in the
+same place. **Use PayPal's webhook simulator**, fire a `PAYMENT.CAPTURE.COMPLETED`, and
+confirm `extractBuyer()` finds the email. If not, adjust the event type / paths in
+`paypal-webhook/index.ts`. (If a real sale ever slips through without an email, the
+function logs it and you can mint manually with `mint.ps1`.)
+
+> **Buyer note:** the license is keyed to the **PayPal account email**. Buyers sign into
+> `/account` with that same email to see and download it (RLS scopes by email).
+
+## Keep in sync
 `_shared/chorale-license.ts` is a copy of the canonical
-`Chorale/installer/licensing/keygen-ts/chorale-license.ts` (verified against the plugin's
-C++ `--verify`). If you change the plugin's product id / machine sentinel, update both,
-and `PRODUCT` / `MACHINE` in `lemonsqueezy-webhook/index.ts`.
-
-> Before relying on this, confirm Lemon Squeezy can **pay out** to your bank
-> (their payouts run via PayPal / Wise — verify your country is supported).
+`Chorale/installer/licensing/keygen-ts/chorale-license.ts`. If the plugin's product id /
+machine sentinel changes, update both, plus `PRODUCT` / `MACHINE` in the function.
