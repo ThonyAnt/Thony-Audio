@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://eraformaudio.com/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://eraformaudio.com/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://eraformaudio.com/collections/expansion.atom"/>
+  <title>Eraform Audio</title>
+  <updated>2026-06-15T03:02:08+02:00</updated>
+  <author>
+    <name>Eraform Audio</name>
+  </author>
+  <entry>
+    <id>https://eraformaudio.com/products/10980087136523</id>
+    <published>2026-06-15T03:02:08+02:00</published>
+    <updated>2026-06-15T03:02:08+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://eraformaudio.com/products/tape-dreams"/>
+    <title>Tape Dreams</title>
+    <s:type>Expansion</s:type>
+    <s:vendor>Eraform, Prototype</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0928/1860/4299/files/artwork_6ef4b575-68c7-4fc8-a39d-952e48e28695.png?v=1781603452"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Eraform, Prototype<br>
+        <strong>Type: </strong>Expansion<br>
+        <strong>Price: </strong>
+            0.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><span><strong>Tape Dreams Expansion</strong> (free) with 80 New Presets and 40 Sound Sources for Fraction.<br><br>A tape collection of nostalgic sound design paired with warped synths and noises. Built around textures full of character and presets that showcase the New Fraction Noise Modes. <br><br>Tags: Nostalgic, Dusty, Textured</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>status:free</s:tag>
+    <s:variant>
+      <id>https://eraformaudio.com/products/10980087136523</id>
+      <title>Default Title</title>
+      <s:price currency="USD">0.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://eraformaudio.com/products/10893913227531</id>
+    <published>2026-02-25T02:45:15+01:00</published>
+    <updated>2026-02-25T02:45:15+01:00</updated>
+    <link rel="alternate" type="text/html" href="https://eraformaudio.com/products/chrome"/>
+    <title>Chrome</title>
+    <s:type>Expansion</s:type>
+    <s:vendor>Eraform, Prototype</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0928/1860/4299/files/CH.png?v=1771983581"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Eraform, Prototype<br>
+        <strong>Type: </strong>Expansion<br>
+        <strong>Price: </strong>
+            19.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><span><strong>Chrome Expansion</strong> with 60 New Presets and 35 Sound Sources for Fraction.<br><br>A reflective collection built around metallic resonances, glass textures, and sharp synthetic movement. Explore sounds that are precise, sharp and unexpected with Chrome.<br><br>Tags: Metallic, Liquid, Sharp</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>expansion</s:tag>
+    <s:tag>new</s:tag>
+    <s:variant>
+      <id>https://eraformaudio.com/products/10893913227531</id>
+      <title>Default Title</title>
+      <s:price currency="USD">19.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://eraformaudio.com/products/10858060513547</id>
+    <published>2026-01-17T14:18:37+01:00</published>
+    <updated>2026-01-17T14:18:37+01:00</updated>
+    <link rel="alternate" type="text/html" href="https://eraformaudio.com/products/lifeforms"/>
+    <title>Lifeforms</title>
+    <s:type>Expansion</s:type>
+    <s:vendor>Eraform, Prototype</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0928/1860/4299/files/LF_b2f1fee6-d661-4f3d-a93c-09affefbfea7.png?v=1771619249"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Eraform, Prototype<br>
+        <strong>Type: </strong>Expansion<br>
+        <strong>Price: </strong>
+            29.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><span><strong>Lifeforms Expansion</strong> with 100 New Presets and 30 Sound Sources for Fraction.</span></p>
+<p><meta charset="utf-8"><span>Explore the living, breathing sound of textures, unstable tones and imperfect details. Every sound feels alive and unpredictable - made with Viom's experimental Guitar Pedal Chain.</span></p>
+<p>Tags: Experimental, Living, Imperfect</p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>bestseller</s:tag>
+    <s:tag>expansion</s:tag>
+    <s:variant>
+      <id>https://eraformaudio.com/products/10858060513547</id>
+      <title>Default Title</title>
+      <s:price currency="USD">29.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://eraformaudio.com/products/10848319865099</id>
+    <published>2026-01-17T14:07:29+01:00</published>
+    <updated>2026-01-17T14:07:29+01:00</updated>
+    <link rel="alternate" type="text/html" href="https://eraformaudio.com/products/core-synth"/>
+    <title>Core-Synth</title>
+    <s:type>Expansion</s:type>
+    <s:vendor>Eraform, Prototype</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0928/1860/4299/files/artwork.png?v=1767114965"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Eraform, Prototype<br>
+        <strong>Type: </strong>Expansion<br>
+        <strong>Price: </strong>
+            0.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><span><strong>Core-Synth Expansion</strong> (free) with 65 New Presets and 30 Sound Sources for Fraction.</span></p>
+<p><span>A collection of clean and modern synth sounds with a focus of keys and plucks that just always work. These sounds sit immediately in the mix and are reliable go-to sounds.<br></span></p>
+<p><span>Tags: Reliable, Modern, Foundational<br></span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>expansion</s:tag>
+    <s:tag>status:free</s:tag>
+    <s:variant>
+      <id>https://eraformaudio.com/products/10848319865099</id>
+      <title>Default Title</title>
+      <s:price currency="USD">0.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://eraformaudio.com/products/10840030347531</id>
+    <published>2025-12-17T19:49:45+01:00</published>
+    <updated>2025-12-17T19:49:45+01:00</updated>
+    <link rel="alternate" type="text/html" href="https://eraformaudio.com/products/monuments"/>
+    <title>Monuments</title>
+    <s:type>Expansion</s:type>
+    <s:vendor>Eraform, Prototype</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0928/1860/4299/files/MM_88afedae-69cd-4a49-bcc2-5d90bd9a83a3.png?v=1765997337"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Eraform, Prototype<br>
+        <strong>Type: </strong>Expansion<br>
+        <strong>Price: </strong>
+            19.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p><span><strong>Monuments Expansion</strong> with 60 New Presets and 30 Sound Sources for Fraction.</span></p>
+<p><span>Built for moments in your music that need weight and presence. Deep evolving layers, powerful harmonies, and wide tonal movement that feels massive without being noisy or interrupting. </span></p>
+<p><span>Tags: Cinematic, Brutal, Heroic</span></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>expansion</s:tag>
+    <s:variant>
+      <id>https://eraformaudio.com/products/10840030347531</id>
+      <title>Default Title</title>
+      <s:price currency="USD">19.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+</feed>

@@ -1,0 +1,2973 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fusion – iFeature</title>
+  <meta property="og:title" content="Fusion – iFeature">
+  <meta property="og:description" content="Next-Generation Audio Plugins">
+  <meta property="og:image" content="https://ifeature.world/Fusion%20Cover.png">
+  <meta property="og:url" content="https://ifeature.world/fusion.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="180x180.png" />
+  <meta name="theme-color" content="#FF4800" />
+  <script src="plugins-submenu.js"></script>
+  <script src="active-page.js"></script>
+  <link href="fonts/space-mono.css" rel="stylesheet" />
+  <style>
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    html {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      box-sizing: border-box;
+    }
+
+    *,
+    *:before,
+    *:after {
+      box-sizing: inherit;
+    }
+
+    body {
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: "Space Mono", monospace;
+      text-align: center;
+      padding-bottom: 80px;
+    }
+
+    header {
+      padding: 22px 0 11px 0;
+    }
+
+    header img {
+      width: 331px;
+      max-width: 90%;
+      height: auto;
+    }
+
+    .menu-wrapper {
+      margin: 15px auto 30px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      font-size: 13px;
+      font-weight: 400;
+      flex-wrap: nowrap;
+    }
+
+    .menu-wrapper a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .menu-wrapper a:hover {
+      color: #ff4800;
+    }
+
+    .menu-wrapper a.active {
+      color: #ff4800;
+    }
+
+    .menu-wrapper .star {
+      color: #ff4800;
+      font-size: 13px;
+      pointer-events: none;
+    }
+
+
+    .submenu {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+      animation: slideDown 0.3s ease forwards;
+    }
+
+    .submenu a {
+      font-size: 14px;
+      color: #ff4800;
+      text-decoration: none;
+    }
+
+    .submenu a:hover {
+      color: #fff;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1,
+    h2 {
+      color: #ff4800;
+    }
+
+    .bottom-wrapper {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      z-index: 9998;
+    }
+
+    .ticker-container {
+      width: 100%;
+      overflow: hidden;
+      background-color: #ff4800;
+      white-space: nowrap;
+      height: 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    .ticker {
+      display: flex;
+      width: calc(2000px);
+      animation: ticker-loop 20s linear infinite;
+    }
+
+    .ticker-content {
+      flex: 0 0 50%;
+      font-size: 14px;
+      color: black;
+    }
+
+    @keyframes ticker-loop {
+      0% {
+        transform: translateX(0%);
+      }
+
+      100% {
+        transform: translateX(-40%);
+      }
+    }
+
+    footer {
+      width: 100%;
+      background: #000;
+      color: white;
+      font-size: 12px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 20px 30px;
+      box-sizing: border-box;
+      border-top: 1px solid #222;
+    }
+
+    .footer-left {
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      justify-self: start;
+    }
+
+    .footer-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      justify-self: center;
+    }
+
+    .footer-center a img {
+      width: 16px;
+      height: 16px;
+      filter: brightness(0) invert(1);
+      transition: filter 0.3s ease;
+    }
+
+    .footer-center a:hover img {
+      filter: brightness(0) saturate(100%) invert(44%) sepia(82%) saturate(5000%) hue-rotate(5deg) brightness(102%) contrast(104%);
+    }
+
+    .footer-right {
+      justify-self: end;
+    }
+
+    .footer-right a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-right a:hover {
+      color: #ff4800;
+    }
+
+    .copyright-icon {
+      width: 9px;
+      height: 9px;
+      margin-right: 3px;
+      filter: brightness(0) invert(1);
+    }
+
+    @media (max-width: 768px) {
+      .moonbase-icons {
+        right: 10px !important;
+        top: 10px !important;
+        gap: 12px;
+      }
+
+      .moonbase-icons img {
+        width: 24px;
+        height: 24px;
+      }
+
+      header img {
+        width: 250px;
+      }
+
+      .menu-wrapper {
+        margin: 15px auto 30px auto;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .menu-wrapper a {
+        font-size: 11px;
+      }
+
+      .submenu {
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      footer {
+        grid-template-columns: 1fr;
+        padding: 20px 15px;
+        text-align: center;
+        gap: 10px;
+      }
+
+      .footer-left,
+      .footer-center,
+      .footer-right {
+        justify-self: center;
+      }
+
+      body {
+        padding-bottom: 100px;
+      }
+
+      .fusion-banner {
+        font-size: 16px;
+        padding: 5px 10px;
+      }
+
+      .fusion-banner .star {
+        font-size: 12px;
+      }
+
+      .demo-links {
+        gap: 10px;
+      }
+
+      .demo-link {
+        font-size: 14px;
+      }
+
+      .demo-separator {
+        font-size: 14px;
+      }
+    }
+
+    .moonbase-icons {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .moonbase-icons img {
+      width: 28px;
+      height: auto;
+      cursor: pointer;
+      filter: brightness(0) invert(1);
+      transition: filter 0.3s ease;
+    }
+
+    .moonbase-icons img:hover {
+      filter: brightness(0) saturate(100%) invert(44%) sepia(82%) saturate(5000%) hue-rotate(5deg) brightness(102%) contrast(104%);
+    }
+
+    #cartBtn:hover {
+      animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes shake {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      25% {
+        transform: rotate(-10deg);
+      }
+
+      50% {
+        transform: rotate(10deg);
+      }
+
+      75% {
+        transform: rotate(-7deg);
+      }
+
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <a href="index.html"><img src="Logo.svg" alt="iFeature Logo" class="logo" /></a>
+
+
+    <div class="moonbase-icons">
+      <img onclick="Moonbase.view_account()" src="Account.svg" alt="Account" id="accountBtn" />
+      <img onclick="Moonbase.view_cart()" src="Basket.svg" alt="Cart" id="cartBtn" />
+    </div>
+
+    <div class="menu-wrapper">
+      <a id="pluginLink" onclick="toggleSubMenu()">PLUGINS</a>
+      <span class="star">★</span>
+      <a href="download.html">DOWNLOAD</a>
+      <span class="star">★</span>
+      <a href="shop.html">SHOP</a>
+      <span class="star">★</span>
+      <a href="support.html">SUPPORT</a>
+    </div>
+    <div id="plugins-submenu" class="submenu"></div>
+
+
+    <div class="fusion-banner">
+      <span class="star">★</span>
+      <span class="fusion-text">FUSION</span>
+      <span class="star">★</span>
+    </div>
+    <style>
+      .fusion-banner {
+        background-color: #ff4800;
+        color: black;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        padding: 10px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .fusion-banner {
+        background-color: #ff4800;
+        color: black;
+        font-family: "Space Mono", monospace;
+        font-size: 16px;
+        font-weight: 400;
+        padding: 6px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 15px;
+      }
+
+      .fusion-banner .fusion-text {
+        flex: 1;
+        text-align: center;
+      }
+
+      .fusion-banner .star {
+        font-size: 14px;
+        pointer-events: none;
+        position: relative;
+        top: -2px;
+      }
+    </style>
+
+
+    <div class="rive-hero">
+      <video class="fusion-video" autoplay loop muted playsinline disablepictureinpicture
+        controlslist="nodownload noremoteplayback" oncontextmenu="return false;">
+        <source src="Fusion.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video>
+
+      <div class="hero-content-overlay">
+        <div class="hero-text">
+          <h1 class="hero-title">FUSION</h1>
+          <h2 class="hero-subtitle">real time resynthesis</h2>
+          <div class="hero-buttons">
+            <a href="download.html#fusion" class="cta-button outline">TRY NOW</a>
+            <a href="shop.html#fusion" class="cta-button solid">BUY</a>
+          </div>
+        </div>
+        <div class="hero-image-container">
+          <img src="Fusion&#32;Cover.png" alt="Fusion Cover" class="hero-product-image" />
+        </div>
+      </div>
+    </div>
+    <style>
+      .rive-hero {
+        position: relative;
+
+        width: 100%;
+        height: 60vh;
+
+        overflow: visible;
+
+        display: flex;
+        justify-content: center;
+        background: #000;
+        margin-bottom: 0;
+
+      }
+
+      .fusion-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+
+        opacity: 0.6;
+
+        margin: 0;
+        padding: 0;
+        border: none;
+        display: block;
+      }
+
+      .hero-content-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        max-width: 1200px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        padding: 0 40px;
+        box-sizing: border-box;
+        z-index: 5;
+
+        pointer-events: none;
+
+      }
+
+      .hero-text {
+        text-align: left;
+        pointer-events: auto;
+      }
+
+      .hero-title {
+        font-family: 'Space Mono', monospace;
+        font-size: 8rem;
+        line-height: 1;
+        margin: 0;
+        letter-spacing: -2px;
+        background: linear-gradient(to bottom, #fff, #aaa);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: white;
+
+      }
+
+      .hero-subtitle {
+        font-family: 'Space Mono', monospace;
+        font-size: 1.5rem;
+        color: #ff4800;
+        margin: 10px 0 30px 0;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 20px;
+      }
+
+      .cta-button {
+        font-family: 'Space Mono', monospace;
+        font-size: 16px;
+        font-weight: bold;
+        text-decoration: none;
+        padding: 12px 24px;
+        border: 1px solid #FF4800;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        display: inline-block;
+      }
+
+      .cta-button.outline {
+        background: transparent;
+        color: #FF4800;
+      }
+
+      .cta-button.outline:hover {
+        background: #FF4800;
+        color: #000;
+      }
+
+      .cta-button.solid {
+        background: #FF4800;
+        color: #000;
+      }
+
+      .cta-button.solid:hover {
+        background: transparent;
+        color: #FF4800;
+      }
+
+
+      .hero-image-container {
+        position: relative;
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+      }
+
+      .hero-product-image {
+        width: 100%;
+        max-width: 500px;
+        transform: translateY(20%);
+
+        filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+      }
+
+      @media (max-width: 768px) {
+        .video-wrapper {
+          background-color: #000;
+        }
+
+        .hero-content-overlay {
+          grid-template-columns: 1fr;
+          text-align: center;
+          padding-top: 100px;
+
+        }
+
+        .hero-text {
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .hero-title {
+          font-size: clamp(3rem, 15vw, 4rem);
+
+        }
+
+        .hero-subtitle {
+          font-size: clamp(0.8rem, 4vw, 1.2rem);
+
+          letter-spacing: 1px;
+        }
+
+        .hero-product-image {
+          display: none !important;
+        }
+
+        .hero-buttons {
+          justify-content: center;
+          flex-wrap: wrap;
+
+          gap: 15px;
+          width: 100%;
+        }
+
+        .cta-button {
+          min-width: 140px;
+
+          padding: 12px 20px;
+        }
+
+
+        @media (max-width: 350px) {
+          .hero-title {
+            font-size: 15vw !important;
+
+          }
+
+          .hero-subtitle {
+            font-size: 0.9rem !important;
+            letter-spacing: 0px !important;
+          }
+
+          .hero-buttons {
+            flex-direction: column;
+            width: 100%;
+            gap: 10px;
+          }
+
+          .cta-button {
+            width: 100%;
+            min-width: 0;
+          }
+        }
+      }
+    </style>
+
+    <section class="rive-interactive-examples">
+
+      <div class="artist-testimonial-wrapper">
+        <div class="artist-testimonial">
+          <div class="artist-photo-wrapper">
+            <img src="Virtual-Riot.png" alt="Virtual Riot" class="artist-photo">
+          </div>
+          <div class="testimonial-content">
+            <p class="testimonial-quote">"Eliminate and I used this all over our collab! Great tool to add some spicy
+              weirdness to anything."</p>
+            <p class="testimonial-author">— Virtual Riot | 2x Grammy Nominated Producer</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="rive-interactive-examples__inner">
+        <div class="examples-sidebar">
+          <div class="examples-header">
+            <h3 class="examples-title">Select Preset</h3>
+          </div>
+          <ul class="preset-list" id="presetList">
+
+          </ul>
+        </div>
+
+        <div class="video-display-area">
+          <div class="video-wrapper">
+            <video id="videoNormal" class="fusion-video active" playsinline muted loop poster="Fusion&#32;Cover.png">
+              <source src="FUSION-Atmosphere&#32;Wet.mp4" type="video/mp4">
+            </video>
+            <video id="videoBypass" class="fusion-video" playsinline muted loop poster="Fusion&#32;Cover.png">
+              <source src="FUSION-Atmosphere&#32;Dry.mp4" type="video/mp4">
+            </video>
+
+          </div>
+
+
+        </div>
+
+        <div class="player-footer">
+          <div class="player-toolbar">
+            <div class="toolbar-left">
+              <div id="videoPlayPause" class="play-container">
+                <button class="video-control-btn play-btn" aria-label="Play/Pause">
+                  <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </button>
+                <span class="play-label">play</span>
+              </div>
+              <button id="bypassToggle" class="bypass-btn">
+                <div class="bypass-indicator"></div>
+                BYPASS
+              </button>
+            </div>
+          </div>
+          <div class="player-waveform">
+            <canvas id="waveformCanvas"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+    <style>
+      .rive-interactive-examples {
+        background: #101114;
+        padding: 60px 20px 80px;
+        display: block;
+        position: relative;
+        z-index: 10;
+      }
+
+      .rive-interactive-examples__inner {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 0 40px;
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+
+        background: transparent;
+        border: none;
+        overflow: visible;
+      }
+
+
+      .examples-sidebar {
+        background: transparent;
+        padding: 20px 0;
+
+        border: none;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+      }
+
+
+      .artist-testimonial-wrapper {
+        width: 100%;
+        max-width: 1100px;
+        margin: 60px auto 120px auto;
+        display: flex;
+        justify-content: center;
+      }
+
+      .artist-testimonial {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 6px;
+        padding: 0;
+        display: flex;
+        gap: 0;
+        align-items: stretch;
+        max-width: 700px;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .artist-photo-wrapper {
+        width: 180px;
+
+        min-height: 100%;
+        border-radius: 0;
+        flex-shrink: 0;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .artist-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+
+        display: block;
+      }
+
+      .testimonial-content {
+        flex: 1;
+        padding: 28px 32px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .testimonial-quote {
+        font-family: "Space Mono", monospace;
+        font-size: 13px;
+        font-style: italic;
+        color: #e0e0e0;
+        line-height: 1.7;
+
+        letter-spacing: 0.3px;
+
+        margin: 0 0 8px 0;
+      }
+
+      .testimonial-author {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: #999;
+        margin: 0;
+        font-weight: 500;
+      }
+
+      .examples-header {
+        padding: 0 0 20px 15px;
+
+        border-bottom: none;
+        background: transparent;
+        display: block;
+      }
+
+      .preset-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .preset-item {
+        font-family: "Space Mono", monospace;
+        font-size: 13px;
+        color: #666;
+
+        padding: 8px 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: left;
+        background: transparent;
+        border: none;
+        border-left: 2px solid transparent;
+
+        width: 100%;
+
+        font-weight: 500;
+        display: block;
+        border-radius: 0;
+
+      }
+
+      .preset-item:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .preset-item.active {
+        background: transparent;
+
+        color: #ff4800;
+
+        border-left: 2px solid #ff4800;
+
+        padding-left: 20px;
+
+        font-weight: 700;
+      }
+
+      .video-display-area {
+        position: relative;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        background: transparent;
+        height: auto;
+        gap: 0;
+        overflow: hidden;
+        border-radius: 6px;
+        border: none;
+      }
+
+      .video-wrapper {
+        position: relative;
+        width: 100%;
+        background: transparent;
+        aspect-ratio: 1 / 1;
+        max-width: 550px;
+        max-height: 550px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        overflow: hidden;
+        box-shadow: none;
+      }
+
+      #videoNormal,
+      #videoBypass {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      #videoNormal.active,
+      #videoBypass.active {
+        z-index: 2;
+      }
+
+
+      .fusion-video {
+        display: block !important;
+        opacity: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+
+      .rive-hero .fusion-video {
+        opacity: 1 !important;
+        pointer-events: none;
+      }
+
+      .fusion-video.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+
+
+      .player-footer {
+        background: transparent;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+        gap: 15px;
+        grid-column: 2;
+        margin-top: 20px;
+        position: relative;
+        width: 100%;
+      }
+
+      .player-toolbar {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 550px;
+        height: auto;
+        padding: 0;
+        gap: 20px;
+        border-right: none;
+        flex-shrink: 0;
+        margin: 0 auto;
+      }
+
+      .player-waveform {
+        width: 100%;
+        max-width: 550px;
+        height: 60px;
+        position: relative;
+        background: transparent;
+        margin: 0 auto;
+      }
+
+      #waveformCanvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .toolbar-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .play-container {
+        display: flex;
+        align-items: center;
+        background: #ff4800;
+        border-radius: 0;
+        padding: 5px 20px 5px 5px;
+        cursor: pointer;
+        transition: opacity 0.2s;
+        gap: 10px;
+      }
+
+      .play-container:hover {
+        opacity: 0.9;
+      }
+
+      .video-control-btn.play-btn {
+        background: transparent;
+        border: none;
+        color: #000;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        cursor: pointer;
+      }
+
+      .play-label {
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 14px;
+        color: #000;
+        text-transform: lowercase;
+      }
+
+      .bypass-btn {
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-family: "Space Mono", monospace;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 0;
+        height: auto;
+        border-radius: 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-transform: lowercase;
+      }
+
+      .bypass-btn:hover {
+        color: #ff4800;
+        opacity: 0.9;
+      }
+
+      .bypass-indicator {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        background: transparent;
+        transition: all 0.2s;
+      }
+
+      .bypass-btn.active .bypass-indicator {
+        background: #ff4800;
+        border-color: #ff4800;
+      }
+
+      @media (max-width: 900px) {
+        .rive-interactive-examples__inner {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        .examples-sidebar {
+          width: 100%;
+          padding-bottom: 20px;
+          margin-bottom: 20px;
+        }
+
+        .examples-header {
+          text-align: center;
+          width: 100%;
+        }
+
+        .preset-list {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 10px;
+          width: 100%;
+          justify-content: center;
+        }
+
+        .preset-item {
+          width: 100%;
+          min-height: 44px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 4px;
+          border-left: none;
+          padding: 8px 5px;
+          font-size: 12px;
+          box-sizing: border-box;
+        }
+
+        .preset-item.active {
+          background: #ff4800;
+          color: #000;
+          border-left: none;
+          padding-left: 5px;
+
+        }
+
+        .video-wrapper {
+          max-height: 400px;
+        }
+
+        .artist-testimonial {
+          flex-direction: column;
+        }
+
+        .artist-photo-wrapper {
+          width: 100%;
+          height: 200px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .rive-interactive-examples__inner {
+          grid-template-columns: 1fr;
+        }
+
+        .examples-sidebar {
+          height: auto;
+          max-height: 250px;
+        }
+
+        .examples-header {
+          position: relative;
+        }
+
+        .player-footer {
+          padding: 15px;
+          gap: 15px;
+        }
+
+        .video-control-btn,
+        .bypass-btn {
+          height: 40px;
+          width: 40px;
+        }
+
+        .bypass-btn {
+          width: auto;
+          font-size: 11px;
+        }
+
+
+        .artist-testimonial-wrapper {
+          margin: 40px auto 80px auto;
+          padding: 0 !important;
+          width: 100%;
+        }
+
+        .artist-testimonial {
+          flex-direction: row !important;
+          align-items: stretch;
+          justify-content: flex-start !important;
+          text-align: left;
+          width: 100%;
+          max-width: 100%;
+          border-radius: 0;
+          overflow: hidden;
+          padding: 0 !important;
+          gap: 0 !important;
+        }
+
+        .artist-photo-wrapper {
+          width: 120px !important;
+          min-width: 120px;
+          height: auto !important;
+          flex-shrink: 0;
+        }
+
+        .artist-photo {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .testimonial-content {
+          flex: 1;
+          padding: 20px 24px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        .testimonial-quote {
+          font-size: 12px;
+          line-height: 1.6;
+          margin: 0 0 8px 0;
+        }
+
+        .testimonial-author {
+          font-size: 10px;
+        }
+
+        .preset-list {
+          border-left: none;
+        }
+
+        .preset-item {
+          border-left: none;
+        }
+      }
+    </style>
+
+    <section class="fusion-resynthesis">
+      <div class="fusion-resynthesis__inner">
+        <div class="fusion-resynthesis__image">
+          <img src="Resynthesis.svg" alt="Resynthesis diagram" />
+        </div>
+
+        <div class="fusion-resynthesis__copy">
+          <h2>WHAT IS RESYNTHESIS IN FUSION?</h2>
+          <p>
+            Resynthesis in FUSION means rebuilding your sound in real time using a custom pitch tracker and spectral
+            processing, letting you morph from 0% dry signal to 100% full resynthesis with a single slider.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .fusion-resynthesis {
+        background: #101114;
+      }
+
+      .fusion-resynthesis__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .fusion-resynthesis__image img {
+        width: 100%;
+        height: auto;
+        max-width: 250px;
+      }
+
+      .fusion-resynthesis__copy h2 {
+        margin: 0 0 16px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #d5d5d5;
+        text-align: left;
+        letter-spacing: 0.02em;
+      }
+
+      .fusion-resynthesis__copy p {
+        margin: 0;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #d5d5d5;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .fusion-resynthesis__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .fusion-resynthesis__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+        }
+
+        .fusion-resynthesis__image img {
+          max-width: 180px;
+          width: 100%;
+          height: auto;
+        }
+
+        .fusion-resynthesis__copy {
+          max-width: 300px;
+        }
+
+        .fusion-resynthesis__copy h2 {
+          font-size: 16px;
+          margin-bottom: 14px;
+          text-align: center;
+        }
+
+        .fusion-resynthesis__copy p {
+          font-size: 13px;
+          line-height: 1.6;
+          text-align: center;
+        }
+      }
+    </style>
+
+    <section class="fusion-emphasis">
+      <div class="fusion-emphasis__inner">
+        <div class="fusion-emphasis__image">
+          <img src="Emphasis.png" alt="Emphasis diagram" />
+        </div>
+
+        <div class="fusion-emphasis__copy">
+          <h2>WHAT IS EMPHASIS IN FUSION?</h2>
+          <p>
+            Emphasis in FUSION shapes the harmonic character of the resynthesized sound by boosting or sculpting
+            specific harmonic regions, with five distinct modes ranging from aggressive "Double Square" to smooth
+            "Double Circle."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .fusion-emphasis {
+        background: #101114;
+      }
+
+      .fusion-emphasis__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .fusion-emphasis__image img {
+        width: 100%;
+        height: auto;
+        max-width: 250px;
+      }
+
+      .fusion-emphasis__copy h2 {
+        margin: 0 0 16px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #d5d5d5;
+        text-align: left;
+        letter-spacing: 0.02em;
+      }
+
+      .fusion-emphasis__copy p {
+        margin: 0;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #d5d5d5;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .fusion-emphasis__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .fusion-emphasis__image {
+          order: -1;
+        }
+
+        .fusion-emphasis__image img {
+          max-width: 220px;
+          width: 100%;
+        }
+
+        .fusion-emphasis__copy h2 {
+          font-size: 16px;
+          margin-bottom: 14px;
+          text-align: center;
+        }
+
+        .fusion-emphasis__copy p {
+          font-size: 13px;
+          line-height: 1.6;
+          text-align: center;
+          max-width: 300px;
+          margin: 0 auto;
+        }
+      }
+    </style>
+
+    <section class="fusion-split">
+      <div class="fusion-split__inner">
+        <div class="fusion-split__image">
+          <img src="Split.png" alt="Split diagram" />
+        </div>
+
+        <div class="fusion-split__copy">
+          <h2>WHAT IS SPLIT IN FUSION?</h2>
+          <p>
+            Split in FUSION lets you isolate and morph between odd -100 and even +100 harmonics of the resynthesized
+            sound, giving you unique control over its tonal texture and character.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .fusion-split {
+        background: #101114;
+      }
+
+      .fusion-split__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .fusion-split__image img {
+        width: 100%;
+        height: auto;
+        max-width: 250px;
+      }
+
+      .fusion-split__copy h2 {
+        margin: 0 0 16px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #d5d5d5;
+        text-align: left;
+        letter-spacing: 0.02em;
+      }
+
+      .fusion-split__copy p {
+        margin: 0;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #d5d5d5;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .fusion-split__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .fusion-split__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        .fusion-split__image img {
+          max-width: 180px;
+          width: 100%;
+          height: auto;
+        }
+
+        .fusion-split__copy h2 {
+          font-size: 16px;
+          margin-bottom: 14px;
+          text-align: center;
+        }
+
+        .fusion-split__copy p {
+          font-size: 13px;
+          line-height: 1.6;
+          text-align: center;
+          max-width: 300px;
+          margin: 0 auto;
+        }
+      }
+    </style>
+
+    <section class="fusion-shift">
+      <div class="fusion-shift__inner">
+        <div class="fusion-shift__image">
+          <img src="Shift.png" alt="Shift diagram" />
+        </div>
+
+        <div class="fusion-shift__copy">
+          <h2>WHAT IS SHIFT IN FUSION?</h2>
+          <p>
+            Shift in FUSION applies a formant shifter to the resynthesized signal, allowing you to morph the perceived
+            vocal or tonal character without changing its pitch, from deep and growly -100 to thin and airy +100.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .fusion-shift {
+        background: #101114;
+      }
+
+      .fusion-shift__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .fusion-shift__image img {
+        width: 100%;
+        height: auto;
+        max-width: 100px;
+      }
+
+      .fusion-shift__copy h2 {
+        margin: 0 0 16px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #d5d5d5;
+        text-align: left;
+        letter-spacing: 0.02em;
+      }
+
+      .fusion-shift__copy p {
+        margin: 0;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #d5d5d5;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .fusion-shift__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .fusion-shift__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        .fusion-shift__image img {
+          max-width: 80px;
+          width: 100%;
+          height: auto;
+        }
+
+        .fusion-shift__copy h2 {
+          font-size: 16px;
+          margin-bottom: 14px;
+          text-align: center;
+        }
+
+        .fusion-shift__copy p {
+          font-size: 13px;
+          line-height: 1.6;
+          text-align: center;
+          max-width: 300px;
+          margin: 0 auto;
+        }
+      }
+    </style>
+
+    <section class="fusion-comp">
+      <div class="fusion-comp__inner">
+        <div class="fusion-comp__image">
+          <img src="Comp.png" alt="Comp diagram" />
+        </div>
+
+        <div class="fusion-comp__copy">
+          <h2>WHAT IS COMP IN FUSION?</h2>
+          <p>
+            Comp in FUSION applies fixed-value spectral compression from 0 to 100 to even out the harmonic balance of
+            the resynthesized signal, making it tighter and more focused without losing dynamics.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .fusion-comp {
+        background: #101114;
+      }
+
+      .fusion-comp__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .fusion-comp__image img {
+        width: 100%;
+        height: auto;
+        max-width: 100px;
+      }
+
+      .fusion-comp__copy h2 {
+        margin: 0 0 16px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #d5d5d5;
+        text-align: left;
+        letter-spacing: 0.02em;
+      }
+
+      .fusion-comp__copy p {
+        margin: 0;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #d5d5d5;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .fusion-comp__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .fusion-comp__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        .fusion-comp__image img {
+          max-width: 100px;
+          width: 100%;
+          height: auto;
+        }
+
+        .fusion-comp__copy h2 {
+          font-size: 16px;
+          margin-bottom: 14px;
+          text-align: center;
+        }
+
+        .fusion-comp__copy p {
+          font-size: 13px;
+          line-height: 1.6;
+          text-align: center;
+          max-width: 300px;
+          margin: 0 auto;
+        }
+      }
+    </style>
+
+    <section class="fusion-fboost">
+      <div class="fusion-fboost__inner">
+        <div class="fusion-fboost__image">
+          <img src="Fboost.png" alt="F-Boost diagram" />
+        </div>
+
+        <div class="fusion-fboost__copy">
+          <h2>WHAT IS F-BOOST IN FUSION?</h2>
+          <p>
+            F-Boost (Fundamental Boost) in FUSION enhances the detected fundamental frequency by up to +12 dB, adding
+            more weight, clarity, and low end punch to the resynthesized signal.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .fusion-fboost {
+        background: #101114;
+      }
+
+      .fusion-fboost__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .fusion-fboost__image img {
+        width: 100%;
+        height: auto;
+        max-width: 50px;
+      }
+
+      .fusion-fboost__copy h2 {
+        margin: 0 0 16px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #d5d5d5;
+        text-align: left;
+        letter-spacing: 0.02em;
+      }
+
+      .fusion-fboost__copy p {
+        margin: 0;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #d5d5d5;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .fusion-fboost__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .fusion-fboost__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        .fusion-fboost__image img {
+          max-width: 40px;
+          width: 100%;
+          height: auto;
+        }
+
+        .fusion-fboost__copy h2 {
+          font-size: 16px;
+          margin-bottom: 14px;
+          text-align: center;
+        }
+
+        .fusion-fboost__copy p {
+          font-size: 13px;
+          line-height: 1.6;
+          text-align: center;
+          max-width: 300px;
+          margin: 0 auto;
+        }
+      }
+    </style>
+
+    <section class="fusion-color">
+      <div class="fusion-color__inner">
+        <div class="fusion-color__image">
+          <img src="Color.png" alt="Color diagram" />
+        </div>
+
+        <div class="fusion-color__copy">
+          <h2>WHAT IS COLOR IN FUSION?</h2>
+          <p>
+            Color in FUSION is a bass autotune engine that pitch corrects the resynthesized fundamental in real time,
+            with ±48 semitone control and scale snapping to Minor or Major for musical tuning.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .fusion-color {
+        background: #101114;
+      }
+
+      .fusion-color__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .fusion-color__image img {
+        width: 100%;
+        height: auto;
+        max-width: 90px;
+      }
+
+      .fusion-color__copy h2 {
+        margin: 0 0 16px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #d5d5d5;
+        text-align: left;
+        letter-spacing: 0.02em;
+      }
+
+      .fusion-color__copy p {
+        margin: 0;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #d5d5d5;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .fusion-color__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .fusion-color__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        .fusion-color__image img {
+          max-width: 80px;
+          width: 100%;
+          height: auto;
+        }
+
+        .fusion-color__copy h2 {
+          font-size: 16px;
+          margin-bottom: 14px;
+          text-align: center;
+        }
+
+        .fusion-color__copy p {
+          font-size: 13px;
+          line-height: 1.6;
+          text-align: center;
+          max-width: 300px;
+          margin: 0 auto;
+        }
+      }
+    </style>
+
+    <section class="fusion-root">
+      <div class="fusion-root__inner">
+        <div class="fusion-root__image">
+          <img src="Root.png" alt="Root diagram" />
+        </div>
+
+        <div class="fusion-root__copy">
+          <h2>WHAT IS ROOT IN FUSION?</h2>
+          <p>
+            Root in FUSION isolates and lets you listen to only the detected fundamental frequency, with a slider from
+            0 to 100, perfect for precise tracking and creative sound design, especially when combined with the Bass
+            Autotune engine.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .fusion-root {
+        background: #101114;
+      }
+
+      .fusion-root__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .fusion-root__image img {
+        width: 100%;
+        height: auto;
+        max-width: 120px;
+      }
+
+      .fusion-root__copy h2 {
+        margin: 0 0 16px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #d5d5d5;
+        text-align: left;
+        letter-spacing: 0.02em;
+      }
+
+      .fusion-root__copy p {
+        margin: 0;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #d5d5d5;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .fusion-root__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .fusion-root__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        .fusion-root__image img {
+          max-width: 120px;
+          width: 100%;
+          height: auto;
+        }
+
+        .fusion-root__copy h2 {
+          font-size: 16px;
+          margin-bottom: 14px;
+          text-align: center;
+        }
+
+        .fusion-root__copy p {
+          font-size: 13px;
+          line-height: 1.6;
+          text-align: center;
+          max-width: 300px;
+          margin: 0 auto;
+        }
+      }
+    </style>
+
+    <section class="fusion-range">
+      <div class="fusion-range__inner">
+        <div class="fusion-range__image">
+          <img src="Range.png" alt="Range diagram" />
+        </div>
+
+        <div class="fusion-range__copy">
+          <h2>WHAT IS RANGE IN FUSION?</h2>
+          <p>
+            Range in FUSION switches the pitch tracker between Bass and Melody modes, optimizing detection for low-end
+            or mid/high-frequency material depending on your sound source.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .fusion-range {
+        background: #101114;
+      }
+
+      .fusion-range__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .fusion-range__image img {
+        width: 100%;
+        height: auto;
+        max-width: 100px;
+      }
+
+      .fusion-range__copy h2 {
+        margin: 0 0 16px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #d5d5d5;
+        text-align: left;
+        letter-spacing: 0.02em;
+      }
+
+      .fusion-range__copy p {
+        margin: 0;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #d5d5d5;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .fusion-range__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .fusion-range__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        .fusion-range__image img {
+          max-width: 100px;
+          width: 100%;
+          height: auto;
+        }
+
+        .fusion-range__copy h2 {
+          font-size: 16px;
+          margin-bottom: 14px;
+          text-align: center;
+        }
+
+        .fusion-range__copy p {
+          font-size: 13px;
+          line-height: 1.6;
+          text-align: center;
+          max-width: 300px;
+          margin: 0 auto;
+        }
+      }
+    </style>
+
+    <section class="fusion-waveform">
+      <div class="fusion-waveform__inner">
+        <div class="fusion-waveform__image">
+          <img src="Waveform.png" alt="Waveform Analyzer diagram" />
+        </div>
+
+        <div class="fusion-waveform__copy">
+          <h2>FOR WHAT IS THE WAVEFORM ANALYZER?</h2>
+          <p>
+            The Waveform Analyzer in FUSION gives you a real-time visual of your processed sound, helping you
+            understand how the resynthesis, pitch tracking, and shaping tools are affecting the waveform.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .fusion-waveform {
+        background: #101114;
+      }
+
+      .fusion-waveform__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .fusion-waveform__image img {
+        width: 100%;
+        height: auto;
+        max-width: 150px;
+      }
+
+      .fusion-waveform__copy h2 {
+        margin: 0 0 16px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #d5d5d5;
+        text-align: left;
+        letter-spacing: 0.02em;
+      }
+
+      .fusion-waveform__copy p {
+        margin: 0;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #d5d5d5;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .fusion-waveform__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .fusion-waveform__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        .fusion-waveform__image img {
+          max-width: 150px;
+          width: 100%;
+          height: auto;
+        }
+
+        .fusion-waveform__copy h2 {
+          font-size: 16px;
+          margin-bottom: 14px;
+          text-align: center;
+        }
+
+        .fusion-waveform__copy p {
+          font-size: 13px;
+          line-height: 1.6;
+          text-align: center;
+          max-width: 300px;
+          margin: 0 auto;
+        }
+      }
+    </style>
+
+    <section class="special-features">
+      <div class="special-features__inner">
+        <img src="LeftArrow-v2.svg" alt="Left arrow" class="arrow" />
+        <h2>SPECIAL FEATURES</h2>
+        <img src="RightArrow-v2.svg" alt="Right arrow" class="arrow" />
+      </div>
+    </section>
+
+    <style>
+      .special-features {
+        background: #101114;
+        padding: 40px 20px;
+      }
+
+      .special-features__inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+      }
+
+      .special-features h2 {
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        letter-spacing: 0.05em;
+        color: #d5d5d5;
+        margin: 0;
+      }
+
+      .special-features .arrow {
+        height: 32px;
+        width: auto;
+        margin-top: -15px;
+      }
+
+      @media (max-width: 768px) {
+        .special-features__inner {
+          gap: 12px;
+        }
+
+        .special-features h2 {
+          font-size: 16px;
+        }
+
+        .special-features .arrow {
+          height: 24px;
+          margin-top: -15px;
+
+        }
+      }
+    </style>
+
+
+    <section class="fusion-scale">
+      <div class="fusion-scale__inner">
+        <div class="fusion-scale__image">
+          <img src="Resizewinfusion.svg" alt="Scale the Window icon" />
+        </div>
+
+        <div class="fusion-scale__copy">
+          <h2>SCALE THE WINDOW</h2>
+          <p>
+            FUSION's interface is fully scalable, just drag any corner to resize the plugin window to suit your
+            workflow and screen resolution.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .fusion-scale {
+        background: #101114;
+      }
+
+      .fusion-scale__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .fusion-scale__image img {
+        width: 100%;
+        height: auto;
+        max-width: 60px;
+      }
+
+      .fusion-scale__copy h2 {
+        margin: 0 0 16px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #d5d5d5;
+        text-align: left;
+        letter-spacing: 0.02em;
+      }
+
+      .fusion-scale__copy p {
+        margin: 0;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #d5d5d5;
+        text-align: left;
+      }
+
+
+      @media (max-width: 768px) {
+        .fusion-scale__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .fusion-scale__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        .fusion-scale__image img {
+          max-width: 55px;
+          width: 100%;
+          height: auto;
+        }
+
+        .fusion-scale__copy h2 {
+          font-size: 16px;
+          margin-bottom: 14px;
+          text-align: center;
+        }
+
+        .fusion-scale__copy p {
+          font-size: 13px;
+          line-height: 1.6;
+          text-align: center;
+          max-width: 300px;
+          margin: 0 auto;
+        }
+      }
+    </style>
+
+
+
+
+
+    <style>
+      .fusion-compatibility-section {
+        background: #101114;
+        padding: 40px 20px 20px;
+        text-align: center;
+      }
+
+      .fusion-compatibility {
+        font-family: "Space Mono", monospace;
+        font-size: 16px;
+        line-height: 1.6;
+        color: #d5d5d5;
+      }
+
+
+      .fusion-buy {
+        background: #101114;
+        padding: 40px 20px 60px;
+        text-align: center;
+      }
+
+      .buy-now {
+        display: inline-block;
+        padding: 2px 10px;
+        border: 2px solid #ff4a00;
+        color: #ff4a00;
+        font-family: "Space Mono", monospace;
+        font-size: 32px;
+        letter-spacing: 0.05em;
+        text-decoration: none;
+        transition: background 0.3s, color 0.3s;
+        margin-bottom: 20px;
+      }
+
+      .buy-now:hover {
+        background: #ff4a00;
+        color: #101114;
+      }
+
+      .demo-links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+        margin-bottom: 15px;
+      }
+
+      .demo-link {
+        font-family: "Space Mono", monospace;
+        font-size: 16px;
+        letter-spacing: 0.1em;
+        color: #ff4a00;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .demo-link:hover {
+        color: #d5d5d5;
+        text-decoration: underline;
+      }
+
+      .demo-separator {
+        color: #d5d5d5;
+        font-size: 16px;
+      }
+
+      .manual-download {
+        display: block;
+        font-family: "Space Mono", monospace;
+        font-size: 16px;
+        letter-spacing: 0.1em;
+        color: #d5d5d5;
+        text-decoration: none;
+        margin-top: 10px;
+      }
+
+      .manual-download:hover {
+        text-decoration: underline;
+      }
+
+
+      @media (max-width: 768px) {
+        .fusion-compatibility {
+          font-size: 14px;
+        }
+
+        .buy-now {
+          font-size: 28px;
+          padding: 0px 10px;
+        }
+
+        .demo-links {
+          gap: 10px;
+        }
+
+        .demo-link {
+          font-size: 14px;
+        }
+
+        .demo-separator {
+          font-size: 14px;
+        }
+
+        .manual-download {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </header>
+
+
+  <div class="bottom-wrapper">
+
+    <a href="anomaly.html" class="ticker-container" style="text-decoration: none; cursor: pointer; color: inherit; display: flex;">
+      <div class="ticker">
+        <div class="ticker-content">
+          NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN -
+        </div>
+      </div>
+    </a>
+    <footer>
+      <div class="footer-left"><img src="Copyright.svg" alt="©" class="copyright-icon" /> IFEATURE 2025</div>
+      <div class="footer-center">
+        <a href="https://www.instagram.com/ifeaturemusic" target="_blank"><img src="Instagram.svg"
+            alt="Instagram" /></a>
+        <a href="https://x.com/iFeaturemusic" target="_blank"><img src="X.svg" alt="X" /></a>
+        <a href="https://patreon.com/iFeature" target="_blank"><img src="Patreon.svg" alt="Patreon" /></a>
+        <a href="https://open.spotify.com/artist/1NkeIgGpORkhxCUluCnnFT" target="_blank"><img src="Spotify.svg"
+            alt="Spotify" /></a>
+        <a href="https://youtube.com/ifeature" target="_blank"><img src="Youtube.svg" alt="YouTube" /></a>
+        <a href="https://discord.gg/XxMf9s39EX" target="_blank"><img src="Discord.svg" alt="Discord" /></a>
+      </div>
+      <div class="footer-right">
+        <a href="legalhub.html">LEGAL HUB</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function toggleSubMenu() {
+      const submenu = document.querySelector(".submenu");
+      submenu.style.display = submenu.style.display === "flex" ? "none" : "flex";
+    }
+  </script>
+  <script type="module" src="https://assets.moonbase.sh/storefront/moonbase.js"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", () => {
+      Moonbase.setup("https://ifeature.moonbase.sh", {
+        toolbar: {
+          enabled: false,
+          location: "top-right",
+          show: {
+            cart: true,
+            account: true,
+            moonbase: false,
+          },
+        },
+        auth: {
+          signIn: { enabled: true, hint: undefined },
+          signUp: { enabled: true },
+        },
+        checkout: { redirect: false },
+        cart: { quantity: "selectable" },
+        activation: {
+          deviceTokenFileExtension: ".dt",
+          licenseTokenFileName: "license-file.mb",
+        },
+        theme: {
+          dark: true,
+          colors: { primary: "#FF4800" },
+          fonts: { heading: "Space Mono", body: "Space Mono" },
+          corners: "sharp",
+          buttons: "outlined",
+          cards: "shadow",
+        },
+      });
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      const presets = [
+        { name: "ATMOSPHERE", videoNormal: "FUSION-Atmosphere Wet.mp4", videoBypass: "FUSION-Atmosphere Dry.mp4" },
+        { name: "BASS", videoNormal: "FUSION-BASS WET.mp4", videoBypass: "FUSION-BASS DRY.mp4" },
+        { name: "CHORDS", videoNormal: "FUSION-Chords WET.mp4", videoBypass: "FUSION-Chords DRY.mp4" },
+        { name: "DEEP MALE", videoNormal: "FUSION-DeepMale Wet.mp4", videoBypass: "FUSION-DeepMale Dry.mp4" },
+        { name: "MELODIC BASS", videoNormal: "FUSION-MELODICBASS WET.mp4", videoBypass: "FUSION-MELODICBASS DRY.mp4" },
+        { name: "SONG", videoNormal: "FUSION-Song Wet.mp4", videoBypass: "FUSION-Song Dry.mp4" }
+      ];
+
+      const presetList = document.getElementById("presetList");
+      const videoNormal = document.getElementById("videoNormal");
+      const videoBypass = document.getElementById("videoBypass");
+      const bypassToggle = document.getElementById("bypassToggle");
+      const playBtn = document.querySelector(".play-btn");
+      const playIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+      const pauseIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+      const playLabel = document.querySelector(".play-label");
+      const canvas = document.getElementById("waveformCanvas");
+      const canvasCtx = canvas.getContext("2d");
+
+      let isBypassed = false;
+      let activeVideo = videoNormal;
+
+
+      let audioCtx;
+      let sourceNormal, sourceBypass;
+      let gainNormal, gainBypass;
+      let audioInitialized = false;
+
+      async function initAudio() {
+        if (audioInitialized) return;
+
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+
+
+        sourceNormal = audioCtx.createMediaElementSource(videoNormal);
+        sourceBypass = audioCtx.createMediaElementSource(videoBypass);
+
+
+        gainNormal = audioCtx.createGain();
+        gainBypass = audioCtx.createGain();
+
+
+        sourceNormal.connect(gainNormal);
+        sourceBypass.connect(gainBypass);
+        gainNormal.connect(audioCtx.destination);
+        gainBypass.connect(audioCtx.destination);
+
+
+        const t = audioCtx.currentTime;
+        if (isBypassed) {
+          gainNormal.gain.setValueAtTime(0, t);
+          gainBypass.gain.setValueAtTime(1, t);
+        } else {
+          gainNormal.gain.setValueAtTime(1, t);
+          gainBypass.gain.setValueAtTime(0, t);
+        }
+
+
+        videoNormal.muted = false;
+        videoBypass.muted = false;
+
+        audioInitialized = true;
+
+        if (audioCtx.state === 'suspended') {
+          await audioCtx.resume();
+        }
+      }
+
+      function crossfade() {
+        if (!audioInitialized) return;
+
+        const t = audioCtx.currentTime;
+        const fadeTime = 0.05;
+
+        gainNormal.gain.cancelScheduledValues(t);
+        gainBypass.gain.cancelScheduledValues(t);
+        gainNormal.gain.setValueAtTime(gainNormal.gain.value, t);
+        gainBypass.gain.setValueAtTime(gainBypass.gain.value, t);
+
+        if (isBypassed) {
+          gainNormal.gain.linearRampToValueAtTime(0, t + fadeTime);
+          gainBypass.gain.linearRampToValueAtTime(1, t + fadeTime);
+        } else {
+          gainNormal.gain.linearRampToValueAtTime(1, t + fadeTime);
+          gainBypass.gain.linearRampToValueAtTime(0, t + fadeTime);
+        }
+      }
+
+
+      bypassToggle.addEventListener("click", async () => {
+        if (!audioInitialized) await initAudio();
+        else if (audioCtx.state === 'suspended') await audioCtx.resume();
+
+        // 1. Check if playing BEFORE toggle
+        const wasPlaying = !videoNormal.paused || !videoBypass.paused;
+
+        isBypassed = !isBypassed;
+        bypassToggle.classList.toggle("active", isBypassed);
+
+        let activeVideo; // Ensure scope
+        if (isBypassed) {
+          videoNormal.classList.remove("active");
+          videoBypass.classList.add("active");
+          activeVideo = videoBypass;
+        } else {
+          videoBypass.classList.remove("active");
+          videoNormal.classList.add("active");
+          activeVideo = videoNormal;
+        }
+
+        const currentTime = isBypassed ? videoNormal.currentTime : videoBypass.currentTime;
+        videoNormal.currentTime = currentTime;
+        videoBypass.currentTime = currentTime;
+
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+        if (wasPlaying) {
+          if (isMobile) {
+            if (isBypassed) {
+              await videoBypass.play();
+              videoNormal.pause();
+            } else {
+              await videoNormal.play();
+              videoBypass.pause();
+            }
+          } else {
+            videoNormal.play();
+            videoBypass.play();
+          }
+          // Ensure UI reflects play state
+          playBtn.innerHTML = pauseIcon;
+          playLabel.textContent = "pause";
+        } else {
+          videoNormal.pause();
+          videoBypass.pause();
+          playBtn.innerHTML = playIcon;
+          playLabel.textContent = "play";
+        }
+
+        crossfade();
+      });
+
+
+      const waveformCache = {};
+      let waveformData = new Array(120).fill(0.1);
+      const numBars = 120;
+
+      function resizeCanvas() {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        canvasCtx.scale(dpr, dpr);
+      }
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      function roundRect(ctx, x, y, width, height, radius) {
+        if (width < 2 * radius) radius = width / 2;
+        if (height < 2 * radius) radius = height / 2;
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.arcTo(x + width, y, x + width, y + height, radius);
+        ctx.arcTo(x + width, y + height, x, y + height, radius);
+        ctx.arcTo(x, y + height, x, y, radius);
+        ctx.arcTo(x, y, x + width, y, radius);
+        ctx.closePath();
+      }
+
+      function drawWaveform() {
+        if (!canvas || !canvasCtx) return;
+
+        const width = canvas.width / (window.devicePixelRatio || 1);
+        const height = canvas.height / (window.devicePixelRatio || 1);
+
+        canvasCtx.clearRect(0, 0, width, height);
+
+        const barWidth = width / numBars;
+        const gap = 1;
+
+        const drawBarWidth = Math.max(barWidth - gap, 1);
+
+        // Ensure we track the correct video time
+        const activeVid = isBypassed ? videoBypass : videoNormal;
+
+        // Safety check for duration to avoid NaN
+        const duration = (activeVid.duration && activeVid.duration > 0) ? activeVid.duration : 1;
+        const currentTime = activeVid.currentTime || 0;
+
+        const progress = currentTime / duration;
+        const progressX = progress * width;
+
+        for (let i = 0; i < numBars; i++) {
+          const x = i * barWidth;
+
+          const val = waveformData[i] !== undefined ? waveformData[i] : 0.1;
+          const amplitude = val * height * 0.8;
+
+          const centerY = height / 2;
+          const y = centerY - (amplitude / 2);
+
+          if (x < progressX) {
+            canvasCtx.fillStyle = '#ff4800';
+          } else {
+            canvasCtx.fillStyle = '#333';
+          }
+
+          roundRect(canvasCtx, x, y, drawBarWidth, amplitude, 2);
+          canvasCtx.fill();
+        }
+
+        requestAnimationFrame(drawWaveform);
+      }
+      drawWaveform();
+
+      async function analyzeAudio(url) {
+        if (waveformCache[url]) {
+          waveformData = waveformCache[url];
+          return;
+        }
+
+        try {
+          if (!audioCtx) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioContext();
+          }
+
+          const response = await fetch(url);
+          const arrayBuffer = await response.arrayBuffer();
+          const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+
+          const rawData = audioBuffer.getChannelData(0);
+          const samplesPerBar = Math.floor(rawData.length / numBars);
+          const analyzed = [];
+
+          for (let i = 0; i < numBars; i++) {
+            let sum = 0;
+            for (let j = 0; j < samplesPerBar; j++) {
+              sum += Math.abs(rawData[i * samplesPerBar + j]);
+            }
+            const avg = sum / samplesPerBar;
+            const val = Math.min(Math.max(avg * 5, 0.1), 1.0);
+            analyzed.push(val);
+          }
+
+          waveformCache[url] = analyzed;
+          waveformData = analyzed;
+
+        } catch (e) {
+          console.error("Waveform analysis failed:", e);
+          waveformData = new Array(120).fill(0.1);
+        }
+      }
+
+
+      async function togglePlay() {
+        try {
+          if (!audioInitialized) {
+            await initAudio();
+          } else if (audioCtx && audioCtx.state === 'suspended') {
+            await audioCtx.resume();
+          }
+        } catch (e) {
+          console.error("Audio Init Failed during Toggle:", e);
+        }
+
+        // 2. Unmute Immediately
+        videoNormal.muted = false;
+        videoBypass.muted = false;
+
+        if (videoNormal.paused) {
+          // PLAY
+          try {
+            // Ensure videos are at same time (only if not mobile, or just for consistency)
+            const t = Math.max(videoNormal.currentTime, videoBypass.currentTime);
+            if (Math.abs(videoNormal.currentTime - videoBypass.currentTime) > 0.1) {
+              videoNormal.currentTime = t;
+              videoBypass.currentTime = t;
+            }
+
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+            if (isMobile) {
+              // Mobile: Play ONLY the active video
+              if (isBypassed) {
+                await videoBypass.play();
+                videoNormal.pause();
+              } else {
+                await videoNormal.play();
+                videoBypass.pause();
+              }
+            } else {
+              // Desktop: Play BOTH for crossfade
+              const p1 = videoNormal.play();
+              const p2 = videoBypass.play();
+              if (p1 !== undefined) await p1;
+              // p2 runs in parallel
+            }
+
+            playBtn.innerHTML = pauseIcon;
+            playLabel.textContent = "pause";
+
+          } catch (e) {
+            console.error("Play Failed:", e);
+            playBtn.innerHTML = playIcon;
+            playLabel.textContent = "play";
+          }
+
+        } else {
+          // PAUSE
+          videoNormal.pause();
+          videoBypass.pause();
+          playBtn.innerHTML = playIcon;
+          playLabel.textContent = "play";
+        }
+      }
+      document.getElementById("videoPlayPause").addEventListener("click", togglePlay);
+
+
+      canvas.addEventListener('click', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const width = rect.width;
+        const vid = isBypassed ? videoBypass : videoNormal;
+        if (vid.duration) {
+          const seekTo = (clickX / width) * vid.duration;
+          videoNormal.currentTime = seekTo;
+          videoBypass.currentTime = seekTo;
+        }
+      });
+
+
+
+      presets.forEach((preset, index) => {
+        const li = document.createElement("li");
+        li.className = "preset-item";
+        li.textContent = preset.name;
+        li.textContent = preset.name;
+        if (index === 0) {
+          li.classList.add("active");
+          videoNormal.src = preset.videoNormal;
+          videoBypass.src = preset.videoBypass;
+          analyzeAudio(preset.videoNormal);
+        }
+
+        li.addEventListener("click", () => {
+          document.querySelectorAll(".preset-item").forEach(item => item.classList.remove("active"));
+          li.classList.add("active");
+
+          const wasPlaying = !videoNormal.paused;
+
+          videoNormal.src = preset.videoNormal;
+          videoBypass.src = preset.videoBypass;
+
+          videoNormal.currentTime = 0;
+          videoBypass.currentTime = 0;
+
+          if (wasPlaying) {
+            if (!audioInitialized) initAudio().catch(console.error);
+            videoNormal.play();
+            videoBypass.play();
+          }
+
+
+          if (audioInitialized) {
+            const t = audioCtx.currentTime;
+            if (isBypassed) {
+              gainNormal.gain.setValueAtTime(0, t);
+              gainBypass.gain.setValueAtTime(1, t);
+            } else {
+              gainNormal.gain.setValueAtTime(1, t);
+              gainBypass.gain.setValueAtTime(0, t);
+            }
+          }
+
+          analyzeAudio(preset.videoNormal);
+        });
+
+        presetList.appendChild(li);
+      });
+
+
+      analyzeAudio(presets[0].videoNormal);
+    });
+  </script>
+  <script src="shared-components.js"></script>
+</body>
+
+</html>

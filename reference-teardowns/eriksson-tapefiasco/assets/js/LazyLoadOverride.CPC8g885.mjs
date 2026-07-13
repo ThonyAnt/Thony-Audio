@@ -1,0 +1,2 @@
+import{t as e}from"./rolldown-runtime.BO1CHSEM.mjs";import{c as t,o as n}from"./react.CHhn9jUD.mjs";function r(e){return n=>t(e,{...n,loading:`lazy`,decoding:`async`})}var i=e((()=>{n()}));export{r as n,i as t};
+//# sourceMappingURL=LazyLoadOverride.CPC8g885.mjs.map

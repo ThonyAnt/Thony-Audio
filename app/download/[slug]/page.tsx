@@ -29,21 +29,21 @@ export default async function DownloadPage({ params }: Props) {
     <div className="min-h-screen flex items-center justify-center px-6">
       <div className="max-w-md w-full text-center">
         {/* Decorative circle */}
-        <div className="w-20 h-20 rounded-full bg-[#edeae4] flex items-center justify-center mx-auto mb-8">
-          <span className="font-display text-3xl text-[#1a1a1a]">
+        <div className="w-20 h-20 rounded-full bg-surface flex items-center justify-center mx-auto mb-8">
+          <span className="font-display text-3xl text-ink">
             {product.name[0]}
           </span>
         </div>
 
-        <h1 className="font-display text-5xl text-[#1a1a1a] leading-tight">
+        <h1 className="font-display text-5xl text-ink leading-tight">
           {product.name}
         </h1>
-        <p className="mt-3 text-[#8a837c]">{product.tagline}</p>
+        <p className="mt-3 text-muted">{product.tagline}</p>
 
-        <div className="mt-10 p-6 bg-[#edeae4] rounded-2xl">
-          <p className="text-sm text-[#8a837c] mb-6">
+        <div className="mt-10 p-6 bg-surface rounded-2xl">
+          <p className="text-sm text-muted mb-6">
             thanks for downloading. enjoy the plugin — and if you make something with it,{" "}
-            <Link href="/support" className="text-[#b85c3a] hover:underline">
+            <Link href="/support" className="text-accent hover:underline">
               we&apos;d love to hear it.
             </Link>
           </p>
@@ -51,7 +51,7 @@ export default async function DownloadPage({ params }: Props) {
           <a
             href={product.downloadUrl}
             download
-            className="w-full inline-block bg-[#b85c3a] hover:bg-[#a04e30] text-[#f5f2ed] py-4 px-8 rounded-full text-sm tracking-wide transition-colors text-center"
+            className="w-full inline-block bg-accent hover:bg-accent-hover text-cream py-4 px-8 rounded-[3px] text-sm tracking-wide transition-colors text-center"
           >
             download now
           </a>
@@ -59,7 +59,7 @@ export default async function DownloadPage({ params }: Props) {
 
         <Link
           href={`/plugins/${product.slug}`}
-          className="mt-6 inline-block text-sm text-[#8a837c] hover:text-[#1a1a1a] transition-colors"
+          className="mt-6 inline-block text-sm text-muted hover:text-ink transition-colors"
         >
           ← back to {product.name}
         </Link>

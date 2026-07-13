@@ -1,0 +1,1 @@
+import{_ as n}from"./4C5XkTXZ.js";import{d as e,am as _,C as t}from"#entry";const o=e({__name:"Spinner",setup(a){return(s,c)=>(t(),_(n,{class:"animate-spin w-5 h-5 text-black/40"}))}}),m=Object.assign(o,{__name:"Spinner"});export{m as _};

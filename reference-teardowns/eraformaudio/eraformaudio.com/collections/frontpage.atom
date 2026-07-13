@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xml:lang="en" xmlns="http://www.w3.org/2005/Atom" xmlns:opensearch="http://a9.com/-/spec/opensearch/1.1/" xmlns:s="http://jadedpixel.com/-/spec/shopify">
+  <id>https://eraformaudio.com/collections/all.atom</id>
+  <link rel="alternate" type="text/html" href="https://eraformaudio.com/collections/all"/>
+  <link rel="self" type="application/atom+xml" href="https://eraformaudio.com/collections/frontpage.atom"/>
+  <title>Eraform Audio</title>
+  <updated>2026-05-12T21:44:11+02:00</updated>
+  <author>
+    <name>Eraform Audio</name>
+  </author>
+  <entry>
+    <id>https://eraformaudio.com/products/10959046017291</id>
+    <published>2026-05-12T21:44:11+02:00</published>
+    <updated>2026-05-12T21:44:11+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://eraformaudio.com/products/fraction-studio-collection"/>
+    <title>Fraction Complete</title>
+    <s:type>Sound Plugin</s:type>
+    <s:vendor>Eraform, Prototype</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0928/1860/4299/files/product_bundle_square.png?v=1778621608"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Eraform, Prototype<br>
+        <strong>Type: </strong>Sound Plugin<br>
+        <strong>Price: </strong>
+            159.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p data-end="388" data-start="239"><strong>The Fraction Complete Bundle</strong> contains all current paid expansions and the engine itself at a more affordable price point.<br><br>After more than a year in development, this is our first-ever VST and it changes the way a plugin feels inside your DAW. <br><br>Fraction is a sample based engine built from Pure Hardware but with Unmatched Controls unlike anything ever before.<br></p>
+<p data-end="620" data-start="390">Synths, instruments, and pedals worth more than <strong data-end="527" data-start="519">$80k </strong>that we used to make Fraction happen. </p>
+<p data-end="872" data-start="622">But Fraction is more than Hardware Sound. It’s about unmatched <strong data-end="677" data-start="666">control</strong>. With features like the <strong data-end="722" data-start="702">Algorythm XY Pad</strong>, <strong data-end="738" data-start="724">Fractalize</strong>, <strong data-end="751" data-start="740">Vintage</strong>, <strong data-end="762" data-start="753">Color</strong>, <strong data-end="774" data-start="764">Smooth</strong>, and <strong data-end="792" data-start="780">Humanize</strong>, every preset becomes a playground you can bend, twist, and shape in seconds.</p>
+<p data-end="980" data-start="874">This video walks you through Fraction, what makes it different, and why it’s more than just another VST.</p>
+<p data-end="997" data-start="982">🔥 Full Bundle includes:</p>
+<ul data-end="1263" data-start="998">
+<li data-end="1034" data-start="998">
+<p data-end="1034" data-start="1000">580+ presets / 350+ sound sources</p>
+</li>
+<li data-end="1034" data-start="998">
+<p data-end="1034" data-start="1000">Multi-velocity sampling (up to 500 wavs per preset)</p>
+</li>
+<li data-end="1152" data-start="1091">
+<p data-end="1152" data-start="1093">Pure Hardware Sound: Prophet, Juno, Moog, Arturia, Polybrute &amp; more</p>
+</li>
+<li data-end="1199" data-start="1153">
+<p data-end="1199" data-start="1155">Custom controls never seen before in a VST such as The Algorythm, Color, Vintage, Fractalize and more</p>
+</li>
+<li data-end="1263" data-start="1200">
+<p style="text-align: left;" data-end="1263" data-start="1202">Lifetime free updates — new presets and expansions included<br></p>
+</li>
+</ul>
+<p><strong>Forming a new Era of Musical Software. </strong></p>
+<p>Fraction is now available at eraformaudio.com .<br></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>fraction</s:tag>
+    <s:variant>
+      <id>https://eraformaudio.com/products/10959046017291</id>
+      <title>Default Title</title>
+      <s:price currency="USD">159.00</s:price>
+      <s:sku/>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+  <entry>
+    <id>https://eraformaudio.com/products/10168885379339</id>
+    <published>2025-09-13T03:53:31+02:00</published>
+    <updated>2025-09-13T03:53:31+02:00</updated>
+    <link rel="alternate" type="text/html" href="https://eraformaudio.com/products/fraction"/>
+    <title>Fraction</title>
+    <s:type>Sound Plugin</s:type>
+    <s:vendor>Eraform, Prototype</s:vendor>
+    <summary type="html">
+      <![CDATA[<table border="0">
+  <tr>
+    <td width="200"><img width="200" src="https://cdn.shopify.com/s/files/1/0928/1860/4299/files/product_basic_square.png?v=1778621594"></td>
+    <td valign="bottom">
+      <p>
+
+        <strong>Vendor: </strong>Eraform, Prototype<br>
+        <strong>Type: </strong>Sound Plugin<br>
+        <strong>Price: </strong>
+            93.00
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2"><p>Fraction is here. <br>After more than a year in development, this is our first-ever VST and it changes the way a plugin feels inside your DAW. <br><br>Fraction is a sample based engine built from Pure Hardware but with Unmatched Controls unlike anything ever before.<br></p>
+<p>We sampled<strong> </strong>every note from real hardware and 16,000 sound recordings later, we spread them across 360 presets and 250 sound sources you can choose from. Synths, instruments, and pedals worth more than <strong>$80k </strong>that we used to make Fraction happen. No stretching, no shortcuts.</p>
+<p>But Fraction is more than Hardware Sound. It’s about unmatched <strong>control</strong>. With features like the <strong>Algorythm XY Pad</strong>, <strong>Fractalize</strong>, <strong>Vintage</strong>, <strong>Color</strong>, <strong>Smooth</strong>, and <strong>Humanize</strong>, every preset becomes a playground you can bend, twist, and shape in seconds.</p>
+<p>This video walks you through Fraction, what makes it different, and why it’s more than just another VST.</p>
+<p>🔥 Highlights:</p>
+<ul>
+<li>
+<p>360+ presets / 250+ sound sources</p>
+</li>
+<li>
+<p>Multi-velocity, Per Note sampling (up to 500 wavs per preset)</p>
+</li>
+<li>
+<p>Pure Hardware Sound: Prophet, Juno, Moog, Arturia, Polybrute &amp; more</p>
+</li>
+<li>
+<p>Custom controls never seen before in a VST such as The Algorythm, Color, Vintage, Fractalize and more</p>
+</li>
+<li>
+<p style="text-align: left;">Lifetime free updates — new presets and expansions included<br></p>
+</li>
+</ul>
+<p><strong>Forming a new Era of Musical Software. </strong></p>
+<p>Fraction is now available at eraformaudio.com .<br></p></td>
+  </tr>
+</table>
+]]>
+    </summary>
+    <s:tag>fraction</s:tag>
+    <s:variant>
+      <id>https://eraformaudio.com/products/10168885379339</id>
+      <title>Default Title</title>
+      <s:price currency="USD">93.00</s:price>
+      <s:sku></s:sku>
+      <s:grams>0</s:grams>
+    </s:variant>
+  </entry>
+</feed>

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "ifeature-static",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8731", "--directory", "C:/Learning/Coding/Thony Audio/reference-teardowns/ifeature-download/ifeature.world"],
+      "port": 8731
+    }
+  ]
+}

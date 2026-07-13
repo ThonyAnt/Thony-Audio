@@ -27,6 +27,45 @@ export const products: Product[] = [
       "Preset system for saving configurations",
       "Lifetime free updates",
     ],
+    featureTabs: [
+      {
+        name: "flavors",
+        desc: "Saw mode for immediate richness; square resonates only odd harmonics for a hollow, subtler tone.",
+        img: "/assets/products/resonator/Timbre Selector.png",
+      },
+      {
+        name: "voices",
+        desc: "Stack up to 7 independent pitch voices to build complex, evolving harmonies.",
+        img: "/assets/products/resonator/Pitch Panel.png",
+      },
+      {
+        name: "chords",
+        desc: "Store chords in up to 8 modules and switch between them mid-track to write progressions.",
+        img: "/assets/products/resonator/Chord Selector.png",
+      },
+      {
+        name: "midi",
+        desc: "Enable MIDI input and Resonator follows your keyboard in real time — turning any sound into an instrument.",
+        img: "/assets/products/resonator/Resonator.png",
+      },
+      {
+        name: "controls",
+        desc: "Per-voice fine tune (cents), pan (L/R), and gain (dB) — shape every voice independently.",
+        img: "/assets/products/resonator/Pitch Module.png",
+      },
+    ],
+    specs: [
+      { label: "plugin formats", value: "VST3 · AU · AAX" },
+      { label: "platforms", value: "macOS 10.15+ · Windows 10+" },
+      { label: "voices", value: "up to 7" },
+      { label: "midi", value: "real-time input" },
+      { label: "license", value: "royalty-free" },
+    ],
+    demos: [
+      { label: "demo 1" },
+      { label: "demo 2" },
+      { label: "demo 3" },
+    ],
     releaseDate: "2024",
     available: true,
   },
@@ -41,6 +80,7 @@ export const products: Product[] = [
     downloadUrl: "#", // paid — delivered via /account after purchase
     checkoutUrl: "", // TODO: paste your PayPal Buy Now / payment link (see supabase/functions/README.md)
     thumbnail: "",
+    model3d: "/assets/products/chorale/chorale-3d-bake.png", // baked from Chorale/assets/faceplate.html — rebake after UI changes
     demoImages: [],
     demoVideoUrl: undefined,
     features: [
@@ -52,6 +92,8 @@ export const products: Product[] = [
       "Presets with embedded or referenced IRs",
       "VST3, AU, and standalone (mac + windows)",
     ],
+    accent: { fg: "#7c5cff", hover: "#6a4ae6", bg: "#e6eaef" }, // Chorale violet + cool surface tint
+    paper: "metallicWhite",                   // cool metallic-white paper on the Chorale page
     releaseDate: "2026",
     available: true,
   },

@@ -1,0 +1,2654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spectral Gate 2 – iFeature</title>
+  <meta property="og:title" content="Spectral Gate 2 – iFeature">
+  <meta property="og:description" content="Next-Generation Audio Plugins">
+  <meta property="og:image" content="https://ifeature.world/Spectral%20Gate%202%20Cover.png">
+  <meta property="og:url" content="https://ifeature.world/spectralgate.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="180x180.png" />
+  <meta name="theme-color" content="#FF4800" />
+  <script src="plugins-submenu.js"></script>
+  <script src="active-page.js"></script>
+  <link href="fonts/space-mono.css" rel="stylesheet" />
+  <style>
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    html {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    body {
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: "Space Mono", monospace;
+      text-align: center;
+      padding-bottom: 180px;
+    }
+
+    header {
+      padding: 22px 0 11px 0;
+    }
+
+    header img {
+      width: 331px;
+      max-width: 90%;
+      height: auto;
+    }
+
+    .menu-wrapper {
+      margin: 15px auto 30px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      font-size: 13px;
+      font-weight: 400;
+      flex-wrap: nowrap;
+    }
+
+    .menu-wrapper a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .menu-wrapper a:hover {
+      color: #ff4800;
+    }
+
+    .menu-wrapper a.active {
+      color: #ff4800;
+    }
+
+    .menu-wrapper .star {
+      color: #ff4800;
+      font-size: 13px;
+      pointer-events: none;
+    }
+
+    .submenu {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+      animation: slideDown 0.3s ease forwards;
+    }
+
+    .submenu a {
+      font-size: 14px;
+      color: #ff4800;
+      text-decoration: none;
+    }
+
+    .submenu a:hover {
+      color: #fff;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1,
+    h2 {
+      color: #ff4800;
+    }
+
+    .bottom-wrapper {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      z-index: 9998;
+    }
+
+    .ticker-container {
+      width: 100%;
+      overflow: hidden;
+      background-color: #ff4800;
+      white-space: nowrap;
+      height: 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    .ticker {
+      display: flex;
+      width: calc(2000px);
+      animation: ticker-loop 20s linear infinite;
+    }
+
+    .ticker-content {
+      flex: 0 0 50%;
+      font-size: 14px;
+      color: black;
+    }
+
+    @keyframes ticker-loop {
+      0% {
+        transform: translateX(0%);
+      }
+
+      100% {
+        transform: translateX(-40%);
+      }
+    }
+
+    footer {
+      width: 100%;
+      background: #000;
+      color: white;
+      font-size: 12px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 20px 30px;
+      box-sizing: border-box;
+      border-top: 1px solid #222;
+    }
+
+    .footer-left {
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      justify-self: start;
+    }
+
+    .footer-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      justify-self: center;
+    }
+
+    .footer-center a img {
+      width: 16px;
+      height: 16px;
+      filter: brightness(0) invert(1);
+      transition: filter 0.3s ease;
+    }
+
+    .footer-center a:hover img {
+      filter: brightness(0) saturate(100%) invert(44%) sepia(82%) saturate(5000%) hue-rotate(5deg) brightness(102%) contrast(104%);
+    }
+
+    .footer-right {
+      justify-self: end;
+    }
+
+    .footer-right a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-right a:hover {
+      color: #ff4800;
+    }
+
+    .copyright-icon {
+      width: 9px;
+      height: 9px;
+      margin-right: 3px;
+      filter: brightness(0) invert(1);
+    }
+
+    @media (max-width: 768px) {
+      .moonbase-icons {
+        right: 10px !important;
+        top: 10px !important;
+        gap: 12px;
+      }
+
+      .moonbase-icons img {
+        width: 24px;
+        height: 24px;
+      }
+
+      header img {
+        width: 250px;
+      }
+
+      .menu-wrapper {
+        margin: 15px auto 30px auto;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .menu-wrapper a {
+        font-size: 11px;
+      }
+
+      .submenu {
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      footer {
+        grid-template-columns: 1fr;
+        padding: 20px 15px;
+        text-align: center;
+        gap: 10px;
+      }
+
+      .footer-left,
+      .footer-center,
+      .footer-right {
+        justify-self: center;
+      }
+
+      body {
+        padding-bottom: 100px;
+      }
+
+      .Spectral-banner {
+        font-size: 16px;
+        padding: 5px 10px;
+      }
+
+      .Spectral-banner .star {
+        font-size: 12px;
+      }
+
+      .demo-links {
+        gap: 10px;
+      }
+
+      .demo-link {
+        font-size: 14px;
+      }
+
+      .demo-separator {
+        font-size: 14px;
+      }
+    }
+
+    .moonbase-icons {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .moonbase-icons img {
+      width: 28px;
+      height: auto;
+      cursor: pointer;
+      filter: brightness(0) invert(1);
+      transition: filter 0.3s ease;
+    }
+
+    .moonbase-icons img:hover {
+      filter: brightness(0) saturate(100%) invert(44%) sepia(82%) saturate(5000%) hue-rotate(5deg) brightness(102%) contrast(104%);
+    }
+
+    #cartBtn:hover {
+      animation: shake 0.4s ease-in-out;
+    }
+
+    @keyframes shake {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      25% {
+        transform: rotate(-10deg);
+      }
+
+      50% {
+        transform: rotate(10deg);
+      }
+
+      75% {
+        transform: rotate(-7deg);
+      }
+
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="moonbase-icons">
+      <img onclick="Moonbase.view_account()" src="Account.svg" alt="Account" id="accountBtn" />
+      <img onclick="Moonbase.view_cart()" src="Basket.svg" alt="Cart" id="cartBtn" />
+    </div>
+    <a href="index.html"><img src="Logo.svg" alt="iFeature Logo" class="logo" /></a>
+
+
+
+    <div class="menu-wrapper">
+      <a id="pluginLink" onclick="toggleSubMenu()">PLUGINS</a>
+      <span class="star">★</span>
+      <a href="download.html">DOWNLOAD</a>
+      <span class="star">★</span>
+      <a href="shop.html">SHOP</a>
+      <span class="star">★</span>
+      <a href="support.html">SUPPORT</a>
+    </div>
+    <div id="plugins-submenu" class="submenu"></div>
+
+    <div class="Spectral-banner">
+      <span class="star">★</span>
+      <span class="Spectral-Gate-text">SPECTRAL GATE 2</span>
+      <span class="star">★</span>
+    </div>
+    <style>
+      .Spectral-banner {
+        background-color: #ff4800;
+        color: black;
+        font-family: "Space Mono", monospace;
+        font-size: 16px;
+        font-weight: 400;
+        padding: 6px 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 15px;
+      }
+
+      .Spectral-banner .Spectral-Gate-text {
+        flex: 1;
+        text-align: center;
+      }
+
+      .Spectral-banner .star {
+        font-size: 14px;
+        pointer-events: none;
+        position: relative;
+        top: -2px;
+      }
+
+      @media (max-width: 768px) {
+        .Spectral-banner {
+          font-size: 18px;
+          padding: 6px 15px;
+          margin-top: 15px;
+        }
+      }
+    </style>
+
+    <div class="rive-hero">
+      <video class="fusion-video" autoplay loop muted playsinline disablepictureinpicture
+        controlslist="nodownload noremoteplayback" oncontextmenu="return false;">
+        <source src="Spectralgate.webm" type="video/webm" />
+        Your browser does not support the video tag.
+      </video>
+
+      <div class="hero-content-overlay">
+        <div class="hero-text">
+          <h1 class="hero-title">SPECTRAL<br>GATE 2</h1>
+          <h2 class="hero-subtitle">Frequency-Selective Gating</h2>
+          <div class="hero-buttons">
+            <a href="download.html#spectral-gate-2" class="cta-button outline">TRY NOW</a>
+            <a href="shop.html#spectral-gate-2" class="cta-button solid">BUY</a>
+          </div>
+        </div>
+        <div class="hero-image-container">
+          <img src="Spectral&#32;Gate&#32;2&#32;Coverv2.jpg" alt="Spectral Gate 2 Cover" class="hero-product-image" />
+        </div>
+      </div>
+    </div>
+
+    <style>
+      .rive-hero {
+        position: relative;
+        width: 100%;
+        height: 50vh;
+        overflow: visible;
+        display: flex;
+        justify-content: center;
+        background: #000;
+      }
+
+      .fusion-video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .rive-hero .fusion-video {
+        opacity: 0.6;
+      }
+
+      .hero-content-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        max-width: 1200px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        padding: 0 40px;
+        box-sizing: border-box;
+        z-index: 5;
+        pointer-events: none;
+      }
+
+      .hero-text {
+        text-align: left;
+        pointer-events: auto;
+      }
+
+      .hero-title {
+        font-size: 8rem;
+        line-height: 1;
+        margin: 0;
+        letter-spacing: -2px;
+        background: linear-gradient(to bottom, #fff, #aaa);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .hero-subtitle {
+        font-size: 1.5rem;
+        color: #ff4800;
+        margin: 10px 0 30px 0;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 20px;
+      }
+
+      .cta-button {
+        display: inline-block;
+        min-width: 160px;
+        padding: 14px 24px;
+        font-family: 'Space Mono', monospace;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-radius: 0;
+      }
+
+      .cta-button.solid {
+        background: #FF4800;
+        color: #000;
+        border: 2px solid #FF4800;
+      }
+
+      .cta-button.solid:hover {
+        background: #ff5e1e;
+        border-color: #ff5e1e;
+      }
+
+      .cta-button.outline {
+        background: transparent;
+        color: #FF4800;
+        border: 2px solid #FF4800;
+      }
+
+      .cta-button.outline:hover {
+        background: #FF4800;
+        color: #000;
+      }
+
+      .hero-image-container {
+        position: relative;
+        height: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+      }
+
+      .hero-product-image {
+        width: 100%;
+        max-width: 600px;
+        transform: translateY(15%);
+        filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+      }
+
+      @media (max-width: 768px) {
+        .video-wrapper {
+          background-color: #000;
+        }
+
+        .rive-hero {
+          height: 70vh;
+        }
+
+        .hero-content-overlay {
+          grid-template-columns: 1fr;
+          text-align: center;
+          padding-top: 100px;
+        }
+
+        .hero-text {
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .hero-title {
+          font-size: clamp(3rem, 15vw, 4rem);
+        }
+
+        .hero-subtitle {
+          font-size: clamp(0.8rem, 4vw, 1.2rem);
+          letter-spacing: 1px;
+        }
+
+        .hero-product-image {
+          display: none !important;
+        }
+
+        .hero-buttons {
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 15px;
+          width: 100%;
+        }
+
+        .cta-button {
+          min-width: 140px;
+          padding: 12px 20px;
+        }
+
+
+        @media (max-width: 350px) {
+          .hero-title {
+            font-size: 15vw !important;
+          }
+
+          .hero-subtitle {
+            font-size: 0.9rem !important;
+            letter-spacing: 0px !important;
+          }
+
+          .hero-buttons {
+            flex-direction: column;
+            width: 100%;
+            gap: 10px;
+          }
+
+          .cta-button {
+            width: 100%;
+            min-width: 0;
+          }
+        }
+      }
+    </style>
+
+
+    <section class="rive-interactive-examples">
+      <div class="artist-testimonial-wrapper">
+        <div class="artist-testimonial">
+          <div class="artist-photo-wrapper">
+            <img src="APASHE-ARTIST.jpg" alt="Apashe" class="artist-photo">
+          </div>
+          <div class="testimonial-content">
+            <p class="testimonial-quote">"Spectral Gate 2 is the cleanest way to tighten up a mix. It removes everything
+              you don't need without destroying the phase."</p>
+            <p class="testimonial-author">— APASHE</p>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="rive-interactive-examples__inner">
+        <div class="examples-sidebar">
+          <div class="examples-header">
+            <h3 class="examples-title">Select Preset</h3>
+          </div>
+          <ul class="preset-list" id="presetList">
+            <li class="preset-item active" data-preset="bongo">Bongo</li>
+            <li class="preset-item" data-preset="clean-bass">Clean Bass</li>
+            <li class="preset-item" data-preset="drums">Drums</li>
+            <li class="preset-item" data-preset="experimental-bass">Experimental Bass</li>
+            <li class="preset-item" data-preset="man-vocal">Man Vocal</li>
+            <li class="preset-item" data-preset="melody">Melody</li>
+          </ul>
+        </div>
+
+        <div class="video-display-area">
+          <div class="video-wrapper">
+            <video id="videoNormal" class="fusion-video active" playsinline muted loop
+              poster="Spectral&#32;Gate&#32;2&#32;Cover.png">
+              <source src="Spectral&#32;Gate-Bongo&#32;WET.mp4" type="video/mp4">
+            </video>
+            <video id="videoBypass" class="fusion-video" playsinline muted loop poster="Spectral&#32;Gate&#32;2&#32;Cover.png">
+              <source src="Spectral&#32;Gate-Bongo&#32;DRY.mp4" type="video/mp4">
+            </video>
+          </div>
+
+          <div class="player-footer">
+            <div class="player-toolbar">
+              <div class="toolbar-left">
+                <div id="videoPlayPause" class="play-container">
+                  <button class="video-control-btn play-btn" aria-label="Play/Pause">
+                    <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </button>
+                  <span class="play-label">play</span>
+                </div>
+                <button id="bypassToggle" class="bypass-btn">
+                  <div class="bypass-indicator"></div>
+                  BYPASS
+                </button>
+              </div>
+            </div>
+            <div class="player-waveform">
+              <canvas id="waveformCanvas"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .rive-interactive-examples {
+        background: #000;
+        padding: 60px 20px 80px;
+        display: block;
+        position: relative;
+        z-index: 10;
+        color: #fff !important;
+      }
+
+      .rive-interactive-examples__inner {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 0 40px;
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+        background: transparent;
+        border: none;
+        overflow: visible;
+      }
+
+      .examples-sidebar {
+        background: transparent;
+        padding: 20px 0;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        height: auto;
+      }
+
+      .artist-testimonial-wrapper {
+        width: 100%;
+        max-width: 1100px;
+        margin: 40px auto 90px auto;
+        display: flex;
+        justify-content: center;
+      }
+
+      .artist-testimonial {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 6px;
+        padding: 0;
+        display: flex;
+        gap: 0;
+        align-items: stretch;
+        max-width: 700px;
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .artist-photo-wrapper {
+        width: 150px;
+        min-height: 100%;
+        border-radius: 0;
+        flex-shrink: 0;
+        overflow: hidden;
+        position: relative;
+      }
+
+      .artist-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+
+      .testimonial-content {
+        flex: 1;
+        padding: 28px 32px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .testimonial-quote {
+        font-family: "Space Mono", monospace;
+        font-size: 13px;
+        font-style: italic;
+        color: #e0e0e0;
+        line-height: 1.7;
+        letter-spacing: 0.3px;
+        margin: 0 0 8px 0;
+      }
+
+      .testimonial-author {
+        font-family: "Space Mono", monospace;
+        font-size: 11px;
+        color: #999;
+        margin: 0;
+        font-weight: 500;
+      }
+
+      .examples-header {
+        padding: 0 0 20px 15px;
+        border-bottom: none;
+        background: transparent;
+        display: block;
+      }
+
+      .examples-title {
+        font-family: "Space Mono", monospace;
+        font-size: 14px;
+        color: #fff;
+        margin: 0;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .preset-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .preset-item {
+        font-family: "Space Mono", monospace;
+        font-size: 13px;
+        color: #999;
+        padding: 8px 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: left;
+        background: transparent;
+        border: none;
+        border-left: 2px solid transparent;
+        width: 100%;
+        font-weight: 500;
+        display: block;
+        border-radius: 0;
+      }
+
+      .preset-item:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .preset-item.active {
+        background: transparent;
+        color: #ff4800;
+        border-left: 2px solid #ff4800;
+        padding-left: 20px;
+        font-weight: 700;
+      }
+
+      .video-display-area {
+        position: relative;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        background: transparent;
+        height: auto;
+        gap: 0;
+        overflow: hidden;
+        border-radius: 6px;
+        border: none;
+      }
+
+      .video-wrapper {
+        position: relative;
+        width: 100%;
+        background: transparent;
+        aspect-ratio: 1 / 1;
+        max-height: 550px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+        overflow: hidden;
+        box-shadow: none;
+      }
+
+      #videoNormal,
+      #videoBypass {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      #videoNormal.active,
+      #videoBypass.active {
+        z-index: 2;
+      }
+
+      .rive-interactive-examples .fusion-video {
+        display: block !important;
+        opacity: 0;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .rive-interactive-examples .fusion-video.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .player-footer {
+        background: transparent;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0;
+        gap: 15px;
+        grid-column: 2;
+        margin-top: 20px;
+        position: relative;
+      }
+
+      .player-toolbar {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 550px;
+        margin: 0 auto;
+        height: auto;
+        padding: 0;
+        gap: 20px;
+        border-right: none;
+        flex-shrink: 0;
+      }
+
+      .player-waveform {
+        width: 100%;
+        max-width: 550px;
+        margin: 0 auto;
+        height: 60px;
+        position: relative;
+        background: transparent;
+      }
+
+      #waveformCanvas {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      .toolbar-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .play-container {
+        display: flex;
+        align-items: center;
+        background: #ff4800;
+        border-radius: 0;
+        padding: 5px 20px 5px 5px;
+        cursor: pointer;
+        transition: opacity 0.2s;
+        gap: 10px;
+      }
+
+      .play-container:hover {
+        opacity: 0.9;
+      }
+
+      .video-control-btn.play-btn {
+        background: transparent;
+        border: none;
+        color: #000;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        cursor: pointer;
+      }
+
+      .play-label {
+        font-family: "Space Mono", monospace;
+        font-weight: 700;
+        font-size: 14px;
+        color: #fff;
+        text-transform: lowercase;
+      }
+
+      .bypass-btn {
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-family: "Space Mono", monospace;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 0;
+        height: auto;
+        border-radius: 0;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        text-transform: lowercase;
+      }
+
+      .bypass-btn:hover {
+        color: #ccc;
+      }
+
+      .bypass-indicator {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        background: transparent;
+        transition: all 0.2s;
+      }
+
+      .bypass-btn.active .bypass-indicator {
+        background: #fff;
+      }
+
+      @media (max-width: 900px) {
+        .rive-interactive-examples__inner {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        .examples-sidebar {
+          width: 100%;
+          padding-bottom: 20px;
+          margin-bottom: 20px;
+        }
+
+        .preset-list {
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 10px;
+          justify-content: center;
+        }
+
+        .preset-item {
+          width: auto;
+          background: rgba(255, 255, 255, 0.05);
+          border-radius: 4px;
+          border-left: none;
+          padding: 8px 15px;
+        }
+
+        .preset-item.active {
+          background: #ff4800;
+          color: #000;
+          border-left: none;
+          padding-left: 15px;
+        }
+
+        .video-wrapper {
+          max-height: 400px;
+        }
+
+        .artist-testimonial {
+          flex-direction: column;
+        }
+
+        .artist-photo-wrapper {
+          width: 100%;
+          height: 200px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .rive-interactive-examples__inner {
+          grid-template-columns: 1fr;
+        }
+
+        .examples-sidebar {
+          height: auto;
+          max-height: 250px;
+        }
+
+        .examples-header {
+          position: relative;
+        }
+
+        .player-footer {
+          padding: 15px;
+          gap: 15px;
+        }
+
+        .video-control-btn,
+        .bypass-btn {
+          height: 40px;
+          width: 40px;
+        }
+
+        .bypass-btn {
+          width: auto;
+          font-size: 11px;
+        }
+
+        .artist-testimonial-wrapper {
+          margin: 40px auto 80px auto;
+          padding: 0 !important;
+          width: 100%;
+        }
+
+        .artist-testimonial {
+          flex-direction: row !important;
+          align-items: stretch;
+          justify-content: flex-start !important;
+          text-align: left;
+          width: 100%;
+          max-width: 100%;
+          border-radius: 0;
+          overflow: hidden;
+          padding: 0 !important;
+          gap: 0 !important;
+        }
+
+        .artist-photo-wrapper {
+          width: 120px !important;
+          min-width: 120px;
+          height: auto !important;
+          flex-shrink: 0;
+        }
+
+        .artist-photo {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .testimonial-content {
+          flex: 1;
+          padding: 20px 24px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+
+        .testimonial-quote {
+          font-size: 12px;
+          line-height: 1.6;
+          margin: 0 0 8px 0;
+        }
+
+        .testimonial-author {
+          font-size: 10px;
+        }
+
+        .preset-list {
+          border-left: none;
+        }
+
+        .preset-item {
+          border-left: none;
+        }
+      }
+    </style>
+
+    <section class="sg-threshold">
+      <div class="sg-threshold__inner">
+        <div class="sg-threshold__image">
+          <video autoplay loop muted playsinline disablepictureinpicture
+            style="width: 100%; height: auto; max-width: 280px;">
+            <source src="spectralgatesphere.webm" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <div class="sg-threshold__copy">
+          <h2>What is the Threshold in Spectral Gate?</h2>
+          <p>
+            The Threshold controls which frequencies pass through and which ones get muted or reduced,<br />
+            but instead of applying it to the whole signal, it works per frequency bin thanks to FFT.
+          </p>
+          <p>
+            When the energy of a frequency band is above the threshold, it's allowed to pass.<br />
+            When it's below the threshold, it gets gated, meaning reduced or silenced.
+          </p>
+          <p>This gives you precise, frequency-dependent control over what stays and what goes.</p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .sg-threshold {
+        background: #000000;
+      }
+
+      .sg-threshold__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .sg-threshold__image img {
+        width: 100%;
+        height: auto;
+        max-width: 240px;
+      }
+
+      .sg-threshold__copy h2 {
+        margin: 0 0 16px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #ffffff;
+        text-align: left;
+        letter-spacing: 0.02em;
+      }
+
+      .sg-threshold__copy p {
+        margin: 0 0 14px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #ffffff;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .sg-threshold__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .sg-threshold__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        .sg-threshold__image img {
+          max-width: 160px;
+          width: 100%;
+          height: auto;
+        }
+
+        .sg-threshold__copy {
+          max-width: 90%;
+          margin: 0 auto;
+          text-align: center;
+          word-break: keep-all;
+        }
+
+        .sg-threshold__copy h2 {
+          font-size: 16px;
+          margin-bottom: 14px;
+          text-align: center;
+          line-height: 1.4;
+        }
+
+        .sg-threshold__copy p {
+          font-size: 14px;
+          line-height: 1.7;
+          text-align: center;
+          margin-bottom: 14px;
+        }
+      }
+    </style>
+
+    <section class="sg-why">
+      <div class="sg-why__inner">
+        <div class="sg-why__image">
+          <video autoplay loop muted playsinline disablepictureinpicture
+            style="width: 100%; height: auto; max-width: 240px;">
+            <source src="Whythreshold.webm" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <div class="sg-why__copy">
+          <h2>Why it is special?</h2>
+
+          <p>
+            Unlike traditional gates that affect the full signal based on overall volume, the Spectral Gate listens to
+            every tiny slice of the spectrum and decides what to let through.
+          </p>
+
+          <p>
+            That means you can:<br />
+            • Isolate transients<br />
+            • Clean up noise or reverb tails<br />
+            • Shape textures in a musical or aggressive way
+          </p>
+
+          <p>
+            Dial it low for a gritty, textured effect.<br />
+            Dial it high to let only the strongest parts of the sound cut through.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .sg-why {
+        background: #000000;
+      }
+
+      .sg-why__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .sg-why__image img {
+        width: 100%;
+        height: auto;
+        max-width: 240px;
+      }
+
+      .sg-why__copy h2 {
+        margin: 0 0 16px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #ffffff;
+        text-align: left;
+        letter-spacing: 0.02em;
+      }
+
+      .sg-why__copy p {
+        margin: 0 0 14px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #ffffff;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .sg-why__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .sg-why__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        .sg-why__image img {
+          max-width: 160px;
+          width: 100%;
+          height: auto;
+        }
+
+        .sg-why__copy {
+          max-width: 90%;
+          margin: 0 auto;
+          text-align: center;
+          word-break: keep-all;
+        }
+
+        .sg-why__copy h2 {
+          font-size: 16px;
+          margin-bottom: 12px;
+          text-align: center;
+          line-height: 1.4;
+        }
+
+        .sg-why__copy p {
+          font-size: 14px;
+          line-height: 1.7;
+          text-align: center;
+          margin-bottom: 14px;
+        }
+      }
+    </style>
+
+    <section class="sg-thresholdcurve">
+      <div class="sg-thresholdcurve__inner">
+        <div class="sg-thresholdcurve__image">
+          <video autoplay loop muted playsinline disablepictureinpicture
+            style="width: 100%; height: auto; max-width: 240px;">
+            <source src="ThresholdCurve.webm" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <div class="sg-thresholdcurve__copy">
+          <h2>What is Threshold Curve?</h2>
+
+          <p>
+            Threshold Curve lets you add a custom threshold curve with as many points as you want. You can drag
+            individual points to shape the curve, or even drag the whole threshold up or down for quick adjustments.
+          </p>
+
+          <p>
+            Need more precision? Go full screen for a detailed view and fine-tune your curve with maximum control.
+          </p>
+
+          <div class="fullscreen-video">
+            <video autoplay loop muted playsinline disablepictureinpicture
+              style="width: 100%; height: auto; max-width: 500px; margin-top: 20px;">
+              <source src="ThresholdCurveFullscreen.webm" type="video/webm" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .sg-thresholdcurve {
+        background: #000000;
+      }
+
+      .sg-thresholdcurve__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .sg-thresholdcurve__image video {
+        width: 100%;
+        height: auto;
+        max-width: 240px;
+      }
+
+      .sg-thresholdcurve__copy h2 {
+        margin: 0 0 16px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #ffffff;
+        text-align: left;
+        letter-spacing: 0.02em;
+      }
+
+      .sg-thresholdcurve__copy p {
+        margin: 0 0 14px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #ffffff;
+        text-align: left;
+      }
+
+      .fullscreen-video {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 20px;
+      }
+
+      @media (max-width: 768px) {
+        .sg-thresholdcurve__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .sg-thresholdcurve__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        .sg-thresholdcurve__image video {
+          max-width: 160px;
+          width: 100%;
+          height: auto;
+        }
+
+        .sg-thresholdcurve__copy {
+          max-width: 90%;
+          margin: 0 auto;
+          text-align: center;
+          word-break: keep-all;
+        }
+
+        .sg-thresholdcurve__copy h2 {
+          font-size: 16px;
+          margin-bottom: 12px;
+          text-align: center;
+          line-height: 1.4;
+        }
+
+        .sg-thresholdcurve__copy p {
+          font-size: 14px;
+          line-height: 1.7;
+          text-align: center;
+          margin-bottom: 14px;
+        }
+
+        .fullscreen-video {
+          justify-content: center;
+        }
+
+        .fullscreen-video video {
+          max-width: 90% !important;
+        }
+      }
+    </style>
+
+    <section class="sg-attackrelease">
+      <div class="sg-attackrelease__inner">
+        <div class="sg-attackrelease__image">
+          <img src="attackrelease.png" alt="What are Range and Smoothing?" />
+        </div>
+
+        <div class="sg-attackrelease__copy">
+          <h2>What are Range and Smoothing?</h2>
+
+          <p>
+            <strong>Range</strong><br />
+            Sets how much of the gated frequencies are blended back into the signal<br />
+            • Low range = tighter gating, more frequencies removed<br />
+            • High range = more of the floor/suppressed content mixed back in, creating smoother textures
+          </p>
+
+          <p>
+            <strong>Smoothing</strong><br />
+            Sets how gradually the gate transitions when frequencies cross the threshold<br />
+            • Low smoothing = sharper, more defined gating<br />
+            • High smoothing = glassy, polished transitions that avoid clicks and create more musical, washed-out
+            effects
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .sg-attackrelease {
+        background: #000000;
+      }
+
+      .sg-attackrelease__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .sg-attackrelease__image img {
+        width: 100%;
+        height: auto;
+        max-width: 100px;
+      }
+
+      .sg-attackrelease__copy h2 {
+        margin: 0 0 16px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #ffffff;
+        text-align: left;
+        letter-spacing: 0.02em;
+      }
+
+      .sg-attackrelease__copy p {
+        margin: 0 0 14px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #ffffff;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .sg-attackrelease__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .sg-attackrelease__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        .sg-attackrelease__image img {
+          max-width: 100px;
+          width: 100%;
+          height: auto;
+        }
+
+        .sg-attackrelease__copy {
+          max-width: 90%;
+          margin: 0 auto;
+          text-align: center;
+          word-break: keep-all;
+        }
+
+        .sg-attackrelease__copy h2 {
+          font-size: 16px;
+          margin-bottom: 12px;
+          text-align: center;
+          line-height: 1.4;
+        }
+
+        .sg-attackrelease__copy p {
+          font-size: 14px;
+          line-height: 1.7;
+          text-align: center;
+          margin-bottom: 14px;
+        }
+      }
+    </style>
+
+    <section class="sg-sidechain">
+      <div class="sg-sidechain__inner">
+        <div class="sg-sidechain__image">
+          <video autoplay loop muted playsinline disablepictureinpicture
+            style="width: 100%; height: auto; max-width: 240px;">
+            <source src="SpectralGateSidechain.webm" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+
+        <div class="sg-sidechain__copy">
+          <h2>What is SC in Spectral Gate?</h2>
+
+          <p>
+            SC (Sidechain) allows you to use an external audio source to control the spectral gate instead of the input
+            signal itself. This means the gate responds to the frequency content of the sidechain signal, not the audio
+            you're processing.
+          </p>
+
+          <p>
+            Perfect for creative effects like:<br />
+            • Ducking specific frequencies based on another track<br />
+            • Creating rhythmic spectral textures driven by drums or vocals<br />
+            • Frequency-dependent gating that follows an external source
+          </p>
+
+          <p>
+            When SC is enabled, the threshold analysis listens to your sidechain input, giving you precise control over
+            which frequencies get gated based on what's happening in another part of your mix.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .sg-sidechain {
+        background: #000000;
+      }
+
+      .sg-sidechain__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .sg-sidechain__image video {
+        width: 100%;
+        height: auto;
+        max-width: 240px;
+      }
+
+      .sg-sidechain__copy h2 {
+        margin: 0 0 16px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 1.4;
+        color: #ffffff;
+        text-align: left;
+        letter-spacing: 0.02em;
+      }
+
+      .sg-sidechain__copy p {
+        margin: 0 0 14px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #ffffff;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .sg-sidechain__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .sg-sidechain__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        .sg-sidechain__image video {
+          max-width: 160px;
+          width: 100%;
+          height: auto;
+        }
+
+        .sg-sidechain__copy {
+          max-width: 90%;
+          margin: 0 auto;
+          text-align: center;
+          word-break: keep-all;
+        }
+
+        .sg-sidechain__copy h2 {
+          font-size: 16px;
+          margin-bottom: 12px;
+          text-align: center;
+          line-height: 1.4;
+        }
+
+        .sg-sidechain__copy p {
+          font-size: 14px;
+          line-height: 1.7;
+          text-align: center;
+          margin-bottom: 14px;
+        }
+      }
+    </style>
+
+    <section class="sg-tilt">
+      <div class="sg-tilt__inner">
+        <div class="sg-tilt__image">
+          <img src="Tilt.png" alt="Tilt control" />
+        </div>
+
+        <div class="sg-tilt__copy">
+          <h2>What is Tilt ?</h2>
+          <p>
+            The Tilt (Brightness) control adjusts how the threshold behaves across the frequency spectrum, making the
+            gate more or less sensitive to low or high frequencies. It's like tilting a shelf-EQ, but instead of
+            boosting or cutting sound, you're tilting how aggressively the gate responds across the spectrum.
+          </p>
+
+          <h3>How it works:</h3>
+          <p class="sg-tilt__list">
+            → Tilt to the right (positive values): Makes the gate more sensitive to low frequencies — lows get tighter
+            and cleaner; highs are more open and airy.<br /><br />
+            → Tilt to the left (negative values): Makes the gate more sensitive to high frequencies — brighter
+            frequencies get gated more quickly; lows stay fuller and punchier.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .sg-tilt {
+        background: #c0c5c8;
+      }
+
+      .sg-tilt__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .sg-tilt__image img {
+        max-width: 180px;
+        height: auto;
+        position: relative;
+        top: -160px;
+      }
+
+      .sg-tilt__copy h2,
+      .sg-tilt__copy h3 {
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        color: #000000;
+        letter-spacing: 0.02em;
+        margin: 0 0 14px;
+        line-height: 1.4;
+        text-align: left;
+      }
+
+      .sg-tilt__copy h2 {
+        font-size: 22px;
+      }
+
+      .sg-tilt__copy h3 {
+        font-size: 18px;
+      }
+
+      .sg-tilt__copy p {
+        margin: 0 0 14px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #000000;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .sg-tilt__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .sg-tilt__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        .sg-tilt__image img {
+          max-width: 160px;
+          width: 100%;
+          height: auto;
+          top: 0;
+          position: relative;
+        }
+
+        .sg-tilt__copy {
+          max-width: 90%;
+          margin: 0 auto;
+          text-align: center;
+          word-break: keep-all;
+        }
+
+        .sg-tilt__copy h2,
+        .sg-tilt__copy h3 {
+          text-align: center;
+        }
+
+        .sg-tilt__copy h2 {
+          font-size: 16px;
+        }
+
+        .sg-tilt__copy h3 {
+          font-size: 15px;
+        }
+
+        .sg-tilt__copy p {
+          font-size: 14px;
+          line-height: 1.7;
+          text-align: center;
+        }
+      }
+    </style>
+
+    <section class="sg-drywet">
+      <div class="sg-drywet__inner">
+        <div class="sg-drywet__image">
+          <img src="Drywetgate.png" alt="Dry/Wet control" />
+        </div>
+
+        <div class="sg-drywet__copy">
+          <h2>What is Dry/Wet?</h2>
+          <p>
+            Dry/Wet controls the balance between the original signal (Dry) and the processed signal (Wet). It lets you
+            blend how much of the spectral gating effect you want to hear.
+          </p>
+
+          <h3>How it works:</h3>
+          <p class="sg-drywet__list">
+            0% (Fully Dry):<br />
+            → You only hear the clean, unprocessed sound.<br /><br />
+            100% (Fully Wet):<br />
+            → You only hear the gated signal, fully affected by the spectral processing.<br /><br />
+            Anywhere in between:<br />
+            → Mixes both together — great for adding character without losing the original punch.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <style>
+      .sg-drywet {
+        background: #c0c5c8;
+      }
+
+      .sg-drywet__inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 80px 40px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 60px;
+      }
+
+      .sg-drywet__image img {
+        max-width: 180px;
+        height: auto;
+        position: relative;
+        top: -160px;
+      }
+
+      .sg-drywet__copy h2,
+      .sg-drywet__copy h3 {
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        color: #000000;
+        letter-spacing: 0.02em;
+        margin: 0 0 14px;
+        line-height: 1.4;
+        text-align: left;
+      }
+
+      .sg-drywet__copy h2 {
+        font-size: 22px;
+      }
+
+      .sg-drywet__copy h3 {
+        font-size: 18px;
+      }
+
+      .sg-drywet__copy p {
+        margin: 0 0 14px;
+        font-family: "Space Mono", monospace;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.6;
+        color: #000000;
+        text-align: left;
+      }
+
+      @media (max-width: 768px) {
+        .sg-drywet__inner {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+          padding: 50px 20px;
+          text-align: center;
+        }
+
+        .sg-drywet__image {
+          order: -1;
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          margin-bottom: 12px;
+        }
+
+        .sg-drywet__image img {
+          max-width: 160px;
+          width: 100%;
+          height: auto;
+          top: 0;
+          position: relative;
+        }
+
+        .sg-drywet__copy {
+          max-width: 90%;
+          margin: 0 auto;
+          text-align: center;
+          word-break: keep-all;
+        }
+
+        .sg-drywet__copy h2 {
+          font-size: 16px;
+          text-align: center;
+        }
+
+        .sg-drywet__copy h3 {
+          font-size: 15px;
+          text-align: center;
+        }
+
+        .sg-drywet__copy p {
+          font-size: 14px;
+          line-height: 1.7;
+          text-align: center;
+        }
+      }
+    </style>
+
+
+
+    <style>
+      .spectralgate-buy {
+        background: #c0c5c8;
+        padding: 40px 20px 60px;
+        text-align: center;
+      }
+
+      .spectralgate-buy .buy-now {
+        display: inline-block;
+        padding: 2px 10px;
+        border: 2px solid #ff4a00;
+        color: #ff4a00;
+        font-family: "Space Mono", monospace;
+        font-size: 32px;
+        letter-spacing: 0.05em;
+        text-decoration: none;
+        transition: background 0.3s, color 0.3s;
+        margin-bottom: 20px;
+      }
+
+      .spectralgate-buy .buy-now:hover {
+        background: #ff4a00;
+        color: #101114;
+      }
+
+      .spectralgate-buy .demo-links {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-top: 20px;
+        margin-bottom: 15px;
+      }
+
+      .spectralgate-buy .demo-link {
+        font-family: "Space Mono", monospace;
+        font-size: 16px;
+        letter-spacing: 0.1em;
+        color: #ff4a00;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .spectralgate-buy .demo-link:hover {
+        color: #101114;
+        text-decoration: underline;
+      }
+
+      .spectralgate-buy .demo-separator {
+        color: #101114;
+        font-size: 16px;
+      }
+
+      .spectralgate-buy .manual-download {
+        display: block;
+        font-family: "Space Mono", monospace;
+        font-size: 16px;
+        letter-spacing: 0.1em;
+        color: #101114;
+        text-decoration: none;
+        margin-top: 10px;
+      }
+
+      .spectralgate-buy .manual-download:hover {
+        text-decoration: underline;
+      }
+
+      @media (max-width: 768px) {
+        .spectralgate-buy .buy-now {
+          font-size: 28px;
+          padding: 0px 10px;
+        }
+
+        .spectralgate-buy .demo-links {
+          gap: 10px;
+        }
+
+        .spectralgate-buy .demo-link {
+          font-size: 14px;
+        }
+
+        .spectralgate-buy .demo-separator {
+          font-size: 14px;
+        }
+
+        .spectralgate-buy .manual-download {
+          font-size: 14px;
+        }
+      }
+    </style>
+  </header>
+
+  <div class="bottom-wrapper">
+    <a href="anomaly.html" class="ticker-container" style="text-decoration: none; cursor: pointer; color: inherit; display: flex;">
+      <div class="ticker">
+        <div class="ticker-content">
+          NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN -
+        </div>
+      </div>
+    </a>
+    <footer>
+      <div class="footer-left"><img src="Copyright.svg" alt="©" class="copyright-icon" /> IFEATURE 2025</div>
+      <div class="footer-center">
+        <a href="https://www.instagram.com/ifeaturemusic" target="_blank"><img src="Instagram.svg"
+            alt="Instagram" /></a>
+        <a href="https://x.com/iFeaturemusic" target="_blank"><img src="X.svg" alt="X" /></a>
+        <a href="https://patreon.com/iFeature" target="_blank"><img src="Patreon.svg" alt="Patreon" /></a>
+        <a href="https://open.spotify.com/artist/1NkeIgGpORkhxCUluCnnFT" target="_blank"><img src="Spotify.svg"
+            alt="Spotify" /></a>
+        <a href="https://youtube.com/ifeature" target="_blank"><img src="Youtube.svg" alt="YouTube" /></a>
+        <a href="https://discord.gg/XxMf9s39EX" target="_blank"><img src="Discord.svg" alt="Discord" /></a>
+      </div>
+      <div class="footer-right">
+        <a href="legalhub.html">LEGAL HUB</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function toggleSubMenu() {
+      const submenu = document.querySelector(".submenu");
+      submenu.style.display = submenu.style.display === "flex" ? "none" : "flex";
+    }
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const presetItems = document.querySelectorAll('.preset-item');
+      const playPauseBtn = document.querySelector('#videoPlayPause');
+      const bypassBtn = document.querySelector('#bypassToggle');
+      const videoNormal = document.querySelector('#videoNormal');
+      const videoBypass = document.querySelector('#videoBypass');
+      const playLabel = document.querySelector('.play-label');
+      const playBtnIcon = document.querySelector('#videoPlayPause .video-control-btn');
+      const canvas = document.getElementById('waveformCanvas');
+      const canvasCtx = canvas ? canvas.getContext('2d') : null;
+
+      const playIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
+      const pauseIcon = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+
+      let isBypassed = false;
+      let waveformData = new Array(120).fill(0.1);
+      const numBars = 120;
+
+      if (!canvas) return;
+
+      function resizeCanvas() {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = canvas.getBoundingClientRect();
+        canvas.width = rect.width * dpr;
+        canvas.height = rect.height * dpr;
+        canvasCtx.scale(dpr, dpr);
+      }
+
+      window.addEventListener('resize', resizeCanvas);
+      resizeCanvas();
+
+      function roundRect(ctx, x, y, width, height, radius) {
+        if (width < 2 * radius) radius = width / 2;
+        if (height < 2 * radius) radius = height / 2;
+        ctx.beginPath();
+        ctx.moveTo(x + radius, y);
+        ctx.arcTo(x + width, y, x + width, y + height, radius);
+        ctx.arcTo(x + width, y + height, x, y + height, radius);
+        ctx.arcTo(x, y + height, x, y, radius);
+        ctx.arcTo(x, y, x + width, y, radius);
+        ctx.closePath();
+      }
+
+      function drawWaveform() {
+        if (!canvas || !canvasCtx) return;
+
+        const width = canvas.width / (window.devicePixelRatio || 1);
+        const height = canvas.height / (window.devicePixelRatio || 1);
+
+        canvasCtx.clearRect(0, 0, width, height);
+
+        const barWidth = width / numBars;
+        const gap = 1;
+
+        const drawBarWidth = Math.max(barWidth - gap, 1);
+
+        // Ensure we track the correct video time
+        const activeVideo = isBypassed ? videoBypass : videoNormal;
+
+        // Safety check for duration to avoid NaN
+        const duration = (activeVideo.duration && activeVideo.duration > 0) ? activeVideo.duration : 1;
+        const currentTime = activeVideo.currentTime || 0;
+
+        const progress = currentTime / duration;
+        const progressX = progress * width;
+
+        for (let i = 0; i < numBars; i++) {
+          const x = i * barWidth;
+          const val = waveformData[i] !== undefined ? waveformData[i] : 0.1;
+          const amplitude = val * height * 0.8;
+
+          const halfAmp = amplitude / 2;
+          const centerY = height / 2;
+          const y = centerY - halfAmp;
+          const barH = amplitude;
+
+          if (x < progressX) {
+            canvasCtx.fillStyle = '#ff4800';
+          } else {
+            canvasCtx.fillStyle = '#333';
+          }
+
+          roundRect(canvasCtx, x, y, drawBarWidth, barH, 2);
+          canvasCtx.fill();
+        }
+
+        requestAnimationFrame(drawWaveform);
+      }
+
+      drawWaveform();
+
+      const waveformCache = {};
+
+      async function analyzeAudio(url) {
+        if (waveformCache[url]) {
+          waveformData = waveformCache[url];
+          return;
+        }
+
+        try {
+          if (!audioCtx) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            audioCtx = new AudioContext();
+          }
+
+          const response = await fetch(url);
+          const arrayBuffer = await response.arrayBuffer();
+          const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+
+          const rawData = audioBuffer.getChannelData(0);
+          const samplesPerBar = Math.floor(rawData.length / numBars);
+          const analyzed = [];
+
+          for (let i = 0; i < numBars; i++) {
+            let sum = 0;
+            for (let j = 0; j < samplesPerBar; j++) {
+              sum += Math.abs(rawData[i * samplesPerBar + j]);
+            }
+            const avg = sum / samplesPerBar;
+            const val = Math.min(Math.max(avg * 5, 0.1), 1.0);
+            analyzed.push(val);
+          }
+
+          waveformCache[url] = analyzed;
+          waveformData = analyzed;
+
+        } catch (e) {
+          console.error("Waveform analysis failed:", e);
+          waveformData = [];
+          for (let i = 0; i < numBars; i++) {
+            waveformData.push(Math.random() * 0.5 + 0.1);
+          }
+        }
+      }
+
+      let audioCtx;
+      let sourceNormal, sourceBypass;
+      let gainNormal, gainBypass;
+      let audioInitialized = false;
+
+      async function initAudio() {
+        if (audioInitialized) return;
+
+        if (!audioCtx) {
+          const AudioContext = window.AudioContext || window.webkitAudioContext;
+          audioCtx = new AudioContext();
+        }
+
+        sourceNormal = audioCtx.createMediaElementSource(videoNormal);
+        sourceBypass = audioCtx.createMediaElementSource(videoBypass);
+
+        gainNormal = audioCtx.createGain();
+        gainBypass = audioCtx.createGain();
+
+        sourceNormal.connect(gainNormal);
+        sourceBypass.connect(gainBypass);
+        gainNormal.connect(audioCtx.destination);
+        gainBypass.connect(audioCtx.destination);
+
+        if (isBypassed) {
+          gainNormal.gain.setValueAtTime(0, audioCtx.currentTime);
+          gainBypass.gain.setValueAtTime(1, audioCtx.currentTime);
+        } else {
+          gainNormal.gain.setValueAtTime(1, audioCtx.currentTime);
+          gainBypass.gain.setValueAtTime(0, audioCtx.currentTime);
+        }
+
+        videoNormal.muted = false;
+        videoBypass.muted = false;
+
+        audioInitialized = true;
+
+        if (audioCtx.state === 'suspended') {
+          await audioCtx.resume();
+        }
+      }
+
+      function crossfade() {
+        if (!audioInitialized) return;
+
+        const t = audioCtx.currentTime;
+        const fadeTime = 0.05;
+
+        gainNormal.gain.cancelScheduledValues(t);
+        gainBypass.gain.cancelScheduledValues(t);
+
+        gainNormal.gain.setValueAtTime(gainNormal.gain.value, t);
+        gainBypass.gain.setValueAtTime(gainBypass.gain.value, t);
+
+        if (isBypassed) {
+          gainNormal.gain.linearRampToValueAtTime(0, t + fadeTime);
+          gainBypass.gain.linearRampToValueAtTime(1, t + fadeTime);
+        } else {
+          gainNormal.gain.linearRampToValueAtTime(1, t + fadeTime);
+          gainBypass.gain.linearRampToValueAtTime(0, t + fadeTime);
+        }
+      }
+
+      const presetVideos = {
+        'bongo': {
+          normal: 'Spectral Gate-Bongo WET.mp4',
+          bypass: 'Spectral Gate-Bongo DRY.mp4'
+        },
+        'clean-bass': {
+          normal: 'Spectral Gate-Clean Bass Wet.mp4',
+          bypass: 'Spectral Gate-Clean Bass DRY.mp4'
+        },
+        'drums': {
+          normal: 'Spectral Gate-Drums Wet.mp4',
+          bypass: 'Spectral Gate-Drums Dry.mp4'
+        },
+        'experimental-bass': {
+          normal: 'Spectral Gate-ExperimentalBass Wet.mp4',
+          bypass: 'Spectral Gate-ExperimentalBass Dry.mp4'
+        },
+        'man-vocal': {
+          normal: 'Spectral Gate-Man Vocal Wet.mp4',
+          bypass: 'Spectral Gate-Man Vocal Dry.mp4'
+        },
+        'melody': {
+          normal: 'Spectral Gate-Melody Wet.mp4',
+          bypass: 'Spectral Gate-Melody DRY.mp4'
+        }
+      };
+
+      presetItems.forEach(item => {
+        item.addEventListener('click', function () {
+          presetItems.forEach(p => p.classList.remove('active'));
+          this.classList.add('active');
+
+          const presetId = this.dataset.preset;
+          const videos = presetVideos[presetId];
+
+          if (videos) {
+            const currentTime = videoNormal.currentTime;
+            const wasPlaying = !videoNormal.paused;
+
+            videoNormal.src = videos.normal;
+            videoBypass.src = videos.bypass;
+
+            videoNormal.currentTime = 0;
+            videoBypass.currentTime = 0;
+
+            if (wasPlaying) {
+              if (!audioInitialized) initAudio().catch(e => console.error(e));
+
+              const playPromise = videoNormal.play();
+              if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                  console.log("Auto-play prevented");
+                });
+              }
+              videoBypass.play();
+
+              if (audioInitialized) {
+                const t = audioCtx.currentTime;
+                if (isBypassed) {
+                  gainNormal.gain.setValueAtTime(0, t);
+                  gainBypass.gain.setValueAtTime(1, t);
+                } else {
+                  gainNormal.gain.setValueAtTime(1, t);
+                  gainBypass.gain.setValueAtTime(0, t);
+                }
+              }
+            }
+
+            analyzeAudio(videos.normal);
+          }
+        });
+      });
+
+      analyzeAudio('Spectral Gate-Bongo WET.mp4');
+
+      if (playPauseBtn && videoNormal) {
+        playPauseBtn.addEventListener('click', async function () {
+          // 1. Audio Context Resume (User Gesture - synchronous)
+          if (audioCtx && audioCtx.state === 'suspended') {
+            await audioCtx.resume();
+          }
+
+          // 2. Unmute Immediately
+          videoNormal.muted = false;
+          videoBypass.muted = false;
+
+          if (!audioInitialized) {
+            initAudio().catch(e => console.error("Init Audio Error:", e));
+          }
+
+          if (videoNormal.paused) {
+            // PLAY START
+            const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+            if (isMobile) {
+              // Mobile: Play ONLY the active video
+              try {
+                if (isBypassed) {
+                  await videoBypass.play();
+                  videoNormal.pause();
+                } else {
+                  await videoNormal.play();
+                  videoBypass.pause();
+                }
+                playBtnIcon.innerHTML = pauseIcon;
+                playLabel.textContent = 'pause';
+              } catch (e) {
+                console.error("Play Mobile Failed:", e);
+                playBtnIcon.innerHTML = playIcon;
+                playLabel.textContent = 'play';
+              }
+            } else {
+              // Desktop: Play BOTH
+              const p1 = videoNormal.play();
+              const p2 = videoBypass.play();
+
+              if (p1 !== undefined) {
+                p1.then(() => {
+                  playBtnIcon.innerHTML = pauseIcon;
+                  playLabel.textContent = 'pause';
+                }).catch(e => {
+                  console.error("Play Normal Failed:", e);
+                  playBtnIcon.innerHTML = playIcon;
+                  playLabel.textContent = 'play';
+                });
+              } else {
+                playBtnIcon.innerHTML = pauseIcon;
+                playLabel.textContent = 'pause';
+              }
+
+              if (p2 !== undefined) {
+                p2.catch(e => console.error("Play Bypass Failed:", e));
+              }
+            }
+          } else {
+            // PAUSE START
+            videoNormal.pause();
+            videoBypass.pause();
+            playBtnIcon.innerHTML = playIcon;
+            playLabel.textContent = 'play';
+          }
+        });
+      }
+
+      if (bypassBtn) {
+        bypassBtn.addEventListener('click', async function () {
+          if (!audioInitialized) {
+            await initAudio().catch(e => console.error(e));
+          } else if (audioCtx.state === 'suspended') {
+            await audioCtx.resume();
+          }
+
+          // 1. Check if playing BEFORE toggle
+          const wasPlaying = !videoNormal.paused || !videoBypass.paused;
+
+          this.classList.toggle('active');
+          videoNormal.classList.toggle('active');
+          videoBypass.classList.toggle('active');
+          isBypassed = !isBypassed;
+
+          // Sync time
+          const currentTime = isBypassed ? videoNormal.currentTime : videoBypass.currentTime;
+          videoNormal.currentTime = currentTime;
+          videoBypass.currentTime = currentTime;
+
+          const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+          if (wasPlaying) {
+            if (isMobile) {
+              if (isBypassed) {
+                await videoBypass.play();
+                videoNormal.pause();
+              } else {
+                await videoNormal.play();
+                videoBypass.pause();
+              }
+            } else {
+              // Ensure both are playing for crossfade
+              if (videoNormal.paused) videoNormal.play();
+              if (videoBypass.paused) videoBypass.play();
+            }
+            // Ensure UI reflects play state
+            playBtnIcon.innerHTML = pauseIcon;
+            playLabel.textContent = 'pause';
+          } else {
+            videoNormal.pause();
+            videoBypass.pause();
+            playBtnIcon.innerHTML = playIcon;
+            playLabel.textContent = 'play';
+          }
+
+          crossfade();
+        });
+      }
+
+      canvas.addEventListener('click', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const width = rect.width;
+        const activeVideo = isBypassed ? videoBypass : videoNormal;
+
+        if (activeVideo.duration) {
+          const seekTo = (clickX / width) * activeVideo.duration;
+          videoNormal.currentTime = seekTo;
+          videoBypass.currentTime = seekTo;
+        }
+      });
+    });
+  </script>
+  <script type="module" src="https://assets.moonbase.sh/storefront/moonbase.js"></script>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", () => {
+      Moonbase.setup("https://ifeature.moonbase.sh", {
+        toolbar: {
+          enabled: false,
+          location: "top-right",
+          show: {
+            cart: true,
+            account: true,
+            moonbase: false,
+          },
+        },
+        auth: {
+          signIn: { enabled: true, hint: undefined },
+          signUp: { enabled: true },
+        },
+        checkout: { redirect: false },
+        cart: { quantity: "single" },
+        activation: {
+          deviceTokenFileExtension: ".dt",
+          licenseTokenFileName: "license-file.mb",
+        },
+        theme: {
+          dark: true,
+          colors: { primary: "#FF4800" },
+          fonts: { heading: "Space Mono", body: "Space Mono" },
+          corners: "sharp",
+          buttons: "outlined",
+          cards: "shadow",
+        },
+      });
+    });
+  </script>
+  <script src="shared-components.js"></script>
+</body>
+
+</html>

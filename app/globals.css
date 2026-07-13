@@ -1,19 +1,71 @@
 @import "tailwindcss";
 
-@theme {
-  /* Colors */
-  --color-cream: #f5f2ed;
-  --color-surface: #edeae4;
-  --color-surface-hover: #e5e1da;
-  --color-accent: #b85c3a;
-  --color-accent-hover: #a04e30;
-  --color-ink: #1a1a1a;
-  --color-muted: #8a837c;
-  --color-border: #d8d4ce;
+/* Plugin shot drop-shadow — shared by both heroes (home + resonator). Edit here, both follow. */
+:root {
+  --plugin-shadow: drop-shadow(0 40px 10px rgba(0,0,0,.24)) drop-shadow(0 11px 23px rgba(0,0,0,0.3)) drop-shadow(0 26px 70px rgba(0,0,0,0.08)) drop-shadow(0 48px 42px rgba(0,0,0,0.09));
 
-  /* Typography */
+  /* imagiro radius + motion. These live in :root (NOT @theme) on purpose: they're consumed via
+     var()/arbitrary utilities, and Tailwind v4 tree-shakes @theme vars only referenced from JSX. */
+  --radius: 0.25rem;                                /* 4px — the dominant radius, anti-pill */
+  --press: 3px;                                     /* buttons nudge down this much on :active */
+  --ease-soft: cubic-bezier(0.165, 0.84, 0.44, 1);  /* imagiro signature easeOutQuart */
+}
+
+/* ─────────────────────────────────────────────────────────────
+   DESIGN TOKENS — edit a value here and it updates site-wide.
+   Each token generates Tailwind utilities, e.g.
+   --color-accent  →  text-accent / bg-accent / border-accent
+   --color-muted   →  text-muted  / bg-muted  / ...
+   ───────────────────────────────────────────────────────────── */
+@theme {
+  /* Surfaces — warm paper */
+  --color-cream: #fefdfd;          /* page background */
+  --color-surface: #eae5db;          /* cards / panels — solid warm imagiro cream, never white */
+  --color-surface-hover: #e5e1da;    /* card hover — SOLID */
+  --color-tan: #e8e0d2;            /* warm mid-step (spare) */
+
+  /* Dark + olive section fields (imagiro) — footer, tech-specs, audio bars */
+  --color-dark: #202020;           /* near-black → bg-dark / text-dark (audio bars, spec sheet) */
+  --color-olive: #8d9f8c;          /* olive-green → bg-olive (the footer field) */
+
+  /* Accents */
+  --color-accent: #b85c3a;         /* terracotta */
+  --color-accent-hover: #a04e30;
+  --color-sage: #7e8a6f;           /* secondary accent (spare) */
+  --color-success: #5a8a5a;        /* license / status green */
+
+  /* Text ladder — warm-tinted, never neutral gray */
+  --color-ink: #040404;            /* headings + primary text */
+  --color-text: #292826;           /* body default */
+  --color-muted: #22201e;          /* secondary text */
+  --color-faint: #756855;          /* tertiary / captions */
+  --color-cream-soft: #cabfa9;     /* text on dark surfaces */
+
+  /* Hairline rules */
+  --color-line: #d8d4ce;
+
+  /* CSS grain — OFF; Paper Shaders (components/PaperGrain.tsx) is the texture now. Raise > 0 to use the CSS one instead. */
+  --grain: 0;
+
+  /* Typography — swap the loaded font in app/layout.tsx */
   --font-display: var(--font-cormorant);
   --font-body: var(--font-dm-sans);
+  --font-mono: var(--font-plex-mono);
+
+  /* Animations — used by ported components (components/ui/*) */
+  --animate-marquee: marquee var(--duration, 40s) linear infinite;
+  --animate-marquee-vertical: marquee-vertical var(--duration, 40s) linear infinite;
+}
+
+/* Marquee keyframes (referenced by --animate-marquee*). The child inherits
+   --gap from its parent, so the loop stays seamless at any gap. */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-100% - var(--gap, 1rem))); }
+}
+@keyframes marquee-vertical {
+  from { transform: translateY(0); }
+  to { transform: translateY(calc(-100% - var(--gap, 1rem))); }
 }
 
 * {
@@ -22,16 +74,34 @@
 
 html {
   scroll-behavior: smooth;
+  /* Feature panels (components/resonator/StickyFeatures) carry scroll-snap-align;
+     proximity snaps each into place on rest without yanking non-snap sections. */
+  scroll-snap-type: y proximity;
 }
 
 body {
   background-color: var(--color-cream);
-  color: var(--color-ink);
+  color: var(--color-text);
   font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display), Georgia, serif;
+  color: var(--color-ink);
+}
+
+/* Warm paper grain — global analog texture overlay. Tune --grain above (0 = off). */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: var(--grain);
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PScwIDAgMjU2IDI1NicgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48ZmlsdGVyIGlkPSdwZ3InPjxmZVR1cmJ1bGVuY2UgdHlwZT0nZnJhY3RhbE5vaXNlJyBiYXNlRnJlcXVlbmN5PScwLjgnIG51bU9jdGF2ZXM9JzMnIHN0aXRjaFRpbGVzPSdzdGl0Y2gnLz48ZmVDb2xvck1hdHJpeCB0eXBlPSdzYXR1cmF0ZScgdmFsdWVzPScwJy8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsdGVyPSd1cmwoI3BnciknLz48L3N2Zz4=");
+  background-size: 240px 240px;
 }

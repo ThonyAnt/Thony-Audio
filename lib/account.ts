@@ -1,8 +1,10 @@
 // ─────────────────────────────────────────────────────────────────────────────
-//  Account + license data layer — Supabase (magic-link auth + RLS-protected reads).
+//  Account + license data layer — Supabase (email+password auth + RLS-protected reads).
 //
-//  Auth: passwordless magic link (signInWithOtp). The link returns the user to
-//  /account, where the Supabase client establishes the session automatically.
+//  Auth: email + password (signInWithPassword / signUp) with a passwordless
+//  magic-link fallback (signInWithOtp). Sign-up confirmation links and magic links
+//  both route through our own branded /auth/confirm page (token-hash flow) instead
+//  of supabase.co — see supabase/README.md for the email templates to paste in.
 //  Licenses: read from the `licenses` table; RLS limits each user to rows whose
 //  email matches their signed-in email (see installer/licensing SQL / the README).
 // ─────────────────────────────────────────────────────────────────────────────
@@ -55,12 +57,50 @@ export function onAuthChange(cb: (user: AccountUser | null) => void): () => void
   return () => data.subscription.unsubscribe()
 }
 
-/** Email the user a magic sign-in link that returns them to /account. */
+/** Sign in with email + password. Throws on invalid credentials or an unconfirmed email. */
+export async function signInWithPassword(email: string, password: string): Promise<void> {
+  const { error } = await supabase.auth.signInWithPassword({ email, password })
+  if (error) throw error
+}
+
+/**
+ * Create an account with email + password. Supabase emails a confirmation link that
+ * lands on our branded /auth/confirm page. Returns `needsConfirmation: true` when email
+ * confirmation is enabled (no session yet until the link is opened) — the expected case.
+ */
+export async function signUpWithPassword(
+  email: string,
+  password: string,
+): Promise<{ needsConfirmation: boolean }> {
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: { emailRedirectTo: `${window.location.origin}/auth/confirm` },
+  })
+  if (error) throw error
+  return { needsConfirmation: !data.session }
+}
+
+/** Fallback: email a one-time passwordless sign-in link (also lands on /auth/confirm). */
 export async function sendSignInLink(email: string): Promise<void> {
   const { error } = await supabase.auth.signInWithOtp({
     email,
-    options: { emailRedirectTo: `${window.location.origin}/account` },
+    options: { emailRedirectTo: `${window.location.origin}/auth/confirm` },
   })
+  if (error) throw error
+}
+
+/** Email a branded password-reset link that lands on /auth/reset to choose a new password. */
+export async function sendPasswordReset(email: string): Promise<void> {
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${window.location.origin}/auth/reset`,
+  })
+  if (error) throw error
+}
+
+/** Set a new password for the current (recovery) session — used by the /auth/reset page. */
+export async function updatePassword(password: string): Promise<void> {
+  const { error } = await supabase.auth.updateUser({ password })
   if (error) throw error
 }
 

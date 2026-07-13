@@ -1,0 +1,56 @@
+# Supabase project config — the parts we want in version control.
+# Apply to the hosted project with:  supabase config push
+# (it shows a diff and asks for confirmation before changing anything remote)
+#
+# ⚠ config push fills UNDECLARED fields with CLI defaults — every remote setting we care
+# about must be pinned here explicitly or a push can silently flip it (this nearly turned
+# off email confirmations). If a future diff shows a change you didn't intend, pin the
+# remote value here instead of confirming.
+project_id = "thony-audio"
+
+[auth]
+site_url = "https://thony.audio"
+# allowlist consumed by {{ .RedirectTo }} / redirect_to in the email links — dev + prod at once
+additional_redirect_urls = [
+  "https://thony.audio/auth/confirm",
+  "https://thony.audio/auth/reset",
+  "http://localhost:3000/auth/confirm",
+  "http://localhost:3000/auth/reset",
+]
+
+# ── pinned to match the hosted project (CLI defaults differ — see warning above) ──
+[auth.email]
+enable_signup = true
+enable_confirmations = true   # sign-up requires clicking the email link
+double_confirm_changes = true
+max_frequency = "1m0s"
+otp_length = 8
+
+[auth.mfa.totp]
+enroll_enabled = true
+verify_enabled = true
+
+[storage.vector]
+enabled = false   # pinned: CLI default is true, but vector buckets are paid-tier (push 402s)
+
+# ── branded auth emails — synced from the repo instead of pasted into the dashboard ──
+# BLOCKED until custom SMTP is configured: Supabase free tier rejects template changes on
+# the default email provider ("Email template modification is not available…").
+# → After SMTP is set up (README §3), UNCOMMENT these and run `supabase config push`.
+# Keys map to dashboard templates: confirmation = Confirm signup · magic_link = Magic Link ·
+# recovery = Reset Password. content_path is relative to the repo root.
+#
+# [auth.email.template.confirmation]
+# subject = "Confirm your Thony Audio account"
+# content_path = "./supabase/templates/confirm-signup.html"
+#
+# [auth.email.template.magic_link]
+# subject = "Your Thony Audio sign-in link"
+# content_path = "./supabase/templates/magic-link.html"
+#
+# [auth.email.template.recovery]
+# subject = "Reset your Thony Audio password"
+# content_path = "./supabase/templates/reset-password.html"
+
+# Custom SMTP could also live here ([auth.email.smtp] + env(SMTP_PASS)), but credentials are
+# involved — we set SMTP in the dashboard instead. See supabase/README.md §3.

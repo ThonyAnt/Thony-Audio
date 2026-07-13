@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal Hub – iFeature</title>
+  <meta property="og:title" content="Legal Hub – iFeature">
+  <meta property="og:description" content="Next-Generation Audio Plugins">
+  <meta property="og:image" content="https://ifeature.world/Signal-Suite_Bundle.png">
+  <meta property="og:url" content="https://ifeature.world/legalhub.html">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="180x180.png">
+  <meta name="theme-color" content="#FF4800">
+  <script src="plugins-submenu.js"></script>
+  <script src="active-page.js"></script>
+  <link href="fonts/space-mono.css" rel="stylesheet">
+  <style>
+    ::-webkit-scrollbar {
+      display: none;
+    }
+
+    html {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    body {
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: 'Space Mono', monospace;
+      text-align: center;
+      padding-bottom: 160px;
+    }
+
+    header {
+      padding: 22px 0 11px 0;
+    }
+
+    header img {
+      width: 331px;
+      max-width: 90%;
+      height: auto;
+    }
+
+    .menu-wrapper {
+      margin: 15px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      font-size: 13px;
+      font-weight: 400;
+      flex-wrap: nowrap;
+    }
+
+    .menu-wrapper a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      cursor: pointer;
+    }
+
+    .menu-wrapper a:hover {
+      color: #FF4800;
+    }
+
+    .menu-wrapper a.active {
+      color: #FF4800;
+    }
+
+    .menu-wrapper .star {
+      color: #FF4800;
+      font-size: 13px;
+      pointer-events: none;
+    }
+
+    .content {
+      max-width: 900px;
+      margin: 40px auto;
+      text-align: left;
+      padding: 0 20px;
+    }
+
+    h1,
+    h2 {
+      color: #FF4800;
+    }
+
+    a {
+      color: #FF4800;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .ticker-container {
+      width: 100%;
+      overflow: hidden;
+      background-color: #ff4800;
+      white-space: nowrap;
+      height: 30px;
+      display: flex;
+      align-items: center;
+    }
+
+    .ticker {
+      display: flex;
+      width: calc(2000px);
+      animation: ticker-loop 20s linear infinite;
+    }
+
+    .ticker-content {
+      flex: 0 0 50%;
+      font-size: 14px;
+      color: black;
+    }
+
+    @keyframes ticker-loop {
+      0% {
+        transform: translateX(0%);
+      }
+
+      100% {
+        transform: translateX(-40%);
+      }
+    }
+
+    .static-bottom-wrapper {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      z-index: 9998;
+    }
+
+    footer {
+      width: 100%;
+      background: #000;
+      color: white;
+      font-size: 12px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 20px 30px;
+      box-sizing: border-box;
+      border-top: 1px solid #222;
+    }
+
+    .footer-left {
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      justify-self: start;
+    }
+
+    .footer-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      justify-self: center;
+    }
+
+    .footer-center a img {
+      width: 18px;
+      height: 18px;
+      filter: brightness(0) invert(1);
+      transition: filter 0.3s ease;
+    }
+
+    .footer-center a:hover img {
+      filter: brightness(0) saturate(100%) invert(44%) sepia(82%) saturate(5000%) hue-rotate(5deg) brightness(102%) contrast(104%);
+    }
+
+    .footer-right {
+      justify-self: end;
+    }
+
+    .footer-right a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s ease;
+      letter-spacing: 1px;
+    }
+
+    .footer-right a:hover {
+      color: #FF4800;
+    }
+
+    .copyright-icon {
+      width: 9px;
+      height: 9px;
+      filter: brightness(0) invert(1);
+    }
+
+    @media (max-width: 768px) {
+      .moonbase-icons {
+        right: 10px !important;
+        top: 10px !important;
+        gap: 12px;
+      }
+
+      .moonbase-icons img {
+        width: 24px;
+        height: 24px;
+      }
+
+      header img {
+        width: 250px;
+      }
+
+      .menu-wrapper {
+        margin: 15px auto 30px auto;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .menu-wrapper a {
+        font-size: 11px;
+      }
+
+      .submenu {
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      footer {
+        grid-template-columns: 1fr;
+        padding: 20px 15px;
+        text-align: center;
+        gap: 10px;
+      }
+
+      .footer-left,
+      .footer-center,
+      .footer-right {
+        justify-self: center;
+      }
+    }
+
+    .submenu {
+      display: none;
+      flex-direction: column;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+      animation: slideDown 0.3s ease forwards;
+    }
+
+    .submenu a {
+      font-size: 14px;
+      color: #FF4800;
+      text-decoration: none;
+    }
+
+    .submenu a:hover {
+      color: #fff;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header data-shared-nav>
+    <a href="index.html"><img src="Logo.svg" alt="iFeature Logo" class="logo" /></a>
+
+    <div class="menu-wrapper">
+      <a id="pluginLink" onclick="toggleSubMenu()">PLUGINS</a>
+      <span class="star">★</span>
+      <a href="download.html">DOWNLOAD</a>
+      <span class="star">★</span>
+      <a href="shop.html">SHOP</a>
+      <span class="star">★</span>
+      <a href="support.html">SUPPORT</a>
+    </div>
+    <div id="plugins-submenu" class="submenu"></div>
+  </header>
+
+  <div class="content">
+    <h1>Legal Hub</h1>
+
+    <h2>Imprint</h2>
+    <p>
+      Information according to § 5 TMG (German Telemedia Act)<br><br>
+      Jan Contopidis<br>
+      Moellnerstrasse 6<br>
+      21516 Woltersdorf<br>
+      Germany<br><br>
+      Phone: +49 15121262000<br>
+      E-Mail: <a href="https://ifeature.world/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="85eae3e3ece6ece4e9ece3e0e4f1f0f7e0c5e2e8e4ece9abe6eae8">[email&#160;protected]</a><br><br>
+      Responsible for the content according to § 55 Abs. 2 RStV: Jan Contopidis
+    </p>
+
+    <h2>VAT ID</h2>
+    <p>
+      VAT identification number according to §27 a of the German VAT Act:
+      <em>pending / currently not available</em>
+    </p>
+
+    <h2>Privacy Policy (GDPR)</h2>
+    <p>
+      We appreciate your interest in our website. Protecting your personal data
+      is important to us. The following provides detailed information on how we
+      handle your data in compliance with the GDPR.
+    </p>
+    <p>
+      <strong>1. Controller</strong><br>
+      Jan Contopidis<br>
+      Moellnerstrasse 6<br>
+      21516 Woltersdorf<br>
+      Germany<br>
+      E-Mail: <a href="https://ifeature.world/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7a151c1c1319131b16131c1f1b0e0f081f3a1d171b131654191517">[email&#160;protected]</a>
+    </p>
+    <p>
+      <strong>2. Collection and Processing of Personal Data</strong><br>
+      When visiting our website, information such as browser type, operating
+      system, IP address, date, and time of access is automatically collected.
+      This data is used solely to ensure the smooth operation of the site.
+    </p>
+    <p>
+      <strong>3. Use of Third-Party Services</strong><br>
+      Our website integrates services from the following providers:
+    <ul>
+      <li>Cloudflare Pages (Hosting & Security)</li>
+      <li>Moonbase.sh (Storefront & Shopping Cart)</li>
+      <li>Patreon (Memberships & Payments)</li>
+      <li>Spotify, YouTube, SoundCloud (Music Streaming)</li>
+      <li>Instagram, X (Twitter), Discord (Social Media Integration)</li>
+    </ul>
+    </p>
+    <p>
+      <strong>4. Legal Basis</strong><br>
+      Data processing is carried out pursuant to Art. 6 (1) GDPR:
+    <ul>
+      <li>a Based on your consent</li>
+      <li>b For the performance of a contract</li>
+      <li>f Due to legitimate interests</li>
+    </ul>
+    </p>
+    <p>
+      <strong>5. Cookies</strong><br>
+      Our website uses cookies for essential functions such as login and cart.
+      You may disable cookies in your browser settings.
+    </p>
+    <p>
+      <strong>6. Your Rights</strong><br>
+      You have the following rights at any time:
+    <ul>
+      <li>Access to your stored data</li>
+      <li>Correction of incorrect data</li>
+      <li>Deletion of your data</li>
+      <li>Restriction of processing</li>
+      <li>Objection to processing</li>
+      <li>Data portability</li>
+    </ul>
+    To exercise these rights, please contact: <a href="https://ifeature.world/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b6d9d0d0dfd5dfd7dadfd0d3d7c2c3c4d3f6d1dbd7dfda98d5d9db">[email&#160;protected]</a>
+    </p>
+
+    <h2>Copyright Notice</h2>
+    <p>
+      All content on this site, including texts, images, logos, music, videos,
+      and software, is protected by copyright held by Jan Contopidis unless
+      otherwise indicated. Any use requires prior written permission.
+    </p>
+
+    <h2>Disclaimer</h2>
+    <p>
+      Despite careful content control, we assume no liability for external links.
+      The operators of linked pages are solely responsible for their content.
+    </p>
+
+    <h2>Online Dispute Resolution</h2>
+    <p>
+      The European Commission provides a platform for Online Dispute Resolution (ODR):
+      <a href="https://ec.europa.eu/consumers/odr/" target="_blank">
+        https://ec.europa.eu/consumers/odr/
+      </a>
+    </p>
+  </div>
+
+  <div class="static-bottom-wrapper">
+    <a href="anomaly.html" class="ticker-container" style="text-decoration: none; cursor: pointer; color: inherit; display: flex;">
+      <div class="ticker">
+        <div class="ticker-content">
+          NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN - NEW PLUGIN
+          - NEW
+          PLUGIN - NEW PLUGIN -
+        </div>
+      </div>
+    </a>
+    <footer>
+      <div class="footer-left"><img src="Copyright.svg" alt="©" class="copyright-icon" />IFEATURE 2025</div>
+      <div class="footer-center">
+        <a href="https://www.instagram.com/ifeaturemusic" target="_blank"><img src="Instagram.svg"
+            alt="Instagram" /></a>
+        <a href="https://x.com/iFeaturemusic" target="_blank"><img src="X.svg" alt="X" /></a>
+        <a href="https://patreon.com/iFeature" target="_blank"><img src="Patreon.svg" alt="Patreon" /></a>
+        <a href="https://open.spotify.com/artist/1NkeIgGpORkhxCUluCnnFT" target="_blank"><img src="Spotify.svg"
+            alt="Spotify" /></a>
+        <a href="https://youtube.com/ifeature" target="_blank"><img src="Youtube.svg" alt="YouTube" /></a>
+        <a href="https://discord.gg/XxMf9s39EX" target="_blank"><img src="Discord.svg" alt="Discord" /></a>
+      </div>
+      <div class="footer-right">
+        <a href="legalhub.html">LEGAL HUB</a>
+      </div>
+    </footer>
+  </div>
+  <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="shared-components.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "xynth-static",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8099", "--directory", "C:/Learning/Coding/Thony Audio/reference-teardowns/xynth-chroma"],
+      "port": 8099
+    }
+  ]
+}

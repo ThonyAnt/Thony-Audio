@@ -1,4 +1,5 @@
 import FadeIn from "@/components/FadeIn"
+import Section from "@/components/Section"
 
 const extras = [
   {
@@ -26,29 +27,25 @@ const extras = [
 
 export default function ExtrasSection() {
   return (
-    <section className="px-6 py-28 bg-[#edeae4]">
-      <div className="max-w-6xl mx-auto">
-        <FadeIn>
-          <p className="text-xs tracking-[0.3em] uppercase text-[#8a837c] mb-4">what else?</p>
-          <h2 className="font-display text-5xl lg:text-6xl text-[#1a1a1a] leading-tight">
-            built to last
-          </h2>
-        </FadeIn>
-
-        <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-6">
-          {extras.map((item, i) => (
-            <FadeIn key={item.title} delay={i * 0.1}>
-              <div className="bg-[#f5f2ed] rounded-2xl p-8 h-full">
-                <div className="w-10 h-10 rounded-xl bg-[#edeae4] flex items-center justify-center text-[#b85c3a] mb-6">
-                  {item.icon}
-                </div>
-                <h3 className="font-display text-2xl text-[#1a1a1a] mb-3">{item.title}</h3>
-                <p className="text-[#8a837c] leading-relaxed text-sm">{item.body}</p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
+    <Section>
+      <div className="text-center mb-12">
+        <p className="text-xs tracking-[0.08em] uppercase font-mono text-muted mb-4">what else?</p>
+        <h2 className="font-display text-4xl sm:text-5xl text-ink">built to last</h2>
       </div>
-    </section>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {extras.map((item, i) => (
+          <FadeIn key={item.title} delay={i * 0.1}>
+            <div className="bg-surface rounded border border-ink/15 p-8 h-full">
+              <div className="w-10 h-10 rounded bg-surface flex items-center justify-center text-accent mb-6">
+                {item.icon}
+              </div>
+              <h3 className="font-display text-2xl text-ink mb-3">{item.title}</h3>
+              <p className="text-muted leading-relaxed text-sm">{item.body}</p>
+            </div>
+          </FadeIn>
+        ))}
+      </div>
+    </Section>
   )
 }
