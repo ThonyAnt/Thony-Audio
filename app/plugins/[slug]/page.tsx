@@ -35,9 +35,31 @@ export default async function ProductPage({ params }: Props) {
   const product = getProductBySlug(slug)
   if (!product) notFound()
 
+  // Product structured data — lets Google show name/price/availability rich results
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: product.name,
+    description: product.description,
+    applicationCategory: "MultimediaApplication",
+    operatingSystem: "macOS, Windows",
+    url: `https://thony.audio/plugins/${product.slug}/`,
+    offers: {
+      "@type": "Offer",
+      price: product.price,
+      priceCurrency: "USD",
+      availability: product.available ? "https://schema.org/InStock" : "https://schema.org/PreOrder",
+    },
+    publisher: { "@type": "Organization", name: "thony audio", url: "https://thony.audio" },
+  }
+  const jsonLdScript = (
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+  )
+
   if (slug === "resonator") {
     return (
       <ProductTheme accent={product.accent}>
+        {jsonLdScript}
         <HeroSection />
         <StickyFeatures />
         <AudioSection demos={product.demos} />
@@ -51,6 +73,7 @@ export default async function ProductPage({ params }: Props) {
 
   const content = (
     <div className="pt-28 pb-24 px-6 max-w-3xl mx-auto">
+      {jsonLdScript}
       <h1 className="font-display text-7xl text-ink">{product.name}</h1>
       <p className="mt-4 font-display text-2xl italic text-accent">{product.tagline}</p>
       <p className="mt-6 text-muted leading-relaxed">{product.description}</p>

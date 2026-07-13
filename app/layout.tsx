@@ -27,8 +27,29 @@ const mono = Space_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "thony audio",
-  description: "audio plugins with character",
+  metadataBase: new URL("https://thony.audio"),
+  title: {
+    default: "thony audio — audio plugins with character",
+    template: "%s — thony audio",
+  },
+  description:
+    "hand-built audio plugins: Chorale, a per-note convolution reverb that resonates in key with your music, and Resonator, a free 7-voice harmonic resonator. VST3 · AU · mac + windows.",
+  keywords: ["audio plugins", "VST3", "AU", "convolution reverb", "Chorale plugin", "Resonator plugin", "thony audio"],
+  openGraph: {
+    type: "website",
+    url: "https://thony.audio",
+    siteName: "thony audio",
+    title: "thony audio — audio plugins with character",
+    description: "hand-built audio plugins: Chorale, a per-note convolution reverb, and Resonator, a free harmonic resonator.",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "thony audio — Chorale plugin" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "thony audio — audio plugins with character",
+    description: "hand-built audio plugins: Chorale, a per-note convolution reverb, and Resonator, a free harmonic resonator.",
+    images: ["/og.png"],
+  },
+  icons: { icon: "/logo.svg" },
 }
 
 export default function RootLayout({
