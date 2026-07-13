@@ -60,7 +60,7 @@ export default function BentoShowcase() {
 
   return (
     <motion.div
-      className="h-screen w-full flex flex-col overflow-hidden border-2 border-dark"
+      className="h-dvh w-full flex flex-col overflow-hidden border-2 border-dark"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.165, 0.84, 0.44, 1] }}
@@ -76,26 +76,26 @@ export default function BentoShowcase() {
       >
         <Link
           href="/"
-          className="flex items-center px-8 py-8 basis-1/3 font-display text-xl text-ink tracking-wide"
+          className="flex items-center px-4 py-5 shrink-0 md:px-8 md:py-8 md:basis-1/3 font-display text-lg md:text-xl text-ink tracking-wide whitespace-nowrap"
         >
           thony audio
         </Link>
         <Link
           href="/plugins"
-          className="flex flex-1 items-center justify-center px-6 py-8 border-l-2 border-dark text-sm tracking-wide text-muted hover:text-ink transition-colors"
+          className="flex flex-1 items-center justify-center px-2 py-5 min-w-0 md:px-6 md:py-8 border-l-2 border-dark text-xs md:text-sm tracking-wide text-muted hover:text-ink transition-colors"
         >
           plugins
         </Link>
         <Link
           href="/support"
-          className="flex flex-1 items-center justify-center px-6 py-8 border-l-2 border-dark text-sm tracking-wide text-muted hover:text-ink transition-colors"
+          className="flex flex-1 items-center justify-center px-2 py-5 min-w-0 md:px-6 md:py-8 border-l-2 border-dark text-xs md:text-sm tracking-wide text-muted hover:text-ink transition-colors"
         >
           support
         </Link>
         <Link
           href="/account"
           aria-label="account"
-          className="flex items-center justify-center px-8 py-8 border-l-2 border-dark text-muted hover:text-ink transition-colors"
+          className="flex items-center justify-center px-4 py-5 md:px-8 md:py-8 border-l-2 border-dark text-muted hover:text-ink transition-colors"
         >
           <UserIcon />
         </Link>
@@ -112,14 +112,17 @@ export default function BentoShowcase() {
             animate="center"
             exit="exit"
             transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-            className="absolute inset-0 grid"
-            style={{ gridTemplateColumns: "2fr 1fr", gridTemplateRows: "2.4fr 1fr", ...themeVars }}
+            // phones stack: plugin (all remaining height) / description band / title+arrows row;
+            // md: restores the original 2×2 bento (template must be classes, not inline style,
+            // to be responsive)
+            className="absolute inset-0 grid grid-cols-[minmax(0,3fr)_minmax(0,2fr)] grid-rows-[minmax(0,1fr)_auto_auto] md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] md:grid-rows-[minmax(0,2.4fr)_minmax(0,1fr)]"
+            style={themeVars}
           >
             {/* big plugin shot (top-left). The cell + paper stay put; ONLY the plugin rotates,
                 clipped to the cell (overflow-hidden) so it never protrudes. */}
             <Link
               href={`/plugins/${p.slug}`}
-              className="group relative overflow-hidden bg-cream"
+              className="group relative overflow-hidden bg-cream col-span-2 md:col-span-1"
               aria-label={p.name}
               // links are natively draggable — dragging the 3D unit would otherwise start a
               // browser link-drag (red no-drop cursor) instead of rotating it
@@ -159,16 +162,16 @@ export default function BentoShowcase() {
               )}
             </Link>
 
-            {/* description (top-right) */}
-            <div className="flex flex-col justify-end gap-3 border-l-2 border-dark bg-surface p-8">
-              <p className="font-display italic text-lg text-accent leading-snug lowercase">{p.tagline}</p>
+            {/* description (top-right on desktop; caption band under the plugin on phones) */}
+            <div className="flex flex-col justify-end gap-2 md:gap-3 col-span-2 md:col-span-1 border-t-2 md:border-t-0 md:border-l-2 border-dark bg-surface p-5 md:p-8">
+              <p className="font-display italic text-base md:text-lg text-accent leading-snug lowercase">{p.tagline}</p>
               <p className="font-body text-sm text-muted leading-relaxed lowercase">{p.description}</p>
             </div>
 
             {/* title (bottom-left) on ink */}
-            <div className="flex items-center justify-between border-t-2 border-dark bg-dark px-8 py-6">
-              <h2 className="font-display text-5xl lg:text-6xl font-semibold leading-none lowercase" style={{ color: "var(--color-cream)" }}>{p.name}</h2>
-              <span className="font-display italic text-lg text-cream/70 shrink-0">{priceLabel}</span>
+            <div className="flex items-center justify-between gap-3 border-t-2 border-dark bg-dark px-5 py-5 md:px-8 md:py-6">
+              <h2 className="font-display text-3xl md:text-5xl lg:text-6xl font-semibold leading-none lowercase" style={{ color: "var(--color-cream)" }}>{p.name}</h2>
+              <span className="font-display italic text-base md:text-lg text-cream/70 shrink-0">{priceLabel}</span>
             </div>
 
             {/* arrows (bottom-right) — two equally sized boxes; imagiro-style underline on hover */}
