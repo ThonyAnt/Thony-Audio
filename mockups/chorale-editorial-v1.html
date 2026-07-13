@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CHORALE — editorial product page · high-fidelity mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&display=swap" rel="stylesheet" />
+<style>
+  /* ════════════════════════════════════════════════════════════════
+     🎨  CHORALE EDITORIAL — palette (graded into one cool world)
+     ════════════════════════════════════════════════════════════════ */
+  :root{
+    /* dark spreads */
+    --ink:#0e0f14;            /* page ink — near-black, blue-leaning */
+    --ink-2:#13141c;          /* review spread, violet-tinted */
+    --mist:#dfe4ee;           /* type on dark — cold porcelain */
+    --mist-dim:#8b93a6;       /* secondary on dark */
+    /* light spreads */
+    --paper:#e8ebf1;          /* cool metallic paper (chorale surface) */
+    --paper-2:#dde1ea;        /* slightly deeper paper */
+    --ink-on-paper:#16171d;
+    --muted:#5d6373;
+    --faint:#9aa1b1;
+    /* accent */
+    --violet:#7c5cff; --violet-soft:#a48fff; --violet-deep:#4d36b8;
+    /* type */
+    --display:'Bodoni Moda',Didot,'Playfair Display',serif;
+    --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text',system-ui,sans-serif;
+    /* grain: inline SVG turbulence, tiled */
+    --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--ink);color:var(--mist);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  body::after{content:"";position:fixed;inset:0;background:var(--grain);opacity:.07;pointer-events:none;z-index:99;mix-blend-mode:overlay}
+  section{position:relative;overflow:hidden}
+  .pageno{position:absolute;top:30px;right:38px;font:italic 500 17px var(--display);color:var(--mist-dim);z-index:6}
+  .light .pageno{color:var(--muted)}
+  .label{font:600 10px/1 var(--sans);letter-spacing:.34em;text-transform:uppercase}
+
+  /* stamps — thin double-ring ink seals */
+  .stamp{border-radius:50%;border:1.5px solid currentColor;display:flex;flex-direction:column;gap:2px;
+         align-items:center;justify-content:center;position:relative;flex:none}
+  .stamp::after{content:"";position:absolute;inset:6px;border-radius:50%;border:1px solid currentColor;opacity:.9}
+  .stamp b{font:500 30px var(--display);letter-spacing:.02em}
+  .stamp i{font:italic 8.5px var(--display);letter-spacing:.22em;text-transform:uppercase;opacity:.75}
+
+  /* ═══ 1/6 · COVER ═══════════════════════════════════════════════ */
+  .cover{min-height:960px;background:
+      radial-gradient(1100px 700px at 78% 8%, rgba(124,92,255,.20), transparent 62%),
+      radial-gradient(900px 900px at 12% 100%, rgba(77,54,184,.16), transparent 60%),
+      linear-gradient(178deg,#101219 0%, #0d0e13 55%, #0a0b10 100%)}
+  .cover .masthead{display:flex;align-items:baseline;justify-content:space-between;padding:26px 38px 0;position:relative;z-index:5}
+  .cover .masthead .brand{font:500 20px var(--display);letter-spacing:.04em;color:var(--mist)}
+  .cover .masthead .brand small{display:block;font:600 8px var(--sans);letter-spacing:.4em;color:var(--mist-dim);margin-top:4px;text-transform:uppercase}
+  .cover .masthead .fmt{font:600 10px var(--sans);letter-spacing:.3em;color:var(--mist-dim);text-transform:uppercase;padding-right:76px}
+  .cover .stage{position:relative;min-height:840px}
+  .cover .unitwrap{position:absolute;left:4%;top:64px;width:46%;perspective:1600px;z-index:2}
+  .cover .unit{width:100%;transform:rotateY(21deg) rotateX(2.5deg) rotateZ(-.6deg);
+      box-shadow:34px 60px 90px -20px rgba(0,0,0,.75), 90px 30px 160px -30px rgba(0,0,0,.5), 0 0 120px rgba(124,92,255,.10);
+      display:block}
+  .cover .audition{position:absolute;left:5%;top:26px;font:italic 500 13px var(--display);color:var(--mist-dim);letter-spacing:.12em;z-index:2}
+  .cover .meta{position:absolute;right:38px;top:96px;width:44%;z-index:3}
+  .cover .kicker{font:600 11px var(--sans);letter-spacing:.32em;color:var(--violet-soft);text-transform:uppercase}
+  .cover .kicker::after{content:"  ————";letter-spacing:0;color:var(--violet-deep)}
+  .cover h1{font:500 clamp(90px,10.5vw,150px)/0.92 var(--display);color:var(--mist);letter-spacing:.015em;
+            margin:18px 0 34px;margin-right:-60px}   /* runs off the right edge — cropped */
+  .cover .stamps{display:flex;gap:22px;color:var(--mist);margin-bottom:40px}
+  .cover .stamps .stamp{width:104px;height:104px}
+  .cover .tagline{font:italic 500 21px/1.5 var(--display);color:var(--violet-soft);max-width:340px}
+  /* the landscape word — giant, ghosted, cropped by both edges, letters shearing baselines */
+  .bigword{position:absolute;left:-30px;right:-30px;bottom:-16px;z-index:1;
+           font:500 290px/0.74 var(--display);letter-spacing:-.01em;color:transparent;
+           white-space:nowrap;user-select:none;pointer-events:none}
+  .bigword span{color:#c9d2e426;display:inline-block}
+  .bigword .drop{transform:translateY(58px)}        /* the MAGIC/IAN baseline break */
+  .bigword .over{margin-left:-56px}                 /* letters overlapping letters */
+
+  /* ═══ 2/6 · DESIGNER'S NOTE ═════════════════════════════════════ */
+  .note{min-height:820px;background:linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%);color:var(--ink-on-paper);
+        padding:104px 56px 80px;border-top:2px solid #05050a}
+  .note .cols{display:grid;grid-template-columns:1.45fr .9fr;gap:70px;position:relative;z-index:2}
+  .note .label{color:var(--muted)}
+  .note h2{font:500 44px var(--display);margin:14px 0 30px;letter-spacing:.01em}
+  .note .lead{font:400 19px/1.85 var(--display);max-width:540px}
+  .note .lead::first-letter{font-size:64px;float:left;line-height:.8;padding:6px 10px 0 0;color:var(--violet)}
+  .note .echo{font:12.5px/2 var(--sans);color:var(--faint);max-width:470px;margin-top:30px;letter-spacing:.02em;text-transform:uppercase}
+  .note .ghost{position:absolute;left:-60px;bottom:-190px;font:italic 500 240px var(--display);color:#16171d08;
+               white-space:nowrap;pointer-events:none;z-index:1}
+  .note .side{border-left:1px solid #16171d33;padding-left:44px;display:flex;flex-direction:column;gap:30px}
+  .note .qrbox{display:flex;gap:18px;align-items:flex-start}
+  .note .qr{width:112px;height:112px;flex:none;background:#fff;padding:8px;box-shadow:0 1px 0 #16171d22}
+  .note .qr svg{width:100%;height:100%;display:block}
+  .note .platform b{display:block;font:600 13px var(--sans);letter-spacing:.14em;margin-bottom:5px}
+  .note .platform span{font:12px/1.8 var(--sans);color:var(--muted);word-break:break-all}
+  .note .creditrows{font:11px/2.3 var(--sans);color:var(--muted);letter-spacing:.06em;border-top:1px solid #16171d22;padding-top:18px}
+  .note .creditrows em{font:italic 13px var(--display);color:var(--ink-on-paper)}
+
+  /* ═══ 3/6 · IN SESSION ══════════════════════════════════════════ */
+  .review{min-height:760px;background:
+      radial-gradient(900px 500px at 85% 90%, rgba(124,92,255,.13), transparent 60%),
+      linear-gradient(180deg,#12131b,#0f1017);color:var(--mist);padding:100px 56px 80px}
+  .review .head{display:flex;align-items:baseline;gap:18px;border-bottom:1px solid #dfe4ee2e;padding-bottom:16px}
+  .review .head h2{font:800 22px var(--sans);letter-spacing:.1em}
+  .review .head .label{color:var(--mist-dim)}
+  .review .body{display:grid;grid-template-columns:1fr 150px;gap:50px;margin-top:64px;align-items:start}
+  .review blockquote{font:italic 500 40px/1.5 var(--display);max-width:860px;color:var(--mist)}
+  .review blockquote em{color:var(--violet-soft);font-style:italic}
+  .review .mark{position:absolute;left:28px;top:120px;font:500 300px/1 var(--display);color:#dfe4ee08;pointer-events:none}
+  .review .who{margin-top:48px;font:600 13px var(--sans);letter-spacing:.24em;text-transform:uppercase}
+  .review .who::after{content:" —"}
+  .review .creds{font:12.5px/2.1 var(--sans);color:var(--mist-dim);margin-top:10px}
+  .review .scorewrap{display:flex;flex-direction:column;gap:20px;align-items:center;padding-top:8px}
+  .review .stamp{width:118px;height:118px;color:var(--mist)}
+  .review .stamp b{font-size:38px}
+
+  /* ═══ 4/6 · FEATURES ════════════════════════════════════════════ */
+  .features{background:var(--paper);color:var(--ink-on-paper);padding:100px 56px 90px}
+  .features .head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid #101014;padding-bottom:16px}
+  .features .head h2{font:500 40px var(--display)}
+  .features .row{display:grid;grid-template-columns:120px 1fr 1.15fr;gap:44px;padding:56px 0;border-bottom:1px solid #16171d2b;align-items:center}
+  .features .row:last-of-type{border-bottom:none}
+  .features .no{font:italic 500 34px var(--display);color:var(--violet)}
+  .features h3{font:500 30px var(--display);margin-bottom:14px;letter-spacing:.01em}
+  .features p{font:13.5px/1.9 var(--sans);color:var(--muted);max-width:400px}
+  .features .shot{position:relative;height:230px;overflow:hidden;
+                  background:#0d0e13 url("../public/assets/products/chorale/chorale-3d-bake.png") no-repeat;
+                  box-shadow:0 18px 42px -18px rgba(10,12,24,.55)}
+  .features .shot figcaption{position:absolute;left:0;bottom:0;right:0;padding:8px 14px;font:italic 12px var(--display);
+                  color:var(--mist);background:linear-gradient(transparent,rgba(10,11,16,.8));letter-spacing:.08em}
+  /* crops of the faceplate bake — size/position tuned per region of the design */
+  .features .shot.s-screen{background-size:200% auto;background-position:47% 37%}   /* IR screen */
+  .features .shot.s-knobs {background-size:240% auto;background-position:47% 77%}   /* 4 Nest knobs */
+  .features .shot.s-keys  {background-size:260% auto;background-position:42% 100%}  /* keyboard */
+
+  /* ═══ 5/6 · INFOS ═══════════════════════════════════════════════ */
+  .infos{background:linear-gradient(180deg,#0b0c11,#0e0f14);color:var(--mist);padding:96px 56px 70px}
+  .infos .label{color:var(--mist-dim)}
+  .infos h2{font:500 54px var(--display);margin:10px 0 52px}
+  .infos .row{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid #dfe4ee24;padding:17px 6px;font:14px var(--sans)}
+  .infos .row b{font:600 10.5px var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--mist-dim)}
+  .infos .row span{font:italic 500 16px var(--display);letter-spacing:.03em}
+  .infos .bottom{display:flex;justify-content:space-between;align-items:flex-end;margin-top:64px;gap:40px}
+  .infos .demos{display:flex;gap:16px;flex:1}
+  .infos .demo{flex:1;height:62px;border:1px solid #dfe4ee36;display:flex;align-items:center;gap:12px;padding:0 20px;
+               font:italic 500 15px var(--display);color:var(--mist);letter-spacing:.04em}
+  .infos .demo::before{content:"▶";font-size:10px;color:var(--violet-soft)}
+  .infos .catalog{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+  .infos .barcode{width:150px;height:44px;background:repeating-linear-gradient(90deg,
+      var(--mist) 0 2px,transparent 2px 5px,var(--mist) 5px 6px,transparent 6px 11px,
+      var(--mist) 11px 14px,transparent 14px 16px,var(--mist) 16px 17px,transparent 17px 22px)}
+  .infos .catno{font:600 10px var(--sans);letter-spacing:.32em;color:var(--mist-dim)}
+
+  /* ═══ 6/6 · BUY ═════════════════════════════════════════════════ */
+  .buy{min-height:700px;background:
+      radial-gradient(800px 460px at 22% 30%, rgba(124,92,255,.10), transparent 60%),
+      linear-gradient(180deg,var(--paper) 0%,#e2e5ee 100%);
+      color:var(--ink-on-paper);padding:110px 56px 42px;display:flex;flex-direction:column;border-top:2px solid #05050a}
+  .buy .row{display:flex;align-items:center;gap:72px;flex:1}
+  .buy .stamp{width:200px;height:200px;color:var(--ink-on-paper)}
+  .buy .stamp b{font-size:62px}
+  .buy .stamp i{font-size:10px}
+  .buy .cta{display:inline-block;background:var(--violet);color:#fff;font:600 15px var(--sans);letter-spacing:.2em;
+            text-transform:uppercase;padding:24px 62px;box-shadow:0 20px 50px -16px rgba(124,92,255,.55);border:none}
+  .buy .cta:hover{background:var(--violet-deep)}
+  .buy .fine{font:12px/1.9 var(--sans);color:var(--muted);max-width:400px;margin-top:22px}
+  .buy .ghost{position:absolute;right:-70px;bottom:-120px;font:500 260px var(--display);color:#16171d07;pointer-events:none}
+  .buy footer{border-top:2px solid #101014;margin-top:80px;display:flex;justify-content:space-between;
+              padding:18px 6px 0;font:600 10px var(--sans);letter-spacing:.3em;text-transform:uppercase;color:var(--muted)}
+</style>
+</head>
+<body>
+
+<!-- ═══ 1/6 · COVER ═══ -->
+<section class="cover">
+  <div class="pageno">1 / 6</div>
+  <div class="masthead">
+    <div class="brand">thony audio<small>plugin editions</small></div>
+    <div class="fmt">vst3 · au · standalone — mac + win</div>
+  </div>
+  <div class="stage">
+    <div class="audition">now auditioning — conv preset 01 …</div>
+    <div class="unitwrap"><img class="unit" src="../public/assets/products/chorale/chorale-3d-bake.png" alt="chorale unit" /></div>
+    <div class="meta">
+      <div class="kicker">chorale — per-note convolution</div>
+      <h1>CHORALE</h1>
+      <div class="stamps">
+        <div class="stamp"><b>$39</b><i>perpetual</i></div>
+        <div class="stamp"><b style="font-size:19px">12&nbsp;IRs</b><i>pitch classes</i></div>
+      </div>
+      <p class="tagline">a reverb that resonates in key with your music.</p>
+    </div>
+    <div class="bigword"><span>CHOR</span><span class="drop over">ALE</span></div>
+  </div>
+</section>
+
+<!-- ═══ 2/6 · DESIGNER'S NOTE ═══ -->
+<section class="note light">
+  <div class="pageno">2 / 6</div>
+  <div class="cols">
+    <div style="position:relative">
+      <div class="label">designer's note</div>
+      <h2>every note carries its own room.</h2>
+      <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit — sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+      <p class="echo">lorem ipsum dolor sit amet · consectetur adipiscing elit · sed do eiusmod tempor incididunt ut labore et dolore magna aliqua · ut enim ad minim veniam quis nostrud</p>
+      <div class="ghost">per-note</div>
+    </div>
+    <div class="side">
+      <div>
+        <div class="label" style="color:var(--muted);margin-bottom:16px">platform links</div>
+        <div class="qrbox">
+          <div class="qr">
+            <svg viewBox="0 0 29 29" shape-rendering="crispEdges" fill="#16171d">
+              <rect x="0" y="0" width="7" height="7"/><rect x="1" y="1" width="5" height="5" fill="#fff"/><rect x="2" y="2" width="3" height="3"/>
+              <rect x="22" y="0" width="7" height="7"/><rect x="23" y="1" width="5" height="5" fill="#fff"/><rect x="24" y="2" width="3" height="3"/>
+              <rect x="0" y="22" width="7" height="7"/><rect x="1" y="23" width="5" height="5" fill="#fff"/><rect x="2" y="24" width="3" height="3"/>
+              <rect x="9" y="0" width="2" height="2"/><rect x="13" y="1" width="2" height="3"/><rect x="17" y="0" width="2" height="2"/><rect x="10" y="4" width="3" height="2"/>
+              <rect x="16" y="4" width="2" height="2"/><rect x="9" y="8" width="2" height="2"/><rect x="0" y="9" width="2" height="2"/><rect x="4" y="10" width="2" height="2"/>
+              <rect x="7" y="10" width="3" height="2"/><rect x="12" y="9" width="2" height="4"/><rect x="16" y="10" width="4" height="2"/><rect x="22" y="9" width="2" height="2"/>
+              <rect x="26" y="10" width="2" height="3"/><rect x="1" y="14" width="3" height="2"/><rect x="6" y="13" width="2" height="2"/><rect x="10" y="14" width="2" height="2"/>
+              <rect x="14" y="13" width="3" height="3"/><rect x="19" y="14" width="2" height="2"/><rect x="23" y="13" width="3" height="2"/><rect x="27" y="14" width="2" height="2"/>
+              <rect x="0" y="18" width="2" height="2"/><rect x="4" y="17" width="2" height="3"/><rect x="9" y="18" width="3" height="2"/><rect x="13" y="17" width="2" height="2"/>
+              <rect x="17" y="18" width="2" height="2"/><rect x="21" y="17" width="2" height="2"/><rect x="25" y="18" width="2" height="2"/>
+              <rect x="9" y="22" width="2" height="3"/><rect x="13" y="21" width="3" height="2"/><rect x="18" y="22" width="2" height="2"/><rect x="22" y="22" width="2" height="2"/>
+              <rect x="26" y="21" width="2" height="2"/><rect x="10" y="26" width="2" height="2"/><rect x="14" y="25" width="2" height="3"/><rect x="19" y="26" width="3" height="2"/>
+              <rect x="24" y="26" width="2" height="2"/>
+            </svg>
+          </div>
+          <div class="platform">
+            <b>CHORALE — download</b>
+            <span>thony.audio/plugins/chorale<br>manual · preset packs · demo build</span>
+          </div>
+        </div>
+      </div>
+      <div class="creditrows">
+        <em>thony audio</em> · hand-built audio software<br>
+        design + dsp — <em>thony</em><br>
+        convolution engine — <em>per-note, semitone-keyed</em><br>
+        lorem ipsum — <em>dolor sit amet</em>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 3/6 · IN SESSION ═══ -->
+<section class="review">
+  <div class="pageno">3 / 6</div>
+  <div class="mark">”</div>
+  <div class="head"><h2>IN SESSION</h2><span class="label">producer notes · 大师乐评</span></div>
+  <div class="body">
+    <div>
+      <blockquote>“lorem ipsum dolor sit amet, consectetur adipiscing — it is not just a stack of notes and rhythms. <em>like a magician,</em> it uses rooms as colors and outlines a strong sense of the picture.”</blockquote>
+      <div class="who">producer name</div>
+      <div class="creds">
+        lorem ipsum award · best engineered album nomination<br>
+        dolor sit records · signed artist<br>
+        consectetur adipiscing paris · session credits
+      </div>
+    </div>
+    <div class="scorewrap">
+      <div class="stamp"><b>8.7</b><i>sessions</i></div>
+      <div class="stamp" style="width:86px;height:86px"><b style="font-size:13px">NULL</b><i>presets</i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 4/6 · FEATURES ═══ -->
+<section class="features light">
+  <div class="pageno">4 / 6</div>
+  <div class="head"><h2>what it does</h2><span class="label" style="color:var(--muted)">three movements</span></div>
+
+  <div class="row">
+    <div class="no">№ 01</div>
+    <div><h3>per-note impulse responses</h3>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Twelve pitch classes, each with its own room — sed do eiusmod tempor incididunt ut labore, chords bloom into chords of rooms.</p></div>
+    <figure class="shot s-keys"><figcaption>fig. 01 — the per-note keyboard, backlit</figcaption></figure>
+  </div>
+
+  <div class="row">
+    <div class="no">№ 02</div>
+    <div><h3>pitch-track mode</h3>
+      <p>Ut enim ad minim veniam — one impulse response, tuned to follow your midi per-semitone. Quis nostrud exercitation, the anchor decides where home is.</p></div>
+    <figure class="shot s-screen"><figcaption>fig. 02 — the IR screen, fade wedges live</figcaption></figure>
+  </div>
+
+  <div class="row">
+    <div class="no">№ 03</div>
+    <div><h3>sculpt the tail</h3>
+      <p>Duis aute irure dolor in reprehenderit — per-note EQ and ADSR with chain links, master transpose, dry/wet as hardware sends in voluptate velit.</p></div>
+    <figure class="shot s-knobs"><figcaption>fig. 03 — transpose · pre-delay · pitch · gain</figcaption></figure>
+  </div>
+</section>
+
+<!-- ═══ 5/6 · INFOS ═══ -->
+<section class="infos">
+  <div class="pageno">5 / 6</div>
+  <div class="label">infos</div>
+  <h2>the sheet</h2>
+  <div class="row"><b>plugin formats</b><span>VST3 · AU · standalone</span></div>
+  <div class="row"><b>platforms</b><span>macOS 10.15+ · windows 10+</span></div>
+  <div class="row"><b>engine</b><span>per-note convolution · 12 pitch classes</span></div>
+  <div class="row"><b>modes</b><span>poly · track · octave</span></div>
+  <div class="row"><b>license</b><span>royalty-free · per-user · lorem ipsum</span></div>
+  <div class="row" style="border-bottom:1px solid #dfe4ee24"><b>release</b><span>2026 — edition №2</span></div>
+  <div class="bottom">
+    <div class="demos">
+      <div class="demo">demo 1 — keys</div>
+      <div class="demo">demo 2 — guitar</div>
+      <div class="demo">demo 3 — vox</div>
+    </div>
+    <div class="catalog">
+      <div class="barcode"></div>
+      <div class="catno">TA · CH · 002 · 2026</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ 6/6 · BUY ═══ -->
+<section class="buy light">
+  <div class="pageno">6 / 6</div>
+  <div class="ghost">encore</div>
+  <div class="row">
+    <div class="stamp"><b>$39</b><i>perpetual · free updates</i></div>
+    <div>
+      <button class="cta">buy chorale</button>
+      <p class="fine">Lorem ipsum checkout — license lands in your account within a minute. Sign in with your paypal email to download. Dolor sit amet demo build available, nulla pariatur.</p>
+    </div>
+  </div>
+  <footer>
+    <span>www.thony.audio</span>
+    <span>chorale · plugin №2</span>
+    <span>plugin official page</span>
+  </footer>
+</section>
+
+</body>
+</html>
