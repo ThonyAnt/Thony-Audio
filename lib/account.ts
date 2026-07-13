@@ -75,7 +75,7 @@ export async function signUpWithPassword(
   const { data, error } = await supabase.auth.signUp({
     email,
     password,
-    options: { emailRedirectTo: `${window.location.origin}/auth/confirm` },
+    options: { emailRedirectTo: `${window.location.origin}/auth/confirm/` },
   })
   if (error) throw error
   return { needsConfirmation: !data.session }
@@ -85,7 +85,7 @@ export async function signUpWithPassword(
 export async function sendSignInLink(email: string): Promise<void> {
   const { error } = await supabase.auth.signInWithOtp({
     email,
-    options: { emailRedirectTo: `${window.location.origin}/auth/confirm` },
+    options: { emailRedirectTo: `${window.location.origin}/auth/confirm/` },
   })
   if (error) throw error
 }
@@ -93,7 +93,7 @@ export async function sendSignInLink(email: string): Promise<void> {
 /** Email a branded password-reset link that lands on /auth/reset to choose a new password. */
 export async function sendPasswordReset(email: string): Promise<void> {
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${window.location.origin}/auth/reset`,
+    redirectTo: `${window.location.origin}/auth/reset/`,
   })
   if (error) throw error
 }

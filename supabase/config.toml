@@ -12,6 +12,11 @@ project_id = "thony-audio"
 site_url = "https://thony.audio"
 # allowlist consumed by {{ .RedirectTo }} / redirect_to in the email links — dev + prod at once
 additional_redirect_urls = [
+  "https://thony.audio/auth/confirm/",
+  "https://thony.audio/auth/reset/",
+  "http://localhost:3000/auth/confirm/",
+  "http://localhost:3000/auth/reset/",
+  # slashless variants kept for any old emails still in inboxes
   "https://thony.audio/auth/confirm",
   "https://thony.audio/auth/reset",
   "http://localhost:3000/auth/confirm",
