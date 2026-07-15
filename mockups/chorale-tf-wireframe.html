@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CHORALE × tape-fiasco principles — mobile wireframe</title>
+<style>
+  /* ════════════════════════════════════════════════════════════════
+     🎨  WIREFRAME — tape fiasco (eriksson) principles, chorale content
+         tokens straight from reference-teardowns/eriksson-tapefiasco/STYLE.md
+     ════════════════════════════════════════════════════════════════ */
+  :root{
+    --bg:#000;               /* TF: pure black page */
+    --text:#cecbbc;          /* TF: warm pale grey — all display+body */
+    --muted:#877d78;         /* TF: taupe secondary */
+    --accent:#f5a101;        /* TF: single amber accent (CTA + hover only) */
+    --border:#877d7833;      /* TF: taupe @20% hairlines */
+    --display:Georgia,'Times New Roman',serif;        /* stand-in: Apple Garamond (woff2 saved in teardown) */
+    --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text',system-ui,sans-serif; /* stand-in: Switzer */
+    --anno:#37b6c9;          /* wireframe annotation cyan (NOT part of the design) */
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:var(--sans);max-width:540px;margin:0 auto}
+  .hatch{background:#0c0c0c repeating-linear-gradient(45deg,#ffffff0a 0 7px,transparent 7px 14px);
+         border:1px dashed #877d7855;display:flex;align-items:center;justify-content:center}
+  .hatch span{font:10.5px/1.5 var(--sans);color:#877d78;text-align:center;padding:8px;max-width:220px}
+  .anno{display:inline-block;font:9.5px/1.4 ui-monospace,Consolas,monospace;color:var(--anno);
+        border:1px solid #37b6c955;padding:2px 7px;margin:10px 0 0;max-width:100%}
+  .eyebrow{font:500 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  section{padding:64px 20px;border-bottom:1px solid var(--border)}   /* TF 96px rhythm → 64 on phone */
+  h2{font:400 34px/1.2 var(--display);margin:10px 0 18px}
+  h3{font:400 24px/1.2 var(--display);margin:8px 0 12px}
+  p{font:300 17px/1.6 var(--sans);color:var(--text)}
+  p.dim{color:var(--muted)}
+  a{color:var(--text);text-decoration:none}
+
+  /* nav — minimal chrome, TF-style */
+  nav{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--border)}
+  nav .brand{font:400 17px var(--display)}
+  nav .links{display:flex;gap:18px;font:500 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+  /* hero — full-bleed photo, title overlaid bottom-left */
+  .hero{padding:0;position:relative;border-bottom:1px solid var(--border)}
+  .hero .shot{height:72vh;min-height:420px;max-height:660px}
+  .hero .overlay{position:absolute;left:20px;right:20px;bottom:26px}
+  .hero h1{font:400 54px/1.15 var(--display);margin:6px 0 8px}
+  .hero .sub{font:400 20px/1.4 var(--sans);color:var(--text)}
+
+  /* mosaics — TF gap:2px tight grids, sharp corners */
+  .mosaic{display:grid;gap:2px}
+  .mosaic.three{grid-template-columns:repeat(3,1fr)}
+  .mosaic.six{grid-template-columns:repeat(6,1fr)}
+  .mosaic .hatch{aspect-ratio:1;border:none}
+  .mosaic .hatch span{font-size:8.5px;padding:2px}
+
+  /* feature list rows — hairline-divided stack */
+  .rows{margin-top:22px;border-top:1px solid var(--border)}
+  .rows .row{display:flex;gap:16px;padding:15px 2px;border-bottom:1px solid var(--border);align-items:baseline}
+  .rows .row b{font:500 11px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);flex:0 0 84px}
+  .rows .row span{font:300 15px/1.5 var(--sans)}
+
+  /* 25/75 eyebrow split → stacked on phone, label keeps its right-align ghost */
+  .split .eyebrow{display:block;text-align:right;border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:20px}
+
+  /* video */
+  .vid{aspect-ratio:16/9}
+
+  /* CTA — TF button verbatim: amber, sharp, serif bold, dark text */
+  .cta{display:inline-block;background:var(--accent);color:#000;font:700 24px var(--display);
+       padding:12px 56px;margin-top:26px}
+  .fineprint{font:400 12px/1.7 var(--sans);color:var(--muted);margin-top:16px}
+
+  footer{padding:44px 20px 70px}
+  footer .links{display:flex;flex-direction:column;gap:10px;font:400 20px var(--display);margin-top:18px}
+  footer .tiny{font:400 11px var(--sans);color:var(--muted);margin-top:34px;letter-spacing:.06em}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">thony audio</div>
+  <div class="links"><span>plugins</span><span>support</span><span>account</span></div>
+</nav>
+
+<!-- ═══ HERO — TF "top": full-bleed image, serif title overlaid ═══ -->
+<div class="hero">
+  <div class="shot hatch"><span>full-bleed atmospheric shot — the 3D unit in darkness, amber/violet key light (object-fit: cover)</span></div>
+  <div class="overlay">
+    <div class="eyebrow">thony audio — plugin №2</div>
+    <h1>chorale</h1>
+    <div class="sub">a reverb that resonates in key with your music.</div>
+  </div>
+</div>
+<section style="padding:14px 20px 18px;border-bottom:1px solid var(--border)">
+  <span class="anno">HERO = TF "top": photo does the talking, 54px serif title, no boxes. Type stand-ins: Georgia→Apple Garamond, system sans→Switzer (real woff2s saved in the teardown)</span>
+</section>
+
+<!-- ═══ MOSAIC — TF gap:2px grid ═══ -->
+<section>
+  <div class="eyebrow">up close</div>
+  <div class="mosaic three" style="margin-top:16px">
+    <div class="hatch"><span>knob</span></div><div class="hatch"><span>screen</span></div><div class="hatch"><span>keys</span></div>
+    <div class="hatch"><span>fader</span></div><div class="hatch"><span>wheel</span></div><div class="hatch"><span>wordmark</span></div>
+  </div>
+  <span class="anno">TF image mosaic: 2px gaps, sharp corners, no captions — UI macro crops instead of photos</span>
+</section>
+
+<!-- ═══ VIDEO — TF "vid" ═══ -->
+<section>
+  <div class="eyebrow">watch</div>
+  <div class="vid hatch" style="margin-top:16px"><span>YouTube demo embed (the launch video) — TF uses plain embeds, no custom player</span></div>
+</section>
+
+<!-- ═══ WHAT IT DOES — TF "whatitdoes" ═══ -->
+<section>
+  <div class="eyebrow">overview</div>
+  <h2>What it does, at a glance.</h2>
+  <p class="dim">two sentences of plain-language pitch — light sans, 1.6 line height, no hype.</p>
+  <div class="rows">
+    <div class="row"><b>per-note</b><span>every key can carry its own impulse response</span></div>
+    <div class="row"><b>track</b><span>one IR tunes itself to follow your midi</span></div>
+    <div class="row"><b>modes</b><span>poly · track · octave</span></div>
+    <div class="row"><b>sculpt</b><span>per-note EQ + ADSR, fades, transpose</span></div>
+    <div class="row"><b>voices</b><span>mono or polyphonic, up to 8</span></div>
+    <div class="row"><b>formats</b><span>vst3 · au · standalone — mac + win</span></div>
+  </div>
+  <span class="anno">TF feature block flattened into hairline rows: taupe uppercase label / light description</span>
+</section>
+
+<!-- ═══ ENGINE — TF 25/75 split section ═══ -->
+<section class="split">
+  <span class="eyebrow">the engine</span>
+  <h3>Convolution, tuned like an instrument.</h3>
+  <p class="dim">paragraph on the semitone-keyed IR banks — how the one-resample rule keeps it pristine. two short paragraphs max.</p>
+  <div class="hatch" style="height:180px;margin-top:20px"><span>diagram / annotated screen crop (IR + fade wedges)</span></div>
+  <span class="anno">TF 25/75 row: right-aligned eyebrow column collapses to a right-aligned label over content on phone</span>
+</section>
+
+<!-- ═══ PERFORM — second split section ═══ -->
+<section class="split">
+  <span class="eyebrow">perform</span>
+  <h3>Play the room.</h3>
+  <p class="dim">the keyboard, the pitch wheel, per-note selection — one paragraph.</p>
+  <div class="hatch" style="height:180px;margin-top:20px"><span>keyboard + wheel crop, glowing selected key</span></div>
+</section>
+
+<!-- ═══ BITROT MOSAIC — dense tiny tiles ═══ -->
+<section style="padding:64px 0">
+  <div class="mosaic six">
+    <div class="hatch"><span></span></div><div class="hatch"><span></span></div><div class="hatch"><span></span></div>
+    <div class="hatch"><span></span></div><div class="hatch"><span></span></div><div class="hatch"><span></span></div>
+    <div class="hatch"><span></span></div><div class="hatch"><span></span></div><div class="hatch"><span></span></div>
+    <div class="hatch"><span></span></div><div class="hatch"><span></span></div><div class="hatch"><span></span></div>
+  </div>
+  <span class="anno" style="margin-left:20px">TF "Bitrot" strip: 6-col full-bleed texture band — preset waveforms? IR spectrograms? pure vibes, no copy</span>
+</section>
+
+<!-- ═══ WHO IT'S FOR — TF "who" ═══ -->
+<section>
+  <div class="eyebrow">who it's for</div>
+  <h3>Writers of harmony.</h3>
+  <p class="dim">three short taupe sentences — composers, sound designers, the tuned-ambience curious. TF keeps this section humble and plain.</p>
+</section>
+
+<!-- ═══ BUY — TF "updates": CTA + free-updates promise ═══ -->
+<section>
+  <div class="eyebrow">get it</div>
+  <h2>Free updates. Forever.</h2>
+  <p class="dim">one sentence on lifetime updates and the license model.</p>
+  <a class="cta">Buy $39</a>
+  <p class="fineprint">paypal checkout → license lands in your account · demo build available · vst3 + au + standalone</p>
+  <span class="anno">TF CTA verbatim: amber #f5a101, sharp rectangle, 12×56 padding, serif bold 24, dark text — the ONLY color moment on the page</span>
+</section>
+
+<!-- ═══ CONTACT — TF "contact" footer ═══ -->
+<footer>
+  <div class="eyebrow">contact</div>
+  <div class="links">
+    <a>support ↗</a>
+    <a>your account ↗</a>
+    <a>instagram ↗</a>
+  </div>
+  <div class="tiny">© thony audio — hand-built audio software</div>
+</footer>
+
+</body>
+</html>
