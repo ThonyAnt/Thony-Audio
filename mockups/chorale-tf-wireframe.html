@@ -3,185 +3,258 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>CHORALE × tape-fiasco principles — mobile wireframe</title>
+<title>CHORALE — magazine pages × tape-fiasco materials · mobile wireframe</title>
 <style>
   /* ════════════════════════════════════════════════════════════════
-     🎨  WIREFRAME — tape fiasco (eriksson) principles, chorale content
-         tokens straight from reference-teardowns/eriksson-tapefiasco/STYLE.md
+     🎨  WIREFRAME v2 — LAYOUT: Neotunez poster pages (asymmetric
+         two-column, colliding type, page markers, whimsical scale).
+         MATERIALS: tape-fiasco teardown tokens (black / #cecbbc /
+         taupe / amber, Garamond+Switzer stand-ins, hairlines, photo).
      ════════════════════════════════════════════════════════════════ */
   :root{
-    --bg:#000;               /* TF: pure black page */
-    --text:#cecbbc;          /* TF: warm pale grey — all display+body */
-    --muted:#877d78;         /* TF: taupe secondary */
-    --accent:#f5a101;        /* TF: single amber accent (CTA + hover only) */
-    --border:#877d7833;      /* TF: taupe @20% hairlines */
-    --display:Georgia,'Times New Roman',serif;        /* stand-in: Apple Garamond (woff2 saved in teardown) */
-    --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text',system-ui,sans-serif; /* stand-in: Switzer */
-    --anno:#37b6c9;          /* wireframe annotation cyan (NOT part of the design) */
+    --bg:#000; --text:#cecbbc; --muted:#877d78; --accent:#f5a101; --border:#877d7833;
+    --display:Georgia,'Times New Roman',serif;   /* → Apple Garamond (saved woff2) */
+    --sans:-apple-system,BlinkMacSystemFont,'SF Pro Text',system-ui,sans-serif; /* → Switzer */
+    --anno:#37b6c9;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--text);font-family:var(--sans);max-width:540px;margin:0 auto}
-  .hatch{background:#0c0c0c repeating-linear-gradient(45deg,#ffffff0a 0 7px,transparent 7px 14px);
-         border:1px dashed #877d7855;display:flex;align-items:center;justify-content:center}
-  .hatch span{font:10.5px/1.5 var(--sans);color:#877d78;text-align:center;padding:8px;max-width:220px}
-  .anno{display:inline-block;font:9.5px/1.4 ui-monospace,Consolas,monospace;color:var(--anno);
-        border:1px solid #37b6c955;padding:2px 7px;margin:10px 0 0;max-width:100%}
-  .eyebrow{font:500 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-  section{padding:64px 20px;border-bottom:1px solid var(--border)}   /* TF 96px rhythm → 64 on phone */
-  h2{font:400 34px/1.2 var(--display);margin:10px 0 18px}
-  h3{font:400 24px/1.2 var(--display);margin:8px 0 12px}
-  p{font:300 17px/1.6 var(--sans);color:var(--text)}
-  p.dim{color:var(--muted)}
-  a{color:var(--text);text-decoration:none}
+  .hatch{background:#0b0b0b repeating-linear-gradient(45deg,#ffffff0a 0 7px,transparent 7px 14px);
+         border:1px dashed #877d7844;display:flex;align-items:center;justify-content:center}
+  .hatch span{font:9.5px/1.5 var(--sans);color:#877d78;text-align:center;padding:6px}
+  .anno{display:block;font:9.5px/1.4 ui-monospace,Consolas,monospace;color:var(--anno);
+        border:1px solid #37b6c955;padding:3px 7px;margin:8px 18px}
+  .eyebrow{font:500 10px var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 
-  /* nav — minimal chrome, TF-style */
-  nav{display:flex;justify-content:space-between;align-items:center;padding:18px 20px;border-bottom:1px solid var(--border)}
-  nav .brand{font:400 17px var(--display)}
-  nav .links{display:flex;gap:18px;font:500 11px var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  /* each PAGE = one composed poster, phone-tall */
+  .page{position:relative;min-height:min(100svh,940px);padding:16px 18px 20px;
+        border-bottom:1px solid var(--border);overflow:hidden;display:flex;flex-direction:column}
+  .pageno{position:absolute;top:14px;left:50%;transform:translateX(-50%);
+          font:italic 500 15px var(--display);color:var(--muted);z-index:9}
 
-  /* hero — full-bleed photo, title overlaid bottom-left */
-  .hero{padding:0;position:relative;border-bottom:1px solid var(--border)}
-  .hero .shot{height:72vh;min-height:420px;max-height:660px}
-  .hero .overlay{position:absolute;left:20px;right:20px;bottom:26px}
-  .hero h1{font:400 54px/1.15 var(--display);margin:6px 0 8px}
-  .hero .sub{font:400 20px/1.4 var(--sans);color:var(--text)}
+  /* poster masthead: brand left, platform marks right (Neotunez ⟷ bilibili row) */
+  .mast{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+  .mast .brand{font:700 15px var(--sans);letter-spacing:.02em}
+  .mast .brand small{display:block;font:500 7.5px var(--sans);letter-spacing:.32em;color:var(--muted);margin-top:2px;text-transform:uppercase}
+  .mast .marks{font:600 11px var(--sans);color:var(--muted);letter-spacing:.06em;text-align:right}
 
-  /* mosaics — TF gap:2px tight grids, sharp corners */
-  .mosaic{display:grid;gap:2px}
-  .mosaic.three{grid-template-columns:repeat(3,1fr)}
-  .mosaic.six{grid-template-columns:repeat(6,1fr)}
-  .mosaic .hatch{aspect-ratio:1;border:none}
-  .mosaic .hatch span{font-size:8.5px;padding:2px}
+  /* ═══ PAGE 1 — COVER ═══ */
+  .p1 .grid{display:grid;grid-template-columns:47% 53%;gap:0;flex:1;position:relative}
+  .p1 .art{width:108%;aspect-ratio:1;transform:rotate(-4deg);margin-top:26px;position:relative;z-index:2}
+  .p1 .qr{display:flex;gap:10px;margin-top:34px;align-items:flex-start}
+  .p1 .qr .box{width:64px;height:64px;flex:none}
+  .p1 .qr .lk{font:9.5px/1.6 var(--sans);color:var(--muted)}
+  .p1 .qr .lk b{display:block;font-size:10.5px;letter-spacing:.08em;color:var(--text)}
+  .p1 .right{padding-left:14px;position:relative;z-index:3}
+  .p1 .kicker{font:500 10px var(--sans);letter-spacing:.22em;color:var(--muted);text-transform:uppercase}
+  .p1 .kicker::after{content:" ———"}
+  .p1 h1{font:400 58px/1 var(--display);letter-spacing:.02em;margin:6px 0 14px;margin-left:-34px}  /* collides into art column */
+  .p1 .stamps{display:flex;gap:12px;margin:6px 0 22px}
+  .stamp{border-radius:50%;border:1px solid var(--text);display:flex;flex-direction:column;
+         align-items:center;justify-content:center;position:relative;flex:none;gap:1px}
+  .stamp::after{content:"";position:absolute;inset:4px;border-radius:50%;border:1px solid var(--text);opacity:.85}
+  .stamp b{font:400 19px var(--display)} .stamp i{font:italic 6.5px var(--display);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .p1 .stamp{width:64px;height:64px}
+  .p1 .revhead{font:800 15px var(--sans);letter-spacing:.04em;margin:14px 0 8px}
+  .p1 .revhead small{font:400 11px var(--display);font-style:italic;color:var(--muted);margin-left:8px;letter-spacing:0}
+  .p1 .who{font:600 11px var(--sans);letter-spacing:.14em}
+  .p1 .creds{font:9px/1.8 var(--sans);color:var(--muted);margin:4px 0 10px}
+  .p1 .quote{font:italic 400 13.5px/1.7 var(--display)}
+  /* artist note — two tones side by side under the art (the bilingual ghost pattern) */
+  .p1 .noterow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px;position:relative;z-index:2}
+  .p1 .noterow .main{font:600 9.5px/1.8 var(--sans)}
+  .p1 .noterow .main b{display:block;font:700 10px var(--sans);letter-spacing:.08em;margin-bottom:5px}
+  .p1 .noterow .ghostcol{font:500 9px/1.9 var(--sans);color:#877d7899;text-transform:uppercase;letter-spacing:.04em}
+  /* landscape band + giant colliding word (the MAGIC|IAN move) */
+  .p1 .band{position:relative;margin:26px -18px 0;height:200px}
+  .p1 .band .photo{position:absolute;inset:0}
+  .p1 .band .word{position:absolute;left:-14px;right:-14px;top:-58px;font:400 118px/1 var(--display);
+       color:#cecbbcbb;letter-spacing:-.01em;white-space:nowrap;text-align:center;z-index:2;mix-blend-mode:screen}
+  .p1 .band .word .slice{display:inline-block;transform:translateY(34px);margin-left:-24px}
+  /* INFOS strip */
+  .infrow{margin:0 -18px;padding:10px 18px 0;border-top:1px solid var(--text)}
+  .infrow .t{display:flex;justify-content:space-between;font:600 8px var(--sans);letter-spacing:.2em;color:var(--muted);text-transform:uppercase;padding:4px 0}
 
-  /* feature list rows — hairline-divided stack */
-  .rows{margin-top:22px;border-top:1px solid var(--border)}
-  .rows .row{display:flex;gap:16px;padding:15px 2px;border-bottom:1px solid var(--border);align-items:baseline}
-  .rows .row b{font:500 11px var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);flex:0 0 84px}
-  .rows .row span{font:300 15px/1.5 var(--sans)}
+  /* ═══ PAGE 2 — THE NOTE (artist's note as its own poster) ═══ */
+  .p2 .ghostword{position:absolute;right:-40px;top:90px;font:italic 400 130px/1 var(--display);color:#cecbbc0d;
+                 writing-mode:vertical-rl;pointer-events:none}
+  .p2 h2{font:400 34px/1.15 var(--display);max-width:75%;margin:30px 0 20px}
+  .p2 .cols{display:grid;grid-template-columns:56% 44%;gap:16px;flex:1}
+  .p2 .lead{font:400 14px/1.85 var(--display)}
+  .p2 .lead::first-letter{font-size:44px;float:left;line-height:.85;padding:4px 8px 0 0;color:var(--accent)}
+  .p2 .ghostcol{font:500 9px/2 var(--sans);color:#877d7788;text-transform:uppercase;letter-spacing:.05em;
+                border-left:1px solid var(--border);padding-left:14px}
+  .p2 .diagram{height:170px;margin-top:18px}
 
-  /* 25/75 eyebrow split → stacked on phone, label keeps its right-align ghost */
-  .split .eyebrow{display:block;text-align:right;border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:20px}
+  /* ═══ PAGE 3 — WHAT IT DOES (dense spec poster) ═══ */
+  .p3 h2{font:400 30px var(--display);margin:26px 0 4px}
+  .p3 h2 em{font-style:italic;color:var(--accent)}
+  .p3 .featgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);
+                border:1px solid var(--border);margin-top:18px}
+  .p3 .cell{background:var(--bg);padding:14px 12px;min-height:108px;position:relative}
+  .p3 .cell .no{font:italic 400 15px var(--display);color:var(--muted)}
+  .p3 .cell b{display:block;font:400 16px var(--display);margin:6px 0 5px}
+  .p3 .cell p{font:9.5px/1.6 var(--sans);color:var(--muted)}
+  .p3 .cell.img{padding:0}
+  .p3 .cell.img .hatch{position:absolute;inset:0;border:none}
+  .p3 .bigno{position:absolute;right:10px;bottom:2px;font:400 44px var(--display);color:#cecbbc14}
 
-  /* video */
-  .vid{aspect-ratio:16/9}
+  /* ═══ PAGE 4 — WATCH / LISTEN ═══ */
+  .p4 .vid{aspect-ratio:16/9;margin-top:26px;position:relative}
+  .p4 .vid .playstamp{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:58px;height:58px;color:var(--text)}
+  .p4 .vid .playstamp b{font-size:15px}
+  .p4 h2{font:400 30px var(--display);margin:22px 0 0}
+  .p4 .demos{margin-top:16px}
+  .p4 .demo{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--border);padding:11px 2px;font:italic 400 15px var(--display)}
+  .p4 .demo span{font:500 8.5px var(--sans);letter-spacing:.18em;color:var(--muted);text-transform:uppercase;font-style:normal}
+  .p4 .mosaic{display:grid;grid-template-columns:repeat(6,1fr);gap:2px;margin:22px -18px 0}
+  .p4 .mosaic .hatch{aspect-ratio:1;border:none}
 
-  /* CTA — TF button verbatim: amber, sharp, serif bold, dark text */
-  .cta{display:inline-block;background:var(--accent);color:#000;font:700 24px var(--display);
-       padding:12px 56px;margin-top:26px}
-  .fineprint{font:400 12px/1.7 var(--sans);color:var(--muted);margin-top:16px}
-
-  footer{padding:44px 20px 70px}
-  footer .links{display:flex;flex-direction:column;gap:10px;font:400 20px var(--display);margin-top:18px}
-  footer .tiny{font:400 11px var(--sans);color:var(--muted);margin-top:34px;letter-spacing:.06em}
+  /* ═══ PAGE 5 — BUY ═══ */
+  .p5{justify-content:flex-start}
+  .p5 .pricewrap{display:grid;grid-template-columns:42% 58%;gap:10px;align-items:center;margin-top:40px}
+  .p5 .stamp{width:128px;height:128px}
+  .p5 .stamp b{font-size:38px}
+  .p5 h2{font:400 32px/1.1 var(--display)}
+  .p5 h2 em{font-style:italic}
+  .p5 .cta{display:inline-block;background:var(--accent);color:#000;font:700 20px var(--display);
+           padding:11px 44px;margin-top:26px}
+  .p5 .fine{font:9.5px/1.8 var(--sans);color:var(--muted);margin-top:14px;max-width:300px}
+  .p5 .ghost{position:absolute;left:-20px;bottom:66px;font:400 120px var(--display);color:#cecbbc0a;white-space:nowrap;pointer-events:none}
+  .p5 .sheet{margin-top:auto;border-top:1px solid var(--text);padding-top:6px}
+  .p5 .sheet .r{display:flex;justify-content:space-between;font:8.5px var(--sans);letter-spacing:.12em;
+                color:var(--muted);text-transform:uppercase;padding:5px 0;border-bottom:1px solid var(--border)}
+  .p5 .sheet .r span:last-child{color:var(--text)}
 </style>
 </head>
 <body>
 
-<nav>
-  <div class="brand">thony audio</div>
-  <div class="links"><span>plugins</span><span>support</span><span>account</span></div>
-</nav>
-
-<!-- ═══ HERO — TF "top": full-bleed image, serif title overlaid ═══ -->
-<div class="hero">
-  <div class="shot hatch"><span>full-bleed atmospheric shot — the 3D unit in darkness, amber/violet key light (object-fit: cover)</span></div>
-  <div class="overlay">
-    <div class="eyebrow">thony audio — plugin №2</div>
-    <h1>chorale</h1>
-    <div class="sub">a reverb that resonates in key with your music.</div>
+<!-- ═══════════ PAGE 1/5 — COVER POSTER ═══════════ -->
+<section class="page p1">
+  <div class="pageno">1/5</div>
+  <div class="mast">
+    <div class="brand">thony audio<small>plugin editions</small></div>
+    <div class="marks">vst3 · au<br><span style="font-size:8px;letter-spacing:.2em">MAC + WIN</span></div>
   </div>
-</div>
-<section style="padding:14px 20px 18px;border-bottom:1px solid var(--border)">
-  <span class="anno">HERO = TF "top": photo does the talking, 54px serif title, no boxes. Type stand-ins: Georgia→Apple Garamond, system sans→Switzer (real woff2s saved in the teardown)</span>
-</section>
-
-<!-- ═══ MOSAIC — TF gap:2px grid ═══ -->
-<section>
-  <div class="eyebrow">up close</div>
-  <div class="mosaic three" style="margin-top:16px">
-    <div class="hatch"><span>knob</span></div><div class="hatch"><span>screen</span></div><div class="hatch"><span>keys</span></div>
-    <div class="hatch"><span>fader</span></div><div class="hatch"><span>wheel</span></div><div class="hatch"><span>wordmark</span></div>
+  <div class="grid">
+    <div>
+      <div class="art hatch"><span>the 3D unit render, tilted −4° (the poster's album-art square)</span></div>
+      <div class="qr">
+        <div class="box hatch"><span>QR</span></div>
+        <div class="lk"><b>平台链接 → CHORALE-DL</b>thony.audio/plugins/chorale<br>manual · presets · demo</div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="kicker">chorale — plugin №2</div>
+      <h1>CHORALE</h1>
+      <div class="stamps">
+        <div class="stamp"><b>$39</b><i>license</i></div>
+        <div class="stamp"><b style="font-size:12px">12 IRs</b><i>per-note</i></div>
+      </div>
+      <div class="revhead">MUSIC REVIEW <small>producer notes</small></div>
+      <div class="who">PRODUCER NAME —</div>
+      <div class="creds">lorem award nomination<br>dolor sit records · signed artist<br>consectetur paris · credits</div>
+      <p class="quote">"lorem ipsum dolor — like a magician, it uses rooms as colors and outlines a strong sense of the picture."</p>
+    </div>
   </div>
-  <span class="anno">TF image mosaic: 2px gaps, sharp corners, no captions — UI macro crops instead of photos</span>
-</section>
-
-<!-- ═══ VIDEO — TF "vid" ═══ -->
-<section>
-  <div class="eyebrow">watch</div>
-  <div class="vid hatch" style="margin-top:16px"><span>YouTube demo embed (the launch video) — TF uses plain embeds, no custom player</span></div>
-</section>
-
-<!-- ═══ WHAT IT DOES — TF "whatitdoes" ═══ -->
-<section>
-  <div class="eyebrow">overview</div>
-  <h2>What it does, at a glance.</h2>
-  <p class="dim">two sentences of plain-language pitch — light sans, 1.6 line height, no hype.</p>
-  <div class="rows">
-    <div class="row"><b>per-note</b><span>every key can carry its own impulse response</span></div>
-    <div class="row"><b>track</b><span>one IR tunes itself to follow your midi</span></div>
-    <div class="row"><b>modes</b><span>poly · track · octave</span></div>
-    <div class="row"><b>sculpt</b><span>per-note EQ + ADSR, fades, transpose</span></div>
-    <div class="row"><b>voices</b><span>mono or polyphonic, up to 8</span></div>
-    <div class="row"><b>formats</b><span>vst3 · au · standalone — mac + win</span></div>
+  <div class="noterow">
+    <div class="main"><b>ARTIST'S NOTE</b>以唱经始 analog — the design story, three dense lines in bold small sans, authored voice.</div>
+    <div class="ghostcol">beginning with a question, the journey unfolds from chaos to order — the faded translation column, used as texture</div>
   </div>
-  <span class="anno">TF feature block flattened into hairline rows: taupe uppercase label / light description</span>
-</section>
-
-<!-- ═══ ENGINE — TF 25/75 split section ═══ -->
-<section class="split">
-  <span class="eyebrow">the engine</span>
-  <h3>Convolution, tuned like an instrument.</h3>
-  <p class="dim">paragraph on the semitone-keyed IR banks — how the one-resample rule keeps it pristine. two short paragraphs max.</p>
-  <div class="hatch" style="height:180px;margin-top:20px"><span>diagram / annotated screen crop (IR + fade wedges)</span></div>
-  <span class="anno">TF 25/75 row: right-aligned eyebrow column collapses to a right-aligned label over content on phone</span>
-</section>
-
-<!-- ═══ PERFORM — second split section ═══ -->
-<section class="split">
-  <span class="eyebrow">perform</span>
-  <h3>Play the room.</h3>
-  <p class="dim">the keyboard, the pitch wheel, per-note selection — one paragraph.</p>
-  <div class="hatch" style="height:180px;margin-top:20px"><span>keyboard + wheel crop, glowing selected key</span></div>
-</section>
-
-<!-- ═══ BITROT MOSAIC — dense tiny tiles ═══ -->
-<section style="padding:64px 0">
-  <div class="mosaic six">
-    <div class="hatch"><span></span></div><div class="hatch"><span></span></div><div class="hatch"><span></span></div>
-    <div class="hatch"><span></span></div><div class="hatch"><span></span></div><div class="hatch"><span></span></div>
-    <div class="hatch"><span></span></div><div class="hatch"><span></span></div><div class="hatch"><span></span></div>
-    <div class="hatch"><span></span></div><div class="hatch"><span></span></div><div class="hatch"><span></span></div>
+  <div class="band">
+    <div class="photo hatch"><span>full-bleed landscape photo band (the ocean-cliff move) — moody hardware macro or terrain</span></div>
+    <div class="word">CHOR<span class="slice">ALE</span></div>
   </div>
-  <span class="anno" style="margin-left:20px">TF "Bitrot" strip: 6-col full-bleed texture band — preset waveforms? IR spectrograms? pure vibes, no copy</span>
-</section>
-
-<!-- ═══ WHO IT'S FOR — TF "who" ═══ -->
-<section>
-  <div class="eyebrow">who it's for</div>
-  <h3>Writers of harmony.</h3>
-  <p class="dim">three short taupe sentences — composers, sound designers, the tuned-ambience curious. TF keeps this section humble and plain.</p>
-</section>
-
-<!-- ═══ BUY — TF "updates": CTA + free-updates promise ═══ -->
-<section>
-  <div class="eyebrow">get it</div>
-  <h2>Free updates. Forever.</h2>
-  <p class="dim">one sentence on lifetime updates and the license model.</p>
-  <a class="cta">Buy $39</a>
-  <p class="fineprint">paypal checkout → license lands in your account · demo build available · vst3 + au + standalone</p>
-  <span class="anno">TF CTA verbatim: amber #f5a101, sharp rectangle, 12×56 padding, serif bold 24, dark text — the ONLY color moment on the page</span>
-</section>
-
-<!-- ═══ CONTACT — TF "contact" footer ═══ -->
-<footer>
-  <div class="eyebrow">contact</div>
-  <div class="links">
-    <a>support ↗</a>
-    <a>your account ↗</a>
-    <a>instagram ↗</a>
+  <div class="infrow">
+    <div class="t"><span>www.thony.audio</span><span>plugin official page</span></div>
+    <div class="t"><span>chorale</span><span>thony</span><span>№2</span><span>chorale plugin song#1</span></div>
   </div>
-  <div class="tiny">© thony audio — hand-built audio software</div>
-</footer>
+</section>
+<span class="anno">PAGE 1 = the Neotunez card, one-for-one: masthead marks · tilted art · title colliding across columns · stamps · review block w/ credentials · bilingual note row · giant broken word over photo band · INFOS strip. Materials = TF black/#cecbbc/taupe hairlines.</span>
+
+<!-- ═══════════ PAGE 2/5 — THE NOTE ═══════════ -->
+<section class="page p2">
+  <div class="pageno">2/5</div>
+  <div class="mast">
+    <div class="brand">thony audio<small>plugin editions</small></div>
+    <div class="marks eyebrow">designer's note</div>
+  </div>
+  <div class="ghostword">per-note</div>
+  <h2>every note carries its own room.</h2>
+  <div class="cols">
+    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit — sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+    <div class="ghostcol">LOREM IPSUM DOLOR SIT AMET · CONSECTETUR ADIPISCING ELIT · SED DO EIUSMOD TEMPOR INCIDIDUNT UT LABORE ET DOLORE MAGNA ALIQUA UT ENIM</div>
+  </div>
+  <div class="diagram hatch"><span>annotated IR screen crop — fade wedges, semitone map (the poster's technical-diagram moment)</span></div>
+</section>
+<span class="anno">PAGE 2: whimsical contrast — 44px amber drop cap vs 9px ghost column; vertical ghost word bleeding off the right edge (magazine gutter type)</span>
+
+<!-- ═══════════ PAGE 3/5 — WHAT IT DOES ═══════════ -->
+<section class="page p3">
+  <div class="pageno">3/5</div>
+  <div class="mast">
+    <div class="brand">thony audio<small>plugin editions</small></div>
+    <div class="marks eyebrow">overview</div>
+  </div>
+  <h2>what it does, <em>at a glance.</em></h2>
+  <div class="featgrid">
+    <div class="cell"><div class="no">№01</div><b>per-note IRs</b><p>every key carries its own impulse response — twelve pitch classes.</p><div class="bigno">1</div></div>
+    <div class="cell img"><div class="hatch"><span>keyboard crop, glowing key</span></div></div>
+    <div class="cell img"><div class="hatch"><span>IR screen crop</span></div></div>
+    <div class="cell"><div class="no">№02</div><b>pitch-track</b><p>one IR tunes itself to follow your midi, per-semitone.</p><div class="bigno">2</div></div>
+    <div class="cell"><div class="no">№03</div><b>sculpt</b><p>per-note EQ + ADSR, fades, master transpose.</p><div class="bigno">3</div></div>
+    <div class="cell img"><div class="hatch"><span>knob macro crop</span></div></div>
+  </div>
+</section>
+<span class="anno">PAGE 3: hairline-grid checkerboard — copy cells alternate with image cells (magazine contact-sheet), ghost numerals for scale whimsy</span>
+
+<!-- ═══════════ PAGE 4/5 — WATCH · LISTEN ═══════════ -->
+<section class="page p4">
+  <div class="pageno">4/5</div>
+  <div class="mast">
+    <div class="brand">thony audio<small>plugin editions</small></div>
+    <div class="marks eyebrow">段落试听中 · auditioning</div>
+  </div>
+  <div class="vid hatch"><span>YouTube demo embed (launch video)</span><div class="playstamp stamp"><b>▶</b><i>watch</i></div></div>
+  <h2>hear it <em style="color:var(--muted)">— in key.</em></h2>
+  <div class="demos">
+    <div class="demo">demo 1 — keys <span>0:42</span></div>
+    <div class="demo">demo 2 — guitar <span>0:36</span></div>
+    <div class="demo">demo 3 — vox <span>0:51</span></div>
+  </div>
+  <div class="mosaic">
+    <div class="hatch"></div><div class="hatch"></div><div class="hatch"></div>
+    <div class="hatch"></div><div class="hatch"></div><div class="hatch"></div>
+  </div>
+</section>
+<span class="anno">PAGE 4: TF's video-embed + demo list, composed as a poster page; stamp reused as the play chip; 2px mosaic band as the page's texture footer</span>
+
+<!-- ═══════════ PAGE 5/5 — BUY ═══════════ -->
+<section class="page p5">
+  <div class="pageno">5/5</div>
+  <div class="mast">
+    <div class="brand">thony audio<small>plugin editions</small></div>
+    <div class="marks eyebrow">get it</div>
+  </div>
+  <div class="ghost">encore</div>
+  <div class="pricewrap">
+    <div class="stamp"><b>$39</b><i>perpetual · updates</i></div>
+    <div>
+      <h2>free updates. <em>forever.</em></h2>
+      <a class="cta">Buy $39</a>
+      <p class="fine">paypal checkout → license lands in your account · demo build available · lorem ipsum dolor</p>
+    </div>
+  </div>
+  <div class="sheet">
+    <div class="r"><span>formats</span><span>vst3 · au · standalone</span></div>
+    <div class="r"><span>platforms</span><span>macos 10.15+ · win 10+</span></div>
+    <div class="r"><span>engine</span><span>per-note convolution</span></div>
+    <div class="r"><span>modes</span><span>poly · track · octave</span></div>
+    <div class="r"><span>release</span><span>2026 · ta-ch-002</span></div>
+    <div class="r" style="border-bottom:none"><span>www.thony.audio</span><span>plugin official page</span></div>
+  </div>
+</section>
+<span class="anno" style="margin-bottom:24px">PAGE 5: TF's amber CTA (the page's only color) beside the price seal; INFOS table doubles as the site footer — the poster series closes on its own colophon</span>
 
 </body>
 </html>
