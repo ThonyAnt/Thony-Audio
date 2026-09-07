@@ -1,0 +1,190 @@
+<title>TA-1 Wireframes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap">
+<style>
+  :root{
+    --ground:#f3efea; --ground-2:#ffffff; --ink:#2a2a2c; --ink-soft:#5c5954; --line:#d8d3cc; --orange:#f75b1e;
+  }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --ground:#1b1a19; --ground-2:#242220; --ink:#ece7e0; --ink-soft:#a39d95; --line:#38342f; } }
+  :root[data-theme="dark"]{ --ground:#1b1a19; --ground-2:#242220; --ink:#ece7e0; --ink-soft:#a39d95; --line:#38342f; }
+  body{ margin:0; background:linear-gradient(90deg,var(--ground-2),var(--ground) 60%); color:var(--ink); font-family:Rubik,system-ui,sans-serif; }
+  main{ max-width:1080px; margin:0 auto; padding:40px 28px 72px; }
+  header h1{ font-weight:300; font-size:34px; letter-spacing:.02em; text-transform:uppercase; margin:0 0 6px; }
+  header p{ margin:0; max-width:64ch; color:var(--ink-soft); line-height:1.5; }
+  .legend{ display:flex; flex-wrap:wrap; gap:14px 26px; margin:22px 0 40px; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); }
+  .legend span{ display:inline-flex; align-items:center; gap:8px; }
+  .legend i{ width:14px; height:14px; border:1px solid var(--line); display:inline-block; }
+  .concept{ display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:28px; align-items:start; padding:28px 0; border-top:1px solid var(--line); }
+  .concept:last-of-type{ border-bottom:1px solid var(--line); }
+  .concept svg{ width:100%; height:auto; display:block; }
+  .concept h2{ margin:0 0 4px; font-weight:500; font-size:20px; letter-spacing:.04em; text-transform:uppercase; }
+  .concept h2 b{ color:var(--orange); font-weight:500; margin-right:10px; }
+  .concept .kicker{ font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 14px; }
+  .concept p{ margin:0 0 10px; line-height:1.5; font-size:14px; }
+  .concept ul{ margin:0; padding-left:18px; line-height:1.5; font-size:14px; }
+  .concept li{ margin-bottom:6px; }
+  .wild{ margin-top:12px; padding:10px 12px; border-left:3px solid var(--orange); font-size:13px; line-height:1.45; }
+  details{ margin-top:48px; }
+  summary{ cursor:pointer; font-size:13px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); }
+  @media (max-width:820px){ .concept{ grid-template-columns:1fr; } }
+</style>
+<main>
+<header>
+  <h1>TA-1 wireframes, round 2</h1>
+  <p>Populated faceplates built in the K.O. II manner and quoting the Braun references: the pocket cassette recorder, the icon set (audio 1, tuner 1, game one, the calculator, video 1) and the SK4. Screens are 4:3 or taller, never a wide band. One continuous warm-grey chassis, black or light keys with Rubik labels, one orange, a small wordmark bottom-left and the model name bottom-right the way Braun signs a face. Every control has a job.</p>
+</header>
+<div class="legend">
+  <span><i style="background:#d9d8d6"></i>chassis</span>
+  <span><i style="background:#141416"></i>screen</span>
+  <span><i style="background:#bdbbb7"></i>recessed grille</span>
+  <span><i style="background:#1f1f22"></i>black key</span>
+  <span><i style="background:#e9e7e3"></i>light key</span>
+  <span><i style="background:#f75b1e"></i>orange</span>
+  <span><i style="background:#f2f0ec;border-radius:50%"></i>knob / round button</span>
+</div>
+
+<div id="round2"></div>
+
+<details>
+  <summary>Round 1 (A to E) for reference</summary>
+  <div id="round1"></div>
+</details>
+</main>
+
+<script>
+(function(){
+  const W=600,H=370,R=8;
+  const C={chassis:'#d9d8d6',panel:'#e9e7e3',recess:'#bdbbb7',screen:'#141416',glass:'#0a0a0b',pad:'#1f1f22',grey:'#e9e7e3',orange:'#f75b1e',ink:'#2a2a2c',soft:'#5c5954',white:'#f6f4f0',knob:'#f2f0ec',knobDark:'#2b2b2e',ring:'#8d8a85',scale:'#f2f0ec',wood:'#c99a63'};
+  const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  let uid=0;
+  function chev(cx,cy,dir,color,dbl){ const d=dir==='L'?`M${cx+3.5} ${cy-9}l-7 9 7 9`:`M${cx-3.5} ${cy-9}l7 9-7 9`; let s=`<path d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`; if(dbl){ const o=dir==='L'?-9:9; const d2=dir==='L'?`M${cx+3.5+o} ${cy-9}l-7 9 7 9`:`M${cx-3.5+o} ${cy-9}l7 9-7 9`; s+=`<path d="${d2}" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`; } return s; }
+  function render(id,items){
+    const cid='c'+(uid++);
+    let s=`<svg viewBox="-8 -8 ${W+16} ${H+16}" xmlns="http://www.w3.org/2000/svg" aria-label="Concept ${id} wireframe">`;
+    s+=`<defs><clipPath id="${cid}"><rect x="0" y="0" width="${W}" height="${H}" rx="${R}"/></clipPath>
+      <pattern id="dots${cid}" width="13" height="13" patternUnits="userSpaceOnUse"><circle cx="6.5" cy="6.5" r="3.6" fill="#2b2b2e"/></pattern>
+      <pattern id="dotsS${cid}" width="9" height="9" patternUnits="userSpaceOnUse"><circle cx="4.5" cy="4.5" r="2.3" fill="#2b2b2e"/></pattern>
+      <pattern id="sq${cid}" width="10" height="10" patternUnits="userSpaceOnUse"><rect x="2" y="2" width="6" height="6" rx="1" fill="#2b2b2e"/></pattern>
+      <pattern id="slots${cid}" width="8" height="8" patternUnits="userSpaceOnUse"><rect x="0" y="2.5" width="8" height="3" fill="#2b2b2e"/></pattern></defs>`;
+    s+=`<rect x="0" y="0" width="${W}" height="${H}" rx="${R}" fill="${C.chassis}"/>`;
+    s+=`<g clip-path="url(#${cid})">`;
+    for(const it of items){
+      switch(it.t){
+        case 'panel': s+=`<rect x="${it.x}" y="${it.y}" width="${it.w}" height="${it.h}" rx="${it.rx||0}" fill="${it.fill||C.panel}"/>`; break;
+        case 'grille': { const pat=it.style==='sq'?'sq':it.style==='slots'?'slots':it.small?'dotsS':'dots'; const p=it.pad===undefined?10:it.pad; s+=`<rect x="${it.x}" y="${it.y}" width="${it.w}" height="${it.h}" rx="${it.rx||0}" fill="${it.flush?C.chassis:C.recess}"/><rect x="${it.x+p}" y="${it.y+p}" width="${it.w-2*p}" height="${it.h-2*p}" fill="url(#${pat}${cid})"/>`; break; }
+        case 'screen': s+=`<rect x="${it.x}" y="${it.y}" width="${it.w}" height="${it.h}" rx="${it.rx||0}" fill="${C.screen}"/><rect x="${it.x+8}" y="${it.y+8}" width="${it.w-16}" height="${it.h-16}" rx="3" fill="${C.glass}" stroke="#2f2f33"/><text x="${it.x+18}" y="${it.y+26}" font-family="Rubik" font-size="9" letter-spacing="1" fill="${C.orange}">CHORALE</text><text x="${it.x+it.w-18}" y="${it.y+26}" text-anchor="end" font-family="Rubik" font-size="9" letter-spacing="1" fill="#8b8b90">01/02</text>`; break;
+        case 'pad': { const k=it.kind||'black'; const fill=k==='black'?C.pad:k==='grey'?C.grey:C.orange; const tc=k==='grey'?C.ink:C.white; const stroke=k==='grey'?` stroke="#b3b0ab"`:'';
+          s+=`<rect x="${it.x}" y="${it.y}" width="${it.w}" height="${it.h}" rx="${it.rx===undefined?4:it.rx}" fill="${fill}"${stroke}/>`;
+          const cx=it.x+it.w/2, cy=it.y+it.h/2;
+          if(it.chev){ s+=chev(cx,cy,it.chev,tc,it.dbl); }
+          else if(it.glyph==='stop'){ s+=`<rect x="${cx-6}" y="${cy-6}" width="12" height="12" fill="${tc}"/>`; }
+          else if(it.glyph==='playpause'){ s+=`<path d="M${cx-9} ${cy-7}v14l11-7z" fill="${tc}"/><rect x="${cx+5}" y="${cy-7}" width="2.5" height="14" fill="${tc}"/><rect x="${cx+9.5}" y="${cy-7}" width="2.5" height="14" fill="${tc}"/>`; }
+          else if(it.label){ const fs=it.fs||(it.label.length>5?7.5:9); if(it.center) s+=`<text x="${cx}" y="${cy+3}" text-anchor="middle" font-family="Rubik" font-size="${fs}" letter-spacing="0.8" fill="${tc}">${esc(it.label)}</text>`; else s+=`<text x="${it.x+8}" y="${it.y+16}" font-family="Rubik" font-size="${fs}" letter-spacing="0.8" fill="${tc}">${esc(it.label)}</text>`; }
+          break; }
+        case 'rbtn': { const f=it.kind==='orange'?C.orange:it.kind==='dark'?C.knobDark:C.knob; const tc=it.kind==='grey'?C.ink:C.white; s+=`<circle cx="${it.cx}" cy="${it.cy}" r="${it.r}" fill="${f}" stroke="${it.kind==='orange'?'#c94a17':C.ring}"/>`; if(it.chev) s+=chev(it.cx,it.cy,it.chev,tc,it.dbl); else if(it.glyph==='stop') s+=`<rect x="${it.cx-4}" y="${it.cy-4}" width="8" height="8" fill="${tc}"/>`; else if(it.glyph==='play') s+=`<path d="M${it.cx-3} ${it.cy-5}v10l8-5z" fill="${tc}"/>`; if(it.label) s+=`<text x="${it.cx}" y="${it.cy+it.r+11}" text-anchor="middle" font-family="Rubik" font-size="7.5" letter-spacing="0.8" fill="${C.ink}">${esc(it.label)}</text>`; break; }
+        case 'knob': { const f=it.kind==='dark'?C.knobDark:it.kind==='orange'?C.orange:C.knob; s+=`<circle cx="${it.cx}" cy="${it.cy}" r="${it.r}" fill="${f}" stroke="${it.kind==='orange'?'#c94a17':C.ring}"/><circle cx="${it.cx}" cy="${it.cy}" r="${it.r*0.62}" fill="${f}" stroke="${it.kind==='dark'?'#4a4a4e':it.kind==='orange'?'#e0521a':'#c9c6c1'}"/><line x1="${it.cx}" y1="${it.cy-it.r*0.62}" x2="${it.cx}" y2="${it.cy-it.r*0.2}" stroke="${it.kind==='dark'||it.kind==='orange'?C.white:C.ink}" stroke-width="2"/>`;
+          if(it.label) s+=`<text x="${it.cx}" y="${it.below?it.cy+it.r+11:it.cy-it.r-6}" text-anchor="middle" font-family="Rubik" font-size="7.5" letter-spacing="0.8" fill="${C.ink}">${esc(it.label)}</text>`; break; }
+        case 'led': s+=`<circle cx="${it.cx}" cy="${it.cy}" r="3" fill="${it.on?C.orange:'#3a3a3d'}"/>`; if(it.label) s+=`<text x="${it.cx+8}" y="${it.cy+3}" font-family="Rubik" font-size="7.5" letter-spacing="0.8" fill="${C.ink}">${esc(it.label)}</text>`; break;
+        case 'label': s+=`<text x="${it.x}" y="${it.y}" font-family="Rubik" font-weight="${it.wt||400}" font-size="${it.fs||8}" letter-spacing="${it.ls===undefined?0.8:it.ls}" fill="${it.c||C.ink}"${it.anchor?` text-anchor="${it.anchor}"`:''}>${esc(it.text)}</text>`; break;
+        case 'screw': s+=`<circle cx="${it.cx}" cy="${it.cy}" r="6" fill="#cfccc7" stroke="#a9a6a1"/><path d="M${it.cx-3} ${it.cy}h6M${it.cx} ${it.cy-3}v6" stroke="#8d8a85" stroke-width="1.2"/>`; break;
+        case 'slider': { const n=it.ticks||24; s+=`<rect x="${it.x}" y="${it.y}" width="${it.w}" height="${it.h}" rx="${it.h/2}" fill="${it.kind==='orange'?C.orange:C.scale}" stroke="${it.kind==='orange'?'#c94a17':C.ring}"/>`; for(let i=0;i<=n;i++){ const tx=it.x+14+(it.w-28)*i/n; const th=i%4===0?it.h*0.5:it.h*0.28; s+=`<line x1="${tx}" y1="${it.y+it.h/2-th/2}" x2="${tx}" y2="${it.y+it.h/2+th/2}" stroke="${it.kind==='orange'?'#fff':C.ink}" stroke-width="1" opacity="0.8"/>`; } const px=it.x+14+(it.w-28)*(it.pos||0.15); s+=`<rect x="${px-3}" y="${it.y-4}" width="6" height="${it.h+8}" rx="2" fill="${it.kind==='orange'?C.ink:C.orange}"/>`; if(it.label) s+=`<text x="${it.x}" y="${it.y-7}" font-family="Rubik" font-size="7.5" letter-spacing="0.8" fill="${C.ink}">${esc(it.label)}</text>`; break; }
+        case 'vscale': { s+=`<rect x="${it.x}" y="${it.y}" width="${it.w}" height="${it.h}" rx="2" fill="${C.scale}" stroke="${C.ring}"/>`; const names=it.names||[]; const step=(it.h-24)/(Math.max(names.length,1)); names.forEach((nm,i)=>{ const ty=it.y+12+step*i+step/2; s+=`<line x1="${it.x+6}" y1="${ty}" x2="${it.x+14}" y2="${ty}" stroke="${C.ink}" stroke-width="1"/><text x="${it.x+20}" y="${ty+3}" font-family="Rubik" font-size="7" letter-spacing="0.6" fill="${nm?C.ink:'#a9a6a1'}">${esc(nm||('—'))}</text>`; for(let k=1;k<4;k++){ const sy=ty+step*k/4; if(sy<it.y+it.h-8) s+=`<line x1="${it.x+6}" y1="${sy}" x2="${it.x+10}" y2="${sy}" stroke="${C.ink}" stroke-width="0.8" opacity="0.6"/>`; } }); const py=it.y+12+step*(it.pos||0)+step/2; s+=`<line x1="${it.x+2}" y1="${py}" x2="${it.x+it.w-2}" y2="${py}" stroke="${C.orange}" stroke-width="2"/>`; if(it.label) s+=`<text x="${it.x}" y="${it.y-7}" font-family="Rubik" font-size="7.5" letter-spacing="0.8" fill="${C.ink}">${esc(it.label)}</text>`; break; }
+        case 'dpad': { const a=it.size, t=it.size*0.34, cx=it.cx, cy=it.cy; s+=`<path d="M${cx-t/2} ${cy-a/2}h${t}v${a/2-t/2}h${a/2-t/2}v${t}h-${a/2-t/2}v${a/2-t/2}h-${t}v-${a/2-t/2}h-${a/2-t/2}v-${t}h${a/2-t/2}z" fill="${C.pad}" rx="6"/>`; s+=chev(cx-a/2+t*0.55,cy,'L',C.white)+chev(cx+a/2-t*0.55,cy,'R',C.white); s+=`<path d="M${cx-5} ${cy-a/2+t*0.62}l5-6 5 6" fill="none" stroke="#8b8b90" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M${cx-5} ${cy+a/2-t*0.62}l5 6 5-6" fill="none" stroke="#8b8b90" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="${cx}" cy="${cy}" r="${t*0.28}" fill="#3a3a3d"/>`; break; }
+        case 'rail': s+=`<rect x="${it.x}" y="${it.y}" width="${it.w}" height="${it.h}" fill="${C.wood}"/>`; break;
+      }
+    }
+    s+=`</g><rect x="0" y="0" width="${W}" height="${H}" rx="${R}" fill="none" stroke="${C.ink}" stroke-width="1.5"/></svg>`;
+    return s;
+  }
+  function sign(x1,y,x2){ return [{t:'label',x:x1,y,text:'thony audio',fs:11,wt:500,ls:0.4},{t:'label',x:x2,y,text:'TA-1  cassette player',fs:8,c:C.soft,anchor:'end',ls:0.6}]; }
+  function pads(x0,y0,w,h,gap,rows,extra){ const out=[]; rows.forEach((row,r)=>row.forEach((p,c)=>{ if(!p) return; out.push(Object.assign({t:'pad',x:x0+c*(w+gap),y:y0+r*(h+gap),w,h},extra||{},p)); })); return out; }
+
+  const concepts=[
+  { id:'F', name:'Pocket recorder', items:[
+      {t:'grille',x:388,y:-10,w:222,h:390,style:'sq',pad:16,flush:true},
+      {t:'label',x:22,y:36,text:'PLAY',fs:7.5}, {t:'led',cx:60,cy:33,on:true},
+      {t:'pad',x:22,y:44,w:58,h:118,kind:'orange',glyph:'playpause'},
+      {t:'label',x:100,y:36,text:'STOP',fs:7.5}, {t:'label',x:172,y:36,text:'PREV',fs:7.5}, {t:'label',x:268,y:36,text:'NEXT',fs:7.5},
+      {t:'pad',x:100,y:44,w:64,h:50,glyph:'stop'}, {t:'pad',x:172,y:44,w:88,h:50,chev:'L',dbl:true}, {t:'pad',x:268,y:44,w:88,h:50,chev:'R',dbl:true},
+      {t:'screen',x:100,y:112,w:256,h:192,rx:4},
+      {t:'slider',x:22,y:190,w:58,h:14,pos:0.6,ticks:8}, {t:'label',x:22,y:216,text:'VOLUME',fs:7.5},
+      {t:'knob',cx:51,cy:270,r:22,label:'TONE',kind:'dark',below:true},
+      ...sign(22,350,356),
+    ], copy:{ intro:'Straight from the Braun pocket recorder: an orange play/pause key with its LED, a row of transport keys above the window, and the square-hole grille on the right. The screen is the cassette window, 4:3 and no wider.',
+      bullets:['STOP, PREV (◀◀), NEXT (▶▶) are the transport row; PREV and NEXT are the L/R keys.','Orange key is the only colour; the grille holes are square and flush, as on the recorder.','Volume slider and a black TONE knob fill the left rail under the play key.','Wordmark bottom-left, model bottom-right, Braun style.'], wild:'The screen is framed by hardware on three sides, so it reads as a window into the mechanism rather than a display.' } },
+
+  { id:'G', name:'Audio 1', items:[
+      {t:'screen',x:22,y:22,w:232,h:174,rx:4},
+      {t:'grille',x:274,y:22,w:148,h:174,rx:6},
+      {t:'knob',cx:512,cy:104,r:60,label:'VOLUME',kind:'orange',below:true},
+      {t:'label',x:22,y:220,text:'SELECT',fs:7.5},
+      {t:'slider',x:22,y:226,w:400,h:30,pos:0.04,kind:'orange',ticks:28},
+      {t:'label',x:36,y:274,text:'CHORALE',fs:7}, {t:'label',x:96,y:274,text:'TAPE ONE',fs:7}, {t:'label',x:160,y:274,text:'3',fs:7,c:C.soft}, {t:'label',x:216,y:274,text:'4',fs:7,c:C.soft}, {t:'label',x:272,y:274,text:'5',fs:7,c:C.soft}, {t:'label',x:328,y:274,text:'6',fs:7,c:C.soft}, {t:'label',x:384,y:274,text:'7',fs:7,c:C.soft},
+      {t:'rbtn',cx:474,cy:241,r:17,kind:'orange',chev:'L',label:'PREV'}, {t:'rbtn',cx:552,cy:241,r:17,kind:'orange',chev:'R',label:'NEXT'},
+      ...pads(22,292,56,40,8,[[{label:'A',kind:'grey',center:true},{label:'B',kind:'grey',center:true},{label:'C',kind:'grey',center:true},{label:'D',kind:'grey',center:true}]]),
+      {t:'label',x:22,y:286,text:'PRESET',fs:7.5},
+      {t:'pad',x:290,y:292,w:60,h:40,label:'DEMO',center:true}, {t:'pad',x:358,y:292,w:64,h:40,label:'GET',center:true},
+      {t:'label',x:450,y:318,text:'thony audio',fs:11,wt:500,ls:0.4}, {t:'label',x:450,y:334,text:'TA-1  cassette player',fs:8,c:C.soft,ls:0.6},
+    ], copy:{ intro:'Braun audio 1 and tuner 1 merged. A big orange VOLUME knob, a long orange slider scale that selects the plugin the way a tuner finds a station, and two round orange PREV/NEXT buttons like the FM/AM pair.',
+      bullets:['Screen 232 px, 4:3, with a round-hole grille beside it (video 1).','The slider scale carries the plugin names as tick labels; empty ticks are numbered.','A B C D light preset keys, black DEMO and GET keys.','Three orange elements, but one hue and one family: knob, scale, buttons.'], wild:'The catalog is a tuning scale, not a pad bank. Sliding the pointer changes the screen.' } },
+
+  { id:'H', name:'Snow White', items:[
+      {t:'rail',x:-10,y:-10,w:24,h:390}, {t:'rail',x:586,y:-10,w:24,h:390},
+      {t:'panel',x:36,y:22,w:300,h:232,rx:6,fill:C.recess},
+      {t:'screen',x:72,y:46,w:228,h:171,rx:4},
+      {t:'label',x:352,y:38,text:'THONY AUDIO',fs:11,wt:500,ls:0.6},
+      {t:'knob',cx:372,cy:76,r:14,label:'VOL',below:true}, {t:'knob',cx:372,cy:130,r:14,label:'TONE',below:true}, {t:'knob',cx:372,cy:184,r:14,label:'MIX',below:true},
+      {t:'vscale',x:412,y:50,w:160,h:150,names:['CHORALE','TAPE ONE','','',''],pos:0},
+      ...pads(412,214,30,24,6,[[{label:'A',kind:'grey',center:true,fs:7.5},{label:'B',kind:'grey',center:true,fs:7.5},{label:'C',kind:'grey',center:true,fs:7.5},{label:'D',kind:'grey',center:true,fs:7.5}]]),
+      {t:'pad',x:412,y:250,w:74,h:40,chev:'L'}, {t:'pad',x:498,y:250,w:74,h:40,chev:'R'},
+      {t:'pad',x:352,y:214,w:44,h:76,kind:'orange',label:'GET',center:true},
+      {t:'grille',x:36,y:302,w:240,h:50,style:'slots',pad:8,flush:true}, {t:'grille',x:332,y:302,w:240,h:50,style:'slots',pad:8,flush:true},
+      {t:'label',x:36,y:282,text:'TA-1',fs:9,c:C.orange,ls:1}, {t:'label',x:66,y:282,text:'CASSETTE PLAYER',fs:8,c:C.soft},
+    ], copy:{ intro:'The SK4 plan, flattened: a recessed deck plate on the left holds the screen where the platter sits; on the right, a column of three small knobs, a vertical tuning scale, a row of four small keys, and two slotted grilles along the bottom edge.',
+      bullets:['Screen 228 px, 4:3, sunk into a grey plate like the SK4 turntable deck.','Vertical scale lists the plugins with an orange pointer, replacing the radio dial.','VOL, TONE, MIX knobs; A to D keys; a tall orange GET key; black L/R pads.','Speaker is two slotted grilles, the SK4 front, instead of a hole field.'], wild:'Warm side rails on both edges quote the SK4 wood cheeks. Easy to drop if it fights the K.O. II language.' } },
+
+  { id:'I', name:'Calculator', items:[
+      {t:'screen',x:22,y:22,w:200,h:150,rx:4},
+      {t:'grille',x:240,y:22,w:120,h:150,rx:6,small:true},
+      {t:'label',x:384,y:52,text:'THONY',fs:26,wt:300,ls:0.6}, {t:'label',x:384,y:80,text:'AUDIO',fs:26,wt:300,ls:0.6},
+      {t:'label',x:385,y:104,text:'TA-1',fs:10,c:C.orange,ls:1}, {t:'label',x:416,y:104,text:'CASSETTE PLAYER',fs:9,c:C.soft},
+      {t:'label',x:385,y:150,text:'16 VOICE ENSEMBLE  ·  VST3 AU AAX',fs:8,c:C.soft},
+      {t:'label',x:22,y:192,text:'SLOT',fs:7.5},
+      ...pads(22,198,44,34,8,[[{label:'1'},{label:'2'},{label:'3'},{label:'4'},{label:'5'},{label:'6'}],[{label:'7'},{label:'8'},{label:'9'},{label:'10'},{label:'11'},{label:'12'}],[{label:'A'},{label:'B'},{label:'C'},{label:'D'},{label:'DEMO',fs:7,kind:'black'},{label:'GET',kind:'orange'}]],{kind:'grey',center:true,rx:12}),
+      {t:'pad',x:384,y:198,w:96,h:118,chev:'L',rx:12}, {t:'pad',x:490,y:198,w:96,h:118,chev:'R',rx:12},
+      {t:'label',x:384,y:192,text:'PREV',fs:7.5}, {t:'label',x:490,y:192,text:'NEXT',fs:7.5},
+      ...sign(22,350,586),
+    ], copy:{ intro:'Braun ET66 calculator keys, laid out with K.O. II density. A small 4:3 screen and a fine-hole grille share the top-left, the wordmark block sits top-right, and the lower two-thirds is a keypad.',
+      bullets:['Eighteen rounded light keys: slots 1 to 12, presets A to D, a black DEMO and an orange GET, exactly the calculator\'s one-dark-one-colour rule.','L/R are two large rounded black keys with PREV and NEXT captions.','Screen is the smallest here, 200 px, kept 4:3.','Round key corners are the only softness on an otherwise square face.'], wild:'The keypad is oversized for what it does, on purpose: the hero reads as a calculator for sound.' } },
+
+  { id:'J', name:'Game one', items:[
+      {t:'screen',x:22,y:22,w:200,h:150,rx:4},
+      {t:'grille',x:246,y:22,w:196,h:150,style:'sq',pad:12,flush:true},
+      {t:'label',x:468,y:52,text:'THONY',fs:24,wt:300,ls:0.6}, {t:'label',x:468,y:78,text:'AUDIO',fs:24,wt:300,ls:0.6}, {t:'label',x:469,y:100,text:'TA-1',fs:10,c:C.orange,ls:1},
+      {t:'led',cx:470,cy:126,on:true,label:'POWER'}, {t:'led',cx:470,cy:146,label:'DEMO'},
+      {t:'dpad',cx:120,cy:268,size:136},
+      {t:'label',x:60,y:193,text:'PREV',fs:7.5}, {t:'label',x:160,y:193,text:'NEXT',fs:7.5,anchor:'end'},
+      {t:'pad',x:220,y:298,w:70,h:26,kind:'grey',label:'DEMO',center:true,rx:13}, {t:'pad',x:300,y:298,w:70,h:26,kind:'orange',label:'GET',center:true,rx:13},
+      {t:'label',x:400,y:192,text:'PRESET',fs:7.5}, 
+      ...pads(400,198,58,46,8,[[{label:'A',kind:'grey',center:true},{label:'B',kind:'grey',center:true},{label:'C',kind:'grey',center:true}],[{label:'1',center:true},{label:'2',center:true},{label:'3',center:true}]]),
+      {t:'knob',cx:246,cy:230,r:20,label:'VOLUME',below:false}, {t:'knob',cx:330,cy:230,r:20,label:'MIX',kind:'dark',below:false},
+      ...sign(400,350,586),
+    ], copy:{ intro:'Braun game one: a small dark screen top-left, a square-hole grille top-right, a black D-pad and two pill buttons. The D-pad\'s left and right arms are the L/R keys; up and down are dimmed.',
+      bullets:['Screen 200 px, 4:3, the game one proportion.','D-pad is the largest control; PREV and NEXT captions sit over its arms.','Pills are DEMO (light) and GET (orange); knobs VOLUME and MIX between them and the pad bank.','A to C preset keys and 1 to 3 voice pads on the right, POWER and DEMO LEDs under the wordmark.'], wild:'A D-pad on an audio device is the risk here, but it makes prev/next feel like play rather than paging.' } },
+  ];
+
+  const round1=[
+  { id:'A', name:'Console', items:[ {t:'panel',x:0,y:0,w:372,h:132}, {t:'label',x:26,y:58,text:'THONY AUDIO',fs:30,wt:300,ls:0.6}, {t:'label',x:27,y:84,text:'TA-1  ·  CASSETTE PLAYER',fs:13,c:C.orange,ls:1}, {t:'screw',cx:14,cy:14},{t:'screw',cx:358,cy:14},{t:'screw',cx:14,cy:118},{t:'screw',cx:358,cy:118}, {t:'grille',x:372,y:-10,w:240,h:142}, {t:'screen',x:-10,y:132,w:620,h:160}, {t:'led',cx:26,cy:331,on:true,label:'POWER'}, {t:'pad',x:466,y:304,w:56,h:52,chev:'L'},{t:'pad',x:530,y:304,w:56,h:52,chev:'R'} ], copy:{intro:'Title panel and grille on top, full-width display band, near-empty deck.',bullets:[],wild:''} },
+  { id:'B', name:'Glass column', items:[ {t:'screen',x:-10,y:-10,w:350,h:390}, {t:'label',x:362,y:44,text:'THONY AUDIO',fs:22,wt:300}, {t:'label',x:363,y:62,text:'TA-1',fs:10,c:C.orange,ls:1}, {t:'grille',x:360,y:82,w:220,h:176,rx:6}, {t:'pad',x:360,y:286,w:106,h:60,chev:'L'},{t:'pad',x:474,y:286,w:106,h:60,chev:'R'} ], copy:{intro:'Full-height display column left; grille and wide pads right.',bullets:[],wild:''} },
+  { id:'C', name:'Tape deck', items:[ {t:'screen',x:-10,y:-10,w:620,h:224}, {t:'label',x:22,y:30,text:'THONY AUDIO',fs:16,wt:300,c:C.white,ls:1.5}, {t:'grille',x:22,y:232,w:250,h:116,rx:6}, {t:'label',x:298,y:262,text:'CASSETTE PLAYER',fs:10}, {t:'pad',x:452,y:262,w:60,h:60,chev:'L'},{t:'pad',x:518,y:262,w:60,h:60,chev:'R'} ], copy:{intro:'Display band on top, hardware below.',bullets:[],wild:''} },
+  { id:'D', name:'Boombox', items:[ {t:'grille',x:-10,y:-10,w:216,h:390,pad:22}, {t:'label',x:232,y:44,text:'THONY AUDIO',fs:26,wt:300}, {t:'label',x:464,y:44,text:'TA-1 CASSETTE PLAYER',fs:11,c:C.orange,ls:1}, {t:'screen',x:228,y:64,w:352,h:200}, {t:'pad',x:228,y:284,w:172,h:62,chev:'L'},{t:'pad',x:408,y:284,w:172,h:62,chev:'R'} ], copy:{intro:'Full-height grille left; screen and two wide keys right.',bullets:[],wild:''} },
+  { id:'E', name:'Flank', items:[ {t:'label',x:22,y:36,text:'THONY AUDIO',fs:22,wt:300}, {t:'led',cx:486,cy:30,on:true}, {t:'pad',x:22,y:60,w:56,h:290,chev:'L'}, {t:'screen',x:92,y:60,w:322,h:290}, {t:'pad',x:428,y:60,w:56,h:290,chev:'R'}, {t:'grille',x:504,y:-10,w:106,h:390,small:true} ], copy:{intro:'Tall keys flank the screen; vertical vent on the right.',bullets:[],wild:''} },
+  ];
+
+  function section(c){
+    const b=c.copy.bullets.map(x=>`<li>${x}</li>`).join('');
+    return `<section class="concept">${render(c.id,c.items)}<div><p class="kicker">Concept</p><h2><b>${c.id}</b>${c.name}</h2><p>${c.copy.intro}</p>${b?`<ul>${b}</ul>`:''}${c.copy.wild?`<div class="wild">${c.copy.wild}</div>`:''}</div></section>`;
+  }
+  document.getElementById('round2').innerHTML=concepts.map(section).join('');
+  document.getElementById('round1').innerHTML=round1.map(section).join('');
+})();
+</script>
