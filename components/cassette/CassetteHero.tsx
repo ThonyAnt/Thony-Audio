@@ -37,7 +37,7 @@ const UNITS = [
   },
 ]
 
-export default function CassetteHero({ bodySvg, glassSvg }: { bodySvg: string; glassSvg: string }) {
+export default function CassetteHero() {
   const [index, setIndex] = useState(0)
   const [blink, setBlink] = useState(false)
   const busy = useRef(false)
@@ -122,10 +122,16 @@ export default function CassetteHero({ bodySvg, glassSvg }: { bodySvg: string; g
             ].join(", "),
           }}
         />
-        {/* the device */}
-        <div
-          className="absolute inset-0 [&>svg]:block [&>svg]:w-full [&>svg]:h-full"
-          dangerouslySetInnerHTML={{ __html: bodySvg }}
+        {/* the device — Figma PNG exports (2x/4x of the 894×561 frame, transparent bg):
+            body = frame with the CRT glass layers hidden · glass = only those layers.
+            The browser's area-averaged image downscale keeps hairlines calm at any
+            display size, where live vector rasterization at fractional scales shimmers. */}
+        <img
+          src="/assets/cassette/cassette-body-2x.png"
+          srcSet="/assets/cassette/cassette-body-2x.png 1788w, /assets/cassette/cassette-body-4x.png 3576w"
+          sizes="(max-width: 760px) 92vw, 680px"
+          alt="" draggable={false}
+          className="absolute inset-0 w-full h-full"
         />
 
         {/* live CRT content, clipped to the phosphor face */}
@@ -147,9 +153,12 @@ export default function CassetteHero({ bodySvg, glassSvg }: { bodySvg: string; g
         </div>
 
         {/* the glass, back on top */}
-        <div
-          className="absolute inset-0 pointer-events-none [&>svg]:block [&>svg]:w-full [&>svg]:h-full"
-          dangerouslySetInnerHTML={{ __html: glassSvg }}
+        <img
+          src="/assets/cassette/cassette-glass-2x.png"
+          srcSet="/assets/cassette/cassette-glass-2x.png 1788w, /assets/cassette/cassette-glass-4x.png 3576w"
+          sizes="(max-width: 760px) 92vw, 680px"
+          alt="" draggable={false}
+          className="absolute inset-0 w-full h-full pointer-events-none"
         />
 
         {/* PREV / NEXT — the only pressable controls */}
