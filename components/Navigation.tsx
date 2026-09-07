@@ -6,9 +6,7 @@ import { usePathname } from "next/navigation"
 export default function Navigation() {
   const pathname = usePathname()
 
-  // The home page renders its own bento nav row (components/BentoShowcase.tsx).
-  if (pathname === "/") return null
-
+  // (The old bento home rendered its own nav row; the cassette hero uses this one.)
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       <nav className="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
