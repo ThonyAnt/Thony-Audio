@@ -144,7 +144,10 @@ export default function SunLeaves({ fold }: { fold?: Rect | null }) {
                 ["--sway" as string]: `${s.sway}deg`,
               }}
             >
-              <svg viewBox={`${-L} ${-L} ${2 * L} ${2 * L}`} width="100%" height="100%">
+              {/* overflow visible: the stem ends exactly at the viewBox edge (x = L), so the
+                  tip leaflets sweep past it — without this the tip is sliced off in a
+                  straight line that rotates with the frond */}
+              <svg viewBox={`${-L} ${-L} ${2 * L} ${2 * L}`} width="100%" height="100%" overflow="visible">
                 {frondPaths(L, s.seed).map((d, j) => (
                   <path key={j} d={d} />
                 ))}
