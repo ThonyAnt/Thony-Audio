@@ -105,3 +105,138 @@ body::after {
   background-image: url("data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PScwIDAgMjU2IDI1NicgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48ZmlsdGVyIGlkPSdwZ3InPjxmZVR1cmJ1bGVuY2UgdHlwZT0nZnJhY3RhbE5vaXNlJyBiYXNlRnJlcXVlbmN5PScwLjgnIG51bU9jdGF2ZXM9JzMnIHN0aXRjaFRpbGVzPSdzdGl0Y2gnLz48ZmVDb2xvck1hdHJpeCB0eXBlPSdzYXR1cmF0ZScgdmFsdWVzPScwJy8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgZmlsdGVyPSd1cmwoI3BnciknLz48L3N2Zz4=");
   background-size: 240px 240px;
 }
+
+/* ---------------------------------------------------------------------------
+   Landing page: the sunlit wooden desk under the cassette
+   (components/desk/WoodTable + components/desk/SunLeaves)
+   --------------------------------------------------------------------------- */
+
+.wood {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #b27a48;
+}
+
+.wood-defs {
+  position: absolute;
+}
+
+.wood > div {
+  position: absolute;
+  inset: 0;
+}
+
+/* straight grain stripes, warped into wood by the turbulence filter */
+.wood-grain {
+  inset: -8%;
+  background-color: #b98252;
+  background-image:
+    repeating-linear-gradient(
+      180deg,
+      #bb8352 0px,
+      #cc955f 3px,
+      #ad7443 5px,
+      #d29c65 9px,
+      #a06a3b 12px,
+      #c68d58 14px,
+      #b87f4d 19px,
+      #d19c66 23px,
+      #a36e3f 27px
+    ),
+    repeating-linear-gradient(
+      179.3deg,
+      rgba(255, 228, 190, 0.16) 0px,
+      rgba(255, 228, 190, 0) 11px,
+      rgba(70, 38, 12, 0.26) 19px,
+      rgba(70, 38, 12, 0) 31px,
+      rgba(255, 228, 190, 0.12) 40px,
+      rgba(255, 228, 190, 0) 53px
+    );
+  background-blend-mode: normal, overlay;
+  filter: url(#wood-warp);
+}
+
+/* plank seams and per-board tint */
+.wood-planks {
+  background-image:
+    repeating-linear-gradient(
+      180deg,
+      rgba(60, 34, 12, 0.6) 0px,
+      rgba(60, 34, 12, 0.6) 2px,
+      rgba(255, 236, 205, 0.18) 2px,
+      rgba(255, 236, 205, 0.18) 3px,
+      rgba(0, 0, 0, 0) 3px,
+      rgba(0, 0, 0, 0) 200px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      rgba(255, 214, 160, 0.07) 0px,
+      rgba(255, 214, 160, 0.07) 200px,
+      rgba(0, 0, 0, 0.08) 200px,
+      rgba(0, 0, 0, 0.08) 400px,
+      rgba(255, 190, 130, 0.04) 400px,
+      rgba(255, 190, 130, 0.04) 600px
+    );
+}
+
+.wood-noise {
+  background-image: url("/assets/cassette/board-grain-noise.png");
+  background-size: 220px 220px;
+  mix-blend-mode: multiply;
+  opacity: 0.16;
+}
+
+/* bright sun on the desk: two warm pools, an even lift, a faint fall-off at the far edges */
+.wood-light {
+  background:
+    radial-gradient(70% 60% at 30% 20%, rgba(255, 246, 220, 0.5), rgba(255, 246, 220, 0) 70%),
+    radial-gradient(60% 55% at 85% 30%, rgba(255, 242, 210, 0.4), rgba(255, 242, 210, 0) 70%),
+    linear-gradient(115deg, rgba(255, 240, 210, 0.3), rgba(255, 228, 180, 0.1) 45%, rgba(255, 240, 210, 0.24)),
+    radial-gradient(95% 85% at 50% 50%, rgba(0, 0, 0, 0) 65%, rgba(0, 0, 0, 0.14) 100%);
+}
+
+/* Sunlight through the plant above: waving frond shadows. Rendered once under
+   the device and once above it (clipped to the device, shifted) for the fold. */
+.sun {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sun-shift {
+  position: absolute;
+  inset: 0;
+}
+
+.sun-frond {
+  position: absolute;
+  aspect-ratio: 1;
+}
+
+.sun-frond-sway {
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+  mix-blend-mode: multiply;
+  will-change: transform;
+  animation: sun-sway 10s ease-in-out infinite;
+}
+
+.sun-frond svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: #2e1b0b;
+}
+
+@keyframes sun-sway {
+  0%   { transform: rotate(calc(var(--sway) * -1)) translate(0, 0); }
+  50%  { transform: rotate(var(--sway)) translate(4px, 2px); }
+  100% { transform: rotate(calc(var(--sway) * -1)) translate(0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sun-frond-sway { animation: none; }
+}
