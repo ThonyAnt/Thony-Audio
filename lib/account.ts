@@ -43,6 +43,24 @@ function toUser(u: User): AccountUser {
   return { email, name }
 }
 
+/**
+ * Synchronous best guess at "is someone signed in?", before the session has
+ * been resolved: a persisted Supabase session in localStorage, or an auth
+ * redirect landing (magic link / PKCE code) that is about to become one.
+ * Lets /account decide what to draw on its very first frame — the notepad
+ * for visitors, an empty desk for members — so the route transition carries it.
+ */
+export function likelySignedIn(): boolean {
+  if (typeof window === "undefined") return true
+  try {
+    if (/access_token=|type=recovery/.test(location.hash) || /[?&]code=/.test(location.search)) return true
+    const ref = new URL(process.env.NEXT_PUBLIC_SUPABASE_URL!).hostname.split(".")[0]
+    return localStorage.getItem(`sb-${ref}-auth-token`) !== null
+  } catch {
+    return false
+  }
+}
+
 /** Current signed-in user (from the persisted session), or null. */
 export async function getCurrentUser(): Promise<AccountUser | null> {
   const { data } = await supabase.auth.getSession()

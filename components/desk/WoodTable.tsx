@@ -1,18 +1,24 @@
+import { preload } from "react-dom"
+import { WOOD_GRAIN, WOOD_GRAIN_LQIP } from "./woodGrain"
+
 /**
- * The wooden table the cassette sits on. Straight grain stripes are warped by
- * an SVG turbulence filter into organic grain, then planks, fine noise, a
- * key light from the top-left and a vignette are layered on top.
+ * The wooden table the desk scene sits on: baked grain, then planks, fine
+ * noise, a key light from the top-left and a vignette layered on top in CSS
+ * (globals.css, .wood-*).
+ *
+ * The grain is a static image, baked by scripts/bake-wood.mjs (straight
+ * stripes warped by fractal noise — what used to be a live SVG filter here).
+ * Static because it has to be in the first paint: a runtime filter or bake
+ * showed a flash of flat stripes before the wood arrived, and Chromium would
+ * sometimes drop a filtered element's rasterisation after a tab switch and
+ * leave the desk blank. The image is preloaded, and a tiny inline copy of it
+ * paints underneath in the meantime, so there is never a different wood.
  */
 export default function WoodTable() {
+  preload(WOOD_GRAIN, { as: "image", fetchPriority: "high" })
   return (
     <div className="wood" aria-hidden>
-      <svg className="wood-defs" width="0" height="0" focusable="false">
-        <filter id="wood-warp" x="0" y="0" width="100%" height="100%" colorInterpolationFilters="sRGB">
-          <feTurbulence type="fractalNoise" baseFrequency="0.0022 0.018" numOctaves="3" seed="11" result="warp" />
-          <feDisplacementMap in="SourceGraphic" in2="warp" scale="60" xChannelSelector="R" yChannelSelector="G" />
-        </filter>
-      </svg>
-      <div className="wood-grain" />
+      <div className="wood-grain" style={{ backgroundImage: `url(${WOOD_GRAIN}), url(${WOOD_GRAIN_LQIP})` }} />
       <div className="wood-planks" />
       <div className="wood-noise" />
       <div className="wood-light" />

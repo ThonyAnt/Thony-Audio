@@ -1,12 +1,14 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useSyncExternalStore } from "react"
 import FadeIn from "@/components/FadeIn"
+import Notepad, { DeskStage } from "@/components/desk/Notepad"
 import {
   type AccountUser,
   type Download,
   type License,
   getCurrentUser,
+  likelySignedIn,
   onAuthChange,
   signInWithPassword,
   signUpWithPassword,
@@ -17,9 +19,14 @@ import {
   deriveDownloads,
 } from "@/lib/account"
 
+const noSubscribe = () => () => {}
+
 export default function AccountClient() {
   const [ready, setReady] = useState(false)
   const [user, setUser] = useState<AccountUser | null>(null)
+  // a synchronous guess, so a visitor gets the notepad on the very first frame (and the
+  // route transition can carry it in) while a member sees an empty desk until resolved
+  const member = useSyncExternalStore(noSubscribe, likelySignedIn, () => true)
 
   useEffect(() => {
     // resolve the current session, then keep in sync (covers the magic-link redirect)
@@ -30,62 +37,55 @@ export default function AccountClient() {
     return onAuthChange(setUser)
   }, [])
 
-  // neutral while resolving — avoids flashing the olive auth field at signed-in users
-  if (!ready) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-muted text-sm">loading…</p>
-      </div>
-    )
-  }
+  // the empty desk while resolving — avoids flashing the notepad at signed-in users
+  if (!ready && member) return <DeskStage>{null}</DeskStage>
 
-  // signed out → the imagiro olive auth field (SignIn brings its own shell)
+  // signed out → the notepad on the desk
   if (!user) return <SignIn />
 
-  // signed in → the dashboard on the calm paper field
+  // signed in → the dashboard, on a cream sheet on the desk for now
   return (
-    <div className="pt-28 pb-24 px-6 max-w-2xl mx-auto">
-      <Dashboard user={user} onSignOut={() => signOut()} />
+    <div className="relative z-[2] mx-auto max-w-2xl px-6 pt-28 pb-24">
+      <div className="rounded bg-cream/95 px-8 py-10 shadow-lg">
+        <Dashboard user={user} onSignOut={() => signOut()} />
+      </div>
     </div>
   )
 }
 
-// ── imagiro auth shell: a warm light card centered on the olive-green field ──────
-function AuthShell({ children }: { children: React.ReactNode }) {
+// ── the notepad page: a dated sheet with a title and whatever is written under it ──
+function Page({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-olive flex items-center justify-center px-6 pt-28 pb-16">
-      <FadeIn className="w-full max-w-md">
-        <div className="bg-surface rounded border border-dark/10 shadow-lg p-8 sm:p-10">
+    <DeskStage>
+      <Notepad>
+        <div className="notepad-page">
+          <Dateline />
+          <h1 className="notepad-title">{title}</h1>
           {children}
         </div>
-      </FadeIn>
-    </div>
+      </Notepad>
+    </DeskStage>
   )
 }
 
-function Field({
-  label,
-  hint,
-  children,
-}: {
-  label: string
-  hint?: string
-  children: React.ReactNode
-}) {
+// today's date, pencilled in the corner. Written after mount so the static shell and
+// the browser never disagree on what day it is.
+function Dateline() {
+  const [date, setDate] = useState("")
+  useEffect(() => {
+    setDate(new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" }).toLowerCase())
+  }, [])
+  return <span className="notepad-date" aria-hidden>{date}</span>
+}
+
+// the pen-drawn circle around the submit
+function Circle() {
   return (
-    <label className="block">
-      <span className="mb-2 block text-ink text-sm">{label}</span>
-      {children}
-      {hint && <span className="mt-1.5 block text-faint text-xs">{hint}</span>}
-    </label>
+    <svg viewBox="0 0 140 52" preserveAspectRatio="none" aria-hidden focusable="false">
+      <path d="M12 27 C 8 8, 60 3, 96 6 C 135 9, 142 30, 118 43 C 90 54, 20 52, 8 36 C 2 28, 14 14, 40 10" />
+    </svg>
   )
 }
-
-// imagiro inputs/buttons: 4px radius, dark hairline border, press-down on the CTA
-const inputCls =
-  "w-full rounded border border-dark/25 bg-cream px-4 py-3 text-sm text-ink placeholder:text-faint outline-none transition-colors focus:border-accent"
-const btnCls =
-  "w-full rounded bg-accent px-4 py-3.5 text-sm tracking-wide text-cream transition-[background-color,transform] duration-150 ease-[var(--ease-soft)] hover:bg-accent-hover active:translate-y-[var(--press)] disabled:opacity-85"
 
 // reused on the post-action confirmation screens
 function AuthNotice({
@@ -100,15 +100,12 @@ function AuthNotice({
   backLabel: string
 }) {
   return (
-    <AuthShell>
-      <h1 className="font-display text-4xl sm:text-5xl text-ink leading-[1.1] mb-3 lowercase">
-        {title}
-      </h1>
-      <p className="text-muted text-sm leading-relaxed">{children}</p>
-      <button onClick={onBack} className="mt-6 text-accent text-sm hover:underline">
-        ← {backLabel}
-      </button>
-    </AuthShell>
+    <Page title={title}>
+      <p className="notepad-sub">{children}</p>
+      <div className="notepad-foot">
+        <button type="button" onClick={onBack}>← {backLabel}</button>
+      </div>
+    </Page>
   )
 }
 
@@ -194,8 +191,8 @@ function SignIn() {
         onBack={() => { setConfirmSent(false); setMode("signin") }}
         backLabel="back to sign in"
       >
-        we sent a confirmation link to <span className="text-ink">{email}</span>. open it to verify
-        your address, then come back and sign in.
+        we sent a confirmation link to <b>{email}</b>. open it to verify your address, then come
+        back and sign in.
       </AuthNotice>
     )
   }
@@ -207,8 +204,7 @@ function SignIn() {
         onBack={() => setLinkSent(false)}
         backLabel="use a password instead"
       >
-        we sent a one-time sign-in link to <span className="text-ink">{email}</span>. open it on this
-        device to continue.
+        we sent a one-time sign-in link to <b>{email}</b>. open it on this device to continue.
       </AuthNotice>
     )
   }
@@ -220,85 +216,76 @@ function SignIn() {
         onBack={() => setResetSent(false)}
         backLabel="back to sign in"
       >
-        we sent a password-reset link to <span className="text-ink">{email}</span>. open it to choose
-        a new password.
+        we sent a password-reset link to <b>{email}</b>. open it to choose a new password.
       </AuthNotice>
     )
   }
 
   // ── the form ──
+  const signin = mode === "signin"
   return (
-    <AuthShell>
-      <h1 className="font-display text-4xl sm:text-5xl text-ink leading-[1.1] mb-2 lowercase">
-        {mode === "signin" ? "sign in" : "create account"}
-      </h1>
-      <p className="text-muted text-sm leading-relaxed mb-8">
-        {mode === "signin"
-          ? "sign in to download your plugins and manage your licenses."
-          : "create an account to download your plugins and manage your licenses."}
+    <Page title={signin ? "sign in" : "create account"}>
+      <p className="notepad-sub">
+        {signin
+          ? "to download your plugins and manage your licenses."
+          : "to download your plugins and manage your licenses."}
       </p>
 
-      <form onSubmit={submit} className="space-y-5">
-        <Field label="email">
+      <form onSubmit={submit}>
+        <div className="notepad-row">
+          <label htmlFor="account-email">email</label>
           <input
+            id="account-email"
             type="email"
             required
             autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className={inputCls}
           />
-        </Field>
-
-        <div>
-          <Field label="password" hint={mode === "signup" ? "at least 8 characters." : undefined}>
-            <input
-              type="password"
-              required
-              minLength={mode === "signup" ? 8 : undefined}
-              autoComplete={mode === "signup" ? "new-password" : "current-password"}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className={inputCls}
-            />
-          </Field>
-          {mode === "signin" && (
-            <button
-              type="button"
-              onClick={forgotPassword}
-              className="mt-2 block w-full text-right text-faint text-xs hover:text-ink transition-colors"
-            >
-              forgot password?
-            </button>
-          )}
         </div>
 
-        <button type="submit" disabled={busy} className={btnCls}>
-          {busy ? "…" : mode === "signin" ? "sign in" : "create account"}
+        <div className="notepad-row">
+          <label htmlFor="account-password">password</label>
+          <input
+            id="account-password"
+            type="password"
+            required
+            minLength={signin ? undefined : 8}
+            autoComplete={signin ? "current-password" : "new-password"}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="••••••••"
+          />
+        </div>
+        {signin ? (
+          <button type="button" className="notepad-note" onClick={forgotPassword}>
+            forgot it?
+          </button>
+        ) : (
+          <span className="notepad-note" style={{ cursor: "default" }}>at least 8 characters</span>
+        )}
+
+        <button type="submit" disabled={busy} className="notepad-go">
+          {busy ? "…" : signin ? "sign in →" : "create account →"}
+          <Circle />
         </button>
 
-        {error && <p className="text-accent text-xs">{error}</p>}
+        {error && <p className="notepad-error">{error}</p>}
 
-        <div className="flex items-center justify-between gap-3 pt-1 text-xs">
+        <div className="notepad-foot">
           <button
             type="button"
-            onClick={() => { setMode(mode === "signin" ? "signup" : "signin"); setError(null) }}
-            className="text-muted hover:text-ink transition-colors"
+            onClick={() => { setMode(signin ? "signup" : "signin"); setError(null) }}
           >
-            {mode === "signin" ? "need an account? sign up" : "have an account? sign in"}
+            {signin ? "need an account? sign up" : "have an account? sign in"}
           </button>
-          <button
-            type="button"
-            onClick={emailLink}
-            className="text-accent hover:underline transition-colors"
-          >
+          <button type="button" className="is-link" onClick={emailLink}>
             email me a link instead
           </button>
         </div>
       </form>
-    </AuthShell>
+    </Page>
   )
 }
 

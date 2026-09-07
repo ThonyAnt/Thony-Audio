@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Cormorant_Garamond, DM_Sans, Space_Mono } from "next/font/google"
+import { Caveat, Cormorant_Garamond, DM_Sans, Space_Mono } from "next/font/google"
 import "./globals.css"
 import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
@@ -23,6 +23,14 @@ const mono = Space_Mono({
   subsets: ["latin"],
   weight: ["400", "700"],
   variable: "--font-plex-mono",
+  display: "swap",
+})
+
+// the pen: what you write on the account notepad (components/desk/Notepad)
+const hand = Caveat({
+  subsets: ["latin"],
+  weight: ["500", "600"],
+  variable: "--font-caveat",
   display: "swap",
 })
 
@@ -58,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" data-scroll-behavior="smooth" className={`${cormorant.variable} ${dmSans.variable} ${mono.variable}`}>
+    <html lang="en" data-scroll-behavior="smooth" className={`${cormorant.variable} ${dmSans.variable} ${mono.variable} ${hand.variable}`}>
       <body suppressHydrationWarning>
         <PaperThemeProvider>
           <PaperGrain />

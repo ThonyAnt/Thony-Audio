@@ -114,6 +114,9 @@ export default function SunLeaves({ fold }: { fold?: Rect | null }) {
   const style: React.CSSProperties = {}
   let shift = ""
   let sharpen = 1
+  // the plain layer is pinned during route transitions (globals.css); a fold copy
+  // must not reuse the name — duplicate names cancel the whole transition
+  if (!fold) style.viewTransitionName = "desk-sun"
   if (fold) {
     style.clipPath = `inset(${fold.top}px calc(100% - ${fold.left + fold.width}px) calc(100% - ${fold.top + fold.height}px) ${fold.left}px)`
     style.zIndex = 20 // above the device

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>notepad sign-in — lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500&family=Space+Mono&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  /* ════════════════════════════════════════════════════════════════
+     ✎  NOTEPAD SIGN-IN LAB — the /account form, written on a paper
+        notepad lying on the same sunlit desk as the hero. Three pads,
+        same form; the leaves and wood are the real desk CSS.
+     ════════════════════════════════════════════════════════════════ */
+  :root{
+    --ink:#2a1a0c;          /* desk caption ink */
+    --pen:#1d2b6b;          /* blue ballpoint */
+    --pencil:#4d4841;       /* graphite */
+    --anno:#37b6c9;
+    --display:"Cormorant Garamond",Georgia,serif;
+    --body:"DM Sans",system-ui,sans-serif;
+    --mono:"Space Mono",ui-monospace,monospace;
+    --hand:"Caveat",cursive;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#fff;font-family:var(--body);color:#333;padding:34px 40px 60px}
+  h1{font:400 15px var(--body);letter-spacing:.2em;text-transform:uppercase;color:#777;margin-bottom:6px}
+  .lede{font:13px/1.6 var(--body);color:#888;max-width:760px;margin-bottom:28px}
+  .lab{display:grid;gap:40px}
+  .case h2{font:600 11px var(--body);letter-spacing:.18em;text-transform:uppercase;color:#555;margin-bottom:8px}
+  .case h2 span{color:#999;font-weight:400;letter-spacing:.04em;text-transform:none;margin-left:10px}
+  .anno{display:inline-block;font:9.5px/1.4 var(--mono);color:var(--anno);border:1px solid #37b6c955;padding:3px 7px;margin-top:8px}
+
+  /* ── the desk (WoodTable, verbatim) ── */
+  .desk{position:relative;height:640px;overflow:hidden;background:#b27a48;border-radius:2px}
+  .desk > .wood-grain,.desk > .wood-planks,.desk > .wood-noise,.desk > .wood-light{position:absolute;inset:0}
+  .wood-grain{inset:-8%;background-color:#b98252;
+    background-image:
+      repeating-linear-gradient(180deg,#bb8352 0px,#cc955f 3px,#ad7443 5px,#d29c65 9px,#a06a3b 12px,#c68d58 14px,#b87f4d 19px,#d19c66 23px,#a36e3f 27px),
+      repeating-linear-gradient(179.3deg,rgba(255,228,190,.16) 0px,rgba(255,228,190,0) 11px,rgba(70,38,12,.26) 19px,rgba(70,38,12,0) 31px,rgba(255,228,190,.12) 40px,rgba(255,228,190,0) 53px);
+    background-blend-mode:normal,overlay;filter:url(#wood-warp)}
+  .wood-planks{background-image:
+      repeating-linear-gradient(180deg,rgba(60,34,12,.6) 0px,rgba(60,34,12,.6) 2px,rgba(255,236,205,.18) 2px,rgba(255,236,205,.18) 3px,rgba(0,0,0,0) 3px,rgba(0,0,0,0) 200px),
+      repeating-linear-gradient(180deg,rgba(255,214,160,.07) 0px,rgba(255,214,160,.07) 200px,rgba(0,0,0,.08) 200px,rgba(0,0,0,.08) 400px,rgba(255,190,130,.04) 400px,rgba(255,190,130,.04) 600px)}
+  .wood-noise{background-image:url("http://localhost:3000/assets/cassette/board-grain-noise.png");background-size:220px 220px;mix-blend-mode:multiply;opacity:.16}
+  .wood-light{background:
+      radial-gradient(70% 60% at 30% 20%,rgba(255,246,220,.5),rgba(255,246,220,0) 70%),
+      radial-gradient(60% 55% at 85% 30%,rgba(255,242,210,.4),rgba(255,242,210,0) 70%),
+      linear-gradient(115deg,rgba(255,240,210,.3),rgba(255,228,180,.1) 45%,rgba(255,240,210,.24)),
+      radial-gradient(95% 85% at 50% 50%,rgba(0,0,0,0) 65%,rgba(0,0,0,.14) 100%)}
+
+  /* ── sun leaves (SunLeaves, ported: same generator, same FRONDS table) ── */
+  .sun{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:5}
+  .sun-frond{position:absolute;aspect-ratio:1}
+  .sun-frond-sway{width:100%;height:100%;transform-origin:50% 50%;mix-blend-mode:multiply;will-change:transform;animation:sun-sway 10s ease-in-out infinite}
+  .sun-frond svg{display:block;width:100%;height:100%;fill:#2e1b0b;overflow:visible}
+  @keyframes sun-sway{0%{transform:rotate(calc(var(--sway)*-1)) translate(0,0)}50%{transform:rotate(var(--sway)) translate(4px,2px)}100%{transform:rotate(calc(var(--sway)*-1)) translate(0,0)}}
+
+  /* ── the pad: shared plumbing ── */
+  .stage{position:absolute;inset:0;display:grid;place-items:center;z-index:2}
+  .pad{position:relative;width:min(400px,92%);transform:rotate(var(--tilt,-2.4deg))}
+  /* the sheets underneath: two stubs peeking out, slightly fanned */
+  .pad::before,.pad::after{content:"";position:absolute;inset:0;background:var(--paper,#f6f1e3);border-radius:2px;z-index:-1}
+  .pad::before{transform:rotate(1.1deg) translate(3px,4px);filter:brightness(.96)}
+  .pad::after{transform:rotate(-.8deg) translate(-2px,7px);filter:brightness(.92)}
+  .sheet{position:relative;background:var(--paper,#f6f1e3);border-radius:2px;padding:34px 30px 30px 30px;
+    /* hard offset shadow in the desk's shadow colour (like PaperTag), plus a soft one */
+    box-shadow:0 12px 1px rgba(26,14,6,.36),4px 16px 10px -2px rgba(26,14,6,.28),0 32px 40px -20px rgba(26,14,6,.35);
+    overflow:hidden}
+  /* page grade: the paper sits under the same warm light as the tags */
+  .sheet::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      linear-gradient(112deg,rgba(255,244,214,.22),rgba(255,244,214,0) 45%,rgba(60,34,12,.06) 100%),
+      radial-gradient(120% 80% at 100% 100%,rgba(60,34,12,.10),transparent 50%)}
+
+  /* the form on the ruled paper */
+  .form{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr);gap:0;font-family:var(--body);color:var(--ink)}
+  .head{display:flex;align-items:baseline;justify-content:flex-end;margin-bottom:6px}
+  .head .brand{font:400 10px var(--mono);letter-spacing:.22em;text-transform:uppercase;color:#7a6d5c}
+  .head .date{font:600 17px var(--hand);color:var(--pencil);opacity:.7}
+  .title{font:400 44px/1 var(--display);color:var(--ink);letter-spacing:-.01em;text-transform:lowercase}
+  .sub{font:13px/1.45 var(--body);color:#6d5f4d;margin-top:6px;margin-bottom:22px}
+  .row{display:grid;grid-template-columns:76px 1fr;align-items:end;height:var(--rule,28px)}
+  .row label{font:400 10px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:#8a7d6a;padding-bottom:6px}
+  .row input{appearance:none;border:0;background:transparent;outline:0;width:100%;height:100%;
+    font:600 24px/1 var(--hand);color:var(--pen);padding:0 2px 3px;caret-color:var(--pen)}
+  .row input::placeholder{color:#b3a894;font-weight:500}
+  .row.pw input{letter-spacing:.14em;font-family:var(--body);font-size:16px;padding-bottom:6px;color:var(--pen)}
+  .hint{font:500 13px var(--hand);color:var(--pencil);opacity:.55;justify-self:end;margin-top:-4px;margin-bottom:8px;cursor:pointer}
+  .hint:hover{opacity:.9;text-decoration:underline}
+
+  /* submit: the words, circled in ballpoint */
+  .go{position:relative;justify-self:start;margin:18px 0 0 76px;border:0;background:none;cursor:pointer;
+    font:600 26px/1 var(--hand);color:var(--pen);padding:10px 22px 8px 16px}
+  .go svg{position:absolute;inset:-6px -8px;width:calc(100% + 16px);height:calc(100% + 12px);overflow:visible;pointer-events:none}
+  .go svg path{fill:none;stroke:var(--pen);stroke-width:2.1;stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:0;transition:stroke-dashoffset .5s cubic-bezier(.22,1,.36,1)}
+  .go:hover svg path{stroke-dashoffset:-16}
+  .go:active{transform:translate(1px,1px)}
+  .go .arrow{margin-left:4px}
+
+  .foot{display:flex;justify-content:space-between;gap:12px;margin-top:26px;padding-top:10px;font:400 11px var(--body);color:#8a7d6a}
+  .foot a{color:#8a7d6a;text-decoration:none;border-bottom:1px solid rgba(138,125,106,.4)}
+  .foot a:hover{color:var(--ink)}
+  .foot a.link{color:#b85c3a;border-color:rgba(184,92,58,.4)}
+
+  /* the pen, lying next to the pad */
+  .pen{position:absolute;width:11px;height:300px;border-radius:6px;z-index:3;pointer-events:none;
+    background:linear-gradient(90deg,#0e0e12 0%,#3a3a44 30%,#5a5a66 48%,#2a2a32 70%,#0b0b0f 100%);
+    box-shadow:0 10px 1px rgba(26,14,6,.4),3px 14px 8px -2px rgba(26,14,6,.35)}
+  .pen::before{content:"";position:absolute;left:1px;right:1px;top:-14px;height:20px;border-radius:5px 5px 2px 2px;
+    background:linear-gradient(90deg,#c9a24a,#f0d78a 45%,#a8842e)}
+  .pen::after{content:"";position:absolute;left:3.5px;bottom:-22px;width:4px;height:24px;
+    background:linear-gradient(90deg,#8a8a92,#d9d9de 50%,#6d6d76);clip-path:polygon(0 0,100% 0,60% 100%,40% 100%)}
+
+  /* ══ A · yellow legal pad — glued top, red double margin, blue rules ══ */
+  .legal{--paper:#f4e5a4;--rule:28px}
+  .legal .sheet{padding-top:58px;
+    background-image:
+      linear-gradient(90deg,transparent 46px,#d98282 46px,#d98282 47px,transparent 47px,transparent 52px,#d98282 52px,#d98282 53px,transparent 53px),
+      repeating-linear-gradient(180deg,transparent 0,transparent 27px,#9db6d4 27px,#9db6d4 28px);
+    background-position:0 0,0 30px}
+  .legal .sheet::before{content:"";position:absolute;left:0;right:0;top:0;height:30px;z-index:2;
+    background:linear-gradient(180deg,#7a2a1f,#a83a2b 55%,#7a2a1f);
+    box-shadow:0 2px 2px rgba(0,0,0,.35)}
+  .legal .form{padding-left:0}
+  .legal .row label{color:#8a6f2a}
+
+  /* ══ B · spiral memo pad — wire coil through punched holes ══ */
+  .spiral{--paper:#f7f3e8;--rule:28px}
+  .spiral .sheet{padding-top:64px;
+    background-image:
+      linear-gradient(90deg,transparent 40px,#e2a2a2 40px,#e2a2a2 41px,transparent 41px),
+      repeating-linear-gradient(180deg,transparent 0,transparent 27px,#b5c6dc 27px,#b5c6dc 28px);
+    background-position:0 0,0 36px}
+  .coil{position:absolute;left:0;right:0;top:-12px;height:40px;z-index:3;pointer-events:none;
+    display:flex;justify-content:space-evenly;padding:0 10px}
+  .coil i{position:relative;width:14px;height:40px}
+  /* the hole, punched through the paper */
+  .coil i::before{content:"";position:absolute;left:1px;top:15px;width:12px;height:12px;border-radius:50%;
+    background:radial-gradient(circle at 40% 40%,#7a5a36,#4d3416 70%);box-shadow:inset 0 1px 2px rgba(0,0,0,.6)}
+  /* the wire: a bent loop up and over the edge */
+  .coil i::after{content:"";position:absolute;left:3px;top:-4px;width:8px;height:30px;border-radius:5px;
+    border:2.4px solid #9a9aa2;border-bottom-color:#5c5c66;border-right-color:#c9c9d1;
+    background:linear-gradient(180deg,transparent,rgba(255,255,255,.35) 50%,transparent);
+    box-shadow:0 1px 1px rgba(0,0,0,.45)}
+  /* the stubs of torn-off pages caught under the wire */
+  .spiral .sheet::before{content:"";position:absolute;left:0;right:0;top:0;height:22px;z-index:2;
+    background:
+      repeating-linear-gradient(90deg,transparent 0 22px,rgba(120,90,50,.18) 22px 23px),
+      linear-gradient(180deg,#e8e1d2,#f7f3e8);
+    clip-path:polygon(0 0,100% 0,100% 55%,96% 80%,91% 60%,84% 95%,77% 62%,70% 90%,63% 58%,55% 100%,47% 60%,40% 92%,33% 60%,25% 96%,18% 62%,10% 90%,4% 58%,0 80%)}
+
+  /* ══ C · dot-grid notebook — thick cream stock, orange cover folded behind ══ */
+  .dot{--paper:#fbf8f0;--rule:30px}
+  .dot .sheet{padding-top:44px;border-radius:3px 12px 12px 3px;
+    background-image:radial-gradient(circle,#c8c2b6 .9px,transparent 1.1px);background-size:15px 15px;background-position:7px 7px}
+  .dot::before,.dot::after{border-radius:3px 12px 12px 3px}
+  .dot .cover{position:absolute;inset:-6px -10px -8px -14px;z-index:-2;border-radius:4px 14px 14px 4px;
+    background:linear-gradient(135deg,#f08a2b,#d9701a 60%,#b85a12);
+    box-shadow:0 14px 1px rgba(26,14,6,.36),4px 18px 10px -2px rgba(26,14,6,.3)}
+  .dot .cover::before{content:"";position:absolute;left:0;top:0;bottom:0;width:14px;
+    background:repeating-linear-gradient(180deg,rgba(0,0,0,.18) 0 2px,transparent 2px 6px)}
+  .dot .band{position:absolute;top:-12px;bottom:-14px;right:22px;width:9px;z-index:4;border-radius:2px;pointer-events:none;
+    background:linear-gradient(90deg,#1a1a1e,#3a3a42 50%,#151518);box-shadow:0 2px 2px rgba(0,0,0,.4)}
+  .dot .row label{color:#9a8f7e}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" focusable="false">
+  <filter id="wood-warp" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.0022 0.018" numOctaves="3" seed="11" result="warp"/>
+    <feDisplacementMap in="SourceGraphic" in2="warp" scale="60" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<h1>notepad sign-in — lab</h1>
+<p class="lede">the /account sign-in form, written on a paper notepad on the desk. same form, same leaves, same wood on all three; only the pad changes. labels are printed on the pad, what you type goes down in blue ballpoint, and the submit is the words circled in pen. the inputs are live — type in them.</p>
+
+<div class="lab">
+
+  <section class="case">
+    <h2>A · yellow legal pad <span>glued top band, double red margin, blue rules</span></h2>
+    <div class="desk"><div class="wood-grain"></div><div class="wood-planks"></div><div class="wood-noise"></div><div class="wood-light"></div>
+      <div class="stage">
+        <div class="pad legal" style="--tilt:-2.2deg"><div class="sheet">
+          <form class="form" onsubmit="return false">
+            <div class="head"><span class="date">sept 7</span></div>
+            <div class="title">sign in</div>
+            <p class="sub">to download your plugins and manage your licenses.</p>
+            <div class="row"><label>email</label><input type="email" placeholder="you@example.com" autocomplete="email"></div>
+            <div class="row pw"><label>password</label><input type="password" placeholder="••••••••" autocomplete="current-password"></div>
+            <span class="hint">forgot it?</span>
+            <button class="go" type="submit">sign in<span class="arrow">→</span><svg viewBox="0 0 140 52" preserveAspectRatio="none"><path d="M12 27 C 8 8, 60 3, 96 6 C 135 9, 142 30, 118 43 C 90 54, 20 52, 8 36 C 2 28, 14 14, 40 10"/></svg></button>
+            <div class="foot"><a href="#">need an account? sign up</a><a class="link" href="#">email me a link instead</a></div>
+          </form>
+        </div></div>
+      </div>
+      <div class="pen" style="left:72%;top:22%;transform:rotate(-24deg)"></div>
+      <div class="sun" data-leaves></div>
+    </div>
+    <span class="anno">the office classic — most "sign this form" of the three; the yellow reads warm against the wood but fights the cream site palette</span>
+  </section>
+
+  <section class="case">
+    <h2>B · spiral memo pad <span>wire coil, punched holes, torn stubs of the last page</span></h2>
+    <div class="desk"><div class="wood-grain"></div><div class="wood-planks"></div><div class="wood-noise"></div><div class="wood-light"></div>
+      <div class="stage">
+        <div class="pad spiral" style="--tilt:-3deg">
+          <div class="coil"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="sheet">
+          <form class="form" onsubmit="return false">
+            <div class="head"><span class="date">sept 7</span></div>
+            <div class="title">sign in</div>
+            <p class="sub">to download your plugins and manage your licenses.</p>
+            <div class="row"><label>email</label><input type="email" placeholder="you@example.com" autocomplete="email"></div>
+            <div class="row pw"><label>password</label><input type="password" placeholder="••••••••" autocomplete="current-password"></div>
+            <span class="hint">forgot it?</span>
+            <button class="go" type="submit">sign in<span class="arrow">→</span><svg viewBox="0 0 140 52" preserveAspectRatio="none"><path d="M12 27 C 8 8, 60 3, 96 6 C 135 9, 142 30, 118 43 C 90 54, 20 52, 8 36 C 2 28, 14 14, 40 10"/></svg></button>
+            <div class="foot"><a href="#">need an account? sign up</a><a class="link" href="#">email me a link instead</a></div>
+          </form>
+        </div></div>
+      </div>
+      <div class="pen" style="left:26%;top:30%;transform:rotate(18deg)"></div>
+      <div class="sun" data-leaves></div>
+    </div>
+    <span class="anno">the studio notepad — the coil and stubs give it the most object-ness, and cream paper matches the site's surface colour</span>
+  </section>
+
+  <section class="case">
+    <h2>C · dot-grid notebook <span>thick cream stock, orange cover folded back, elastic band</span></h2>
+    <div class="desk"><div class="wood-grain"></div><div class="wood-planks"></div><div class="wood-noise"></div><div class="wood-light"></div>
+      <div class="stage">
+        <div class="pad dot" style="--tilt:-1.6deg">
+          <div class="cover"></div>
+          <div class="sheet">
+          <form class="form" onsubmit="return false">
+            <div class="head"><span class="date">sept 7</span></div>
+            <div class="title">sign in</div>
+            <p class="sub">to download your plugins and manage your licenses.</p>
+            <div class="row"><label>email</label><input type="email" placeholder="you@example.com" autocomplete="email"></div>
+            <div class="row pw"><label>password</label><input type="password" placeholder="••••••••" autocomplete="current-password"></div>
+            <span class="hint">forgot it?</span>
+            <button class="go" type="submit">sign in<span class="arrow">→</span><svg viewBox="0 0 140 52" preserveAspectRatio="none"><path d="M12 27 C 8 8, 60 3, 96 6 C 135 9, 142 30, 118 43 C 90 54, 20 52, 8 36 C 2 28, 14 14, 40 10"/></svg></button>
+            <div class="foot"><a href="#">need an account? sign up</a><a class="link" href="#">email me a link instead</a></div>
+          </form>
+          </div>
+          <div class="band"></div>
+        </div>
+      </div>
+      <div class="pen" style="left:70%;top:18%;transform:rotate(-31deg)"></div>
+      <div class="sun" data-leaves></div>
+    </div>
+    <span class="anno">the designer's notebook — quietest, least "form"; the orange cover is the one loud colour on the desk</span>
+  </section>
+
+</div>
+
+<script>
+/* SunLeaves, ported 1:1 from components/desk/SunLeaves.tsx (same PRNG, seeds, FRONDS table) */
+function rng(seed){let a=seed>>>0;return()=>{a=(a+0x6d2b79f5)>>>0;let t=a;t=Math.imul(t^(t>>>15),t|1);t^=t+Math.imul(t^(t>>>7),t|61);return((t^(t>>>14))>>>0)/4294967296}}
+const f=n=>n.toFixed(1);
+function frondPaths(L,seed){
+  const rand=rng(seed);const curve=L*(0.12+rand()*0.1)*(rand()<0.5?-1:1);
+  const P=t=>[L*t,curve*Math.pow(t,1.6)];
+  const T=t=>{const dx=L,dy=1.6*curve*Math.pow(Math.max(t,1e-3),0.6);const n=Math.hypot(dx,dy);return[dx/n,dy/n]};
+  const paths=[];const left=[],right=[];
+  for(let i=0;i<=24;i++){const t=i/24;const[x,y]=P(t),[tx,ty]=T(t);const w=(18*(1-t)+5)/2;left.push(`${f(x-ty*w)},${f(y+tx*w)}`);right.unshift(`${f(x+ty*w)},${f(y-tx*w)}`)}
+  paths.push(`M${left.join("L")}L${right.join("L")}Z`);
+  const n=24;
+  for(let i=0;i<n;i++){const t=0.1+0.88*(i/(n-1));
+    for(const s of[1,-1]){const[bx,by]=P(t),[tx,ty]=T(t);
+      const a=s*((28+24*(1-t))*(Math.PI/180)+(rand()-0.5)*0.18);
+      const dx=tx*Math.cos(a)-ty*Math.sin(a),dy=tx*Math.sin(a)+ty*Math.cos(a);
+      const len=L*0.36*Math.pow(Math.sin(Math.PI*(0.08+0.9*t)),0.7)*(0.8+rand()*0.35);
+      const wb=24+rand()*14;const nx=-dy,ny=dx;
+      const p0=[bx+nx*wb/2,by+ny*wb/2],p1=[bx-nx*wb/2,by-ny*wb/2],tip=[bx+dx*len,by+dy*len];
+      const bend=s*len*(0.04+rand()*0.05);const c=[bx+dx*len*0.55+nx*bend,by+dy*len*0.55+ny*bend];
+      paths.push(`M${f(p0[0])},${f(p0[1])}Q${f(c[0])},${f(c[1])} ${f(tip[0])},${f(tip[1])}Q${f(c[0])},${f(c[1])} ${f(p1[0])},${f(p1[1])}Z`)}}
+  return paths}
+const FRONDS=[
+  {x:-6,y:-10,angle:42,size:58,blur:6,opacity:.7,sway:1.6,period:9.5,delay:-2,seed:11},
+  {x:-10,y:22,angle:18,size:50,blur:9,opacity:.54,sway:1.9,period:11,delay:-6,seed:23},
+  {x:108,y:-8,angle:138,size:56,blur:7,opacity:.66,sway:1.4,period:10.2,delay:-4,seed:37},
+  {x:-8,y:78,angle:-8,size:34,blur:11,opacity:.42,sway:2.2,period:8.3,delay:-1,seed:51}];
+const L=1000;
+document.querySelectorAll("[data-leaves]").forEach(sun=>{
+  sun.innerHTML=FRONDS.map(s=>`<div class="sun-frond" style="left:${s.x}%;top:${s.y}%;width:${s.size*2}%;transform:translate(-50%,-50%) rotate(${s.angle}deg)">
+    <div class="sun-frond-sway" style="filter:blur(${s.blur}px);opacity:${s.opacity};animation-duration:${s.period}s;animation-delay:${s.delay}s;--sway:${s.sway}deg">
+      <svg viewBox="${-L} ${-L} ${2*L} ${2*L}">${frondPaths(L,s.seed).map(d=>`<path d="${d}"/>`).join("")}</svg></div></div>`).join("")});
+</script>
+</body>
+</html>

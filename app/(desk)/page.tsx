@@ -1,10 +1,7 @@
-import CassetteHero from "@/components/cassette/CassetteHero"
-
-// The cassette is served as 2x/4x PNGs exported from Figma (public/assets/cassette/):
-// live vector rasterization at fractional display scales aliases the hairline
-// work, and browsers render the Figma filter exports (hard-alpha shadows, paper
-// soft-light) differently from Figma itself. Re-export from the "TA-1 v3A (metal
-// band)" frame after design changes — see components/cassette/CassetteHero.tsx.
+// The home page is the desk itself: the wood, the leaf shadows and the plugin
+// units all come from the (desk) layout (components/desk/DeskHero renders the
+// units and shows them on "/"). Nothing else lies on the desk here.
+// The earlier cassette-deck hero is kept in components/cassette/CassetteHero.
 export default function Home() {
-  return <CassetteHero />
+  return null
 }

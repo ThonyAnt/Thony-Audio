@@ -8,6 +8,11 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-};
+  experimental: {
+    // React <ViewTransition> on route changes: the desk ↔ account notepad hand-off
+    // (components/desk/DeskHero, components/desk/Notepad, "view transitions" in globals.css)
+    viewTransition: true,
+  },
+} satisfies NextConfig;
 
 module.exports = nextConfig;

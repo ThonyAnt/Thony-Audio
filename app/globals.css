@@ -51,6 +51,7 @@
   --font-display: var(--font-cormorant);
   --font-body: var(--font-dm-sans);
   --font-mono: var(--font-plex-mono);
+  --font-hand: var(--font-caveat);   /* ballpoint handwriting — the account notepad */
 
   /* Animations — used by ported components (components/ui/*) */
   --animate-marquee: marquee var(--duration, 40s) linear infinite;
@@ -118,43 +119,19 @@ body::after {
   background: #b27a48;
 }
 
-.wood-defs {
-  position: absolute;
-}
-
 .wood > div {
   position: absolute;
   inset: 0;
 }
 
-/* straight grain stripes, warped into wood by the turbulence filter */
+/* the baked grain (scripts/bake-wood.mjs), set inline by WoodTable: the image
+   covering the layer, over a tiny inline placeholder for the instant before it loads */
 .wood-grain {
   inset: -8%;
   background-color: #b98252;
-  background-image:
-    repeating-linear-gradient(
-      180deg,
-      #bb8352 0px,
-      #cc955f 3px,
-      #ad7443 5px,
-      #d29c65 9px,
-      #a06a3b 12px,
-      #c68d58 14px,
-      #b87f4d 19px,
-      #d19c66 23px,
-      #a36e3f 27px
-    ),
-    repeating-linear-gradient(
-      179.3deg,
-      rgba(255, 228, 190, 0.16) 0px,
-      rgba(255, 228, 190, 0) 11px,
-      rgba(70, 38, 12, 0.26) 19px,
-      rgba(70, 38, 12, 0) 31px,
-      rgba(255, 228, 190, 0.12) 40px,
-      rgba(255, 228, 190, 0) 53px
-    );
-  background-blend-mode: normal, overlay;
-  filter: url(#wood-warp);
+  background-size: cover, 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* plank seams and per-board tint */
@@ -239,4 +216,487 @@ body::after {
 
 @media (prefers-reduced-motion: reduce) {
   .sun-frond-sway { animation: none; }
+}
+
+/* Paper price tags hanging off the plugin units on the desk (components/desk/PaperTag) */
+.paper-tags {
+  pointer-events: none;
+  /* the tags are flat DOM art next to tone-mapped 3D units under a warm key light:
+     pull them toward the same grade — a little warmer, a little less contrasty */
+  filter: sepia(0.16) saturate(1.04) contrast(0.96) brightness(0.985);
+}
+
+.paper-tag {
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.paper-tag-body {
+  transform-box: view-box;
+  transform-origin: var(--tag-hole, 36px 74px); /* the hole */
+  transform: rotate(var(--tag-rot));
+  /* one easy move on hover, and back — no oscillation */
+  transition: transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.paper-tag--swing .paper-tag-body {
+  transform: rotate(calc(var(--tag-rot) + 7deg));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paper-tag-body { transition: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   /account: the sign-in notepad on the desk (components/desk/Notepad)
+   --------------------------------------------------------------------------- */
+
+.notepad {
+  --paper: #f7f3e8;
+  --rule: 28px;      /* line spacing; every field sits on one rule */
+  --pen: #1d2b6b;    /* blue ballpoint */
+  --pencil: #4d4841; /* graphite notes */
+  position: relative;
+  width: min(400px, 100%);
+  transform: rotate(-3deg);
+}
+
+/* two more sheets underneath, slightly fanned */
+.notepad::before,
+.notepad::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  border-radius: 2px;
+  z-index: -1;
+}
+.notepad::before { transform: rotate(1.1deg) translate(3px, 4px); filter: brightness(0.96); }
+.notepad::after {
+  transform: rotate(-0.8deg) translate(-2px, 7px);
+  filter: brightness(0.92);
+  /* the stack's shadow, thrown down-right by the scene's key light (DeskScene KEY_DIR,
+     from the top-left): a hard contact edge, a penumbra, a wide faint ambient */
+  box-shadow:
+    4px 5px 0.5px rgba(26, 14, 6, 0.38),
+    8px 11px 9px -2px rgba(26, 14, 6, 0.28),
+    16px 22px 30px -12px rgba(26, 14, 6, 0.30);
+}
+
+.notepad-sheet {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  padding: 64px 30px 30px;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(90deg, transparent 40px, #e2a2a2 40px, #e2a2a2 41px, transparent 41px),
+    repeating-linear-gradient(180deg, transparent 0, transparent calc(var(--rule) - 1px), #b5c6dc calc(var(--rule) - 1px), #b5c6dc var(--rule));
+  background-position: 0 0, 0 36px;
+  /* the top sheet sits on the sheet below: a hairline of contact shadow, nothing more
+     (the stack's shadow is on .notepad::after) */
+  box-shadow: 1px 1.5px 0 rgba(26, 14, 6, 0.22);
+}
+
+/* the stubs of torn-off pages caught under the wire */
+.notepad-sheet::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 22px;
+  z-index: 2;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 22px, rgba(120, 90, 50, 0.18) 22px 23px),
+    linear-gradient(180deg, #e8e1d2, #f7f3e8);
+  clip-path: polygon(0 0, 100% 0, 100% 55%, 96% 80%, 91% 60%, 84% 95%, 77% 62%, 70% 90%, 63% 58%, 55% 100%, 47% 60%, 40% 92%, 33% 60%, 25% 96%, 18% 62%, 10% 90%, 4% 58%, 0 80%);
+}
+
+/* page grade: the paper sits under the same warm key light as the tags */
+.notepad-sheet::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(112deg, rgba(255, 244, 214, 0.22), rgba(255, 244, 214, 0) 45%, rgba(60, 34, 12, 0.06) 100%),
+    radial-gradient(120% 80% at 100% 100%, rgba(60, 34, 12, 0.10), transparent 50%);
+}
+
+/* the wire coil: a punched hole and a bent loop per turn */
+.notepad-coil {
+  position: absolute;
+  left: 0; right: 0; top: -12px;
+  height: 40px;
+  z-index: 3;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0 10px;
+}
+.notepad-coil i { position: relative; width: 14px; height: 40px; }
+.notepad-coil i::before {
+  content: "";
+  position: absolute;
+  left: 1px; top: 15px;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #7a5a36, #4d3416 70%);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+.notepad-coil i::after {
+  content: "";
+  position: absolute;
+  left: 3px; top: -4px;
+  width: 8px; height: 30px;
+  border-radius: 5px;
+  border: 2.4px solid #9a9aa2;
+  border-bottom-color: #5c5c66;
+  border-right-color: #c9c9d1;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.35) 50%, transparent);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.45);
+}
+
+/* the writing on the top sheet */
+.notepad-page { position: relative; z-index: 1; color: #2a1a0c; }
+.notepad-date {
+  display: block;
+  text-align: right;
+  font: 600 17px var(--font-hand), cursive;
+  color: var(--pencil);
+  opacity: 0.7;
+  margin-bottom: 6px;
+  min-height: 1em;
+}
+.notepad-title {
+  font: 400 44px/1 var(--font-display), Georgia, serif;
+  letter-spacing: -0.01em;
+  text-transform: lowercase;
+  color: #2a1a0c;
+}
+.notepad-sub {
+  font-size: 13px;
+  line-height: 1.45;
+  color: #6d5f4d;
+  margin: 6px 0 22px;
+}
+.notepad-sub b { font-weight: 500; color: #2a1a0c; }
+
+.notepad-row {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  align-items: end;
+  height: var(--rule);
+}
+.notepad-row label {
+  font: 400 10px var(--font-mono), monospace;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #8a7d6a;
+  padding-bottom: 6px;
+}
+.notepad-row input {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  outline: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0 2px 3px;
+  font: 600 24px/1 var(--font-hand), cursive;
+  color: var(--pen);
+  caret-color: var(--pen);
+  border-radius: 0;
+}
+.notepad-row input::placeholder { color: #b3a894; font-weight: 500; }
+.notepad-row input:-webkit-autofill {
+  -webkit-text-fill-color: var(--pen);
+  box-shadow: 0 0 0 100px var(--paper) inset;
+}
+/* passwords: dots in the body face, not handwriting */
+.notepad-row input[type="password"] {
+  font: 400 16px/1 var(--font-body), system-ui, sans-serif;
+  letter-spacing: 0.14em;
+  padding-bottom: 6px;
+}
+
+/* a pencilled note off to the right of a line ("forgot it?") */
+.notepad-note {
+  display: block;
+  margin: -4px 0 8px auto;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: 500 13px var(--font-hand), cursive;
+  color: var(--pencil);
+  opacity: 0.55;
+  transition: opacity 150ms;
+}
+.notepad-note:hover { opacity: 0.9; text-decoration: underline; }
+
+/* the submit: the words, circled in ballpoint; the circle is redrawn a touch on hover */
+.notepad-go {
+  position: relative;
+  display: inline-block;
+  margin: 18px 0 0 76px;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font: 600 26px/1 var(--font-hand), cursive;
+  color: var(--pen);
+  padding: 10px 22px 8px 16px;
+}
+.notepad-go svg {
+  position: absolute;
+  inset: -6px -8px;
+  width: calc(100% + 16px);
+  height: calc(100% + 12px);
+  overflow: visible;
+  pointer-events: none;
+}
+.notepad-go svg path {
+  fill: none;
+  stroke: var(--pen);
+  stroke-width: 2.1;
+  stroke-linecap: round;
+  stroke-dasharray: 420;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.notepad-go:hover svg path { stroke-dashoffset: -16; }
+.notepad-go:active { transform: translate(1px, 1px); }
+.notepad-go:disabled { opacity: 0.6; cursor: default; }
+
+/* a mistake, in red pen */
+.notepad-error {
+  margin: 12px 0 0 76px;
+  font: 500 15px var(--font-hand), cursive;
+  color: #b8382a;
+}
+
+/* small print at the foot of the page */
+.notepad-foot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 26px;
+  padding-top: 10px;
+  font-size: 11px;
+  color: #8a7d6a;
+}
+.notepad-foot button {
+  border: 0;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: #8a7d6a;
+  border-bottom: 1px solid rgba(138, 125, 106, 0.4);
+  transition: color 150ms;
+}
+.notepad-foot button:hover { color: #2a1a0c; }
+.notepad-foot button.is-link { color: #b85c3a; border-color: rgba(184, 92, 58, 0.4); }
+
+/* the pen, lying on the desk beside the pad. The slot is the transition boundary
+   (axis-aligned, so a route change slides it straight across); the pen is rotated
+   inside it. Lengths run top→bottom: cap, barrel, grip, tip. */
+.notepad-pen-slot {
+  position: absolute;
+  left: 26%;
+  top: 30%;
+  width: 16px;
+  height: 320px;
+  z-index: 3;
+  pointer-events: none;
+}
+.pen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform: rotate(18deg);
+  transform-origin: 50% 50%;
+  /* thrown down-right by the key light like the pad: a hard contact edge hugging the
+     barrel, then a penumbra that follows the taper */
+  filter:
+    drop-shadow(4px 5px 0.5px rgba(26, 14, 6, 0.42))
+    drop-shadow(8px 10px 5px rgba(26, 14, 6, 0.26));
+}
+.pen > div { position: absolute; left: 0; right: 0; }
+
+/* black lacquer, lit from the top-left: a bright rim, a broad highlight, a dark far edge */
+.pen-cap,
+.pen-barrel {
+  background:
+    linear-gradient(90deg,
+      #08080b 0%, #2a2a31 14%, #6a6a76 34%, #3a3a43 52%, #17171c 74%, #040406 100%);
+}
+.pen-cap {
+  top: 0;
+  height: 118px;
+  border-radius: 8px 8px 2px 2px;
+}
+.pen-barrel {
+  top: 118px;
+  height: 142px;
+  /* the barrel is a hair thinner than the cap */
+  left: 1px; right: 1px;
+  border-radius: 0 0 2px 2px;
+}
+/* the gold band at the mouth of the cap */
+.pen-band {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #7a5a1c, #d9b45a 30%, #f6e3a0 48%, #c9a24a 68%, #6f4f16);
+  box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.18), 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+/* the clip: a gold strip down the near side of the cap, standing a little proud */
+.pen-clip {
+  position: absolute;
+  right: 1px;
+  top: 10px;
+  width: 4px;
+  height: 84px;
+  border-radius: 2px 2px 3px 3px;
+  background: linear-gradient(90deg, #8a6a24, #f0d78a 45%, #b8923a);
+  box-shadow: -1px 2px 2px rgba(0, 0, 0, 0.55), 0 0 0 0.5px rgba(0, 0, 0, 0.35);
+}
+.pen-clip::before { /* the clip's mount at the top of the cap */
+  content: "";
+  position: absolute;
+  left: -2px; right: -1px;
+  top: -6px;
+  height: 7px;
+  border-radius: 3px 3px 1px 1px;
+  background: linear-gradient(90deg, #a07a2c, #f6e3a0 50%, #9a7a2a);
+}
+/* the grip: matte, darker, tapering toward the tip */
+.pen-grip {
+  top: 260px;
+  height: 36px;
+  left: 1px; right: 1px;
+  background:
+    repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 4px),
+    linear-gradient(90deg, #111114, #3a3a41 40%, #2a2a30 60%, #0b0b0e);
+  clip-path: polygon(0 0, 100% 0, 88% 100%, 12% 100%);
+}
+/* the tip: a brushed-metal cone down to the ball */
+.pen-tip {
+  top: 296px;
+  height: 24px;
+  left: 2px; right: 2px;
+  background: linear-gradient(90deg, #6d6d76 0%, #d9d9de 45%, #f2f2f5 52%, #8a8a92 75%, #4a4a52 100%);
+  clip-path: polygon(12% 0, 88% 0, 56% 100%, 44% 100%);
+}
+@media (max-width: 640px) {
+  .notepad-pen-slot { display: none; } /* no room beside the pad on a phone */
+}
+
+
+/* ---------------------------------------------------------------------------
+   View transitions — home desk ⇄ /account notepad (React <ViewTransition>,
+   experimental.viewTransition in next.config.ts)
+
+   The desk itself is the (desk) route-group layout, so the wood, the leaf
+   shadows and the plugin units never leave; only what lies on it changes. The
+   notepad and the pen (Notepad) are <ViewTransition> boundaries at the account
+   page's root: they enter from the right and exit to the right. The units layer
+   (DeskHero) stays mounted so its 3D scene is always drawn, and simply carries
+   view-transition-name: desk-units on "/" only — the browser sees it appear or
+   disappear and animates it in from / out to the left, fully rendered.
+   Swift: ~⅓ s out, ~½ s in, overlapping.
+
+   Two things React needs for this to fire at all, both easy to lose:
+   - the boundary must be the page component's root — a <ViewTransition> nested
+     inside a DOM element that unmounts is stripped from the walk (React clears
+     ViewTransitionStatic when it completes a host element);
+   - the navigation commit must be a pure transition — Link's own click path adds
+     a sync-lane optimistic "pending" update, so the nav goes through router.push
+     (components/Navigation.tsx).
+   --------------------------------------------------------------------------- */
+
+/* pinned: the leaf shadows stay over the moving objects; the nav doesn't crossfade */
+::view-transition-group(desk-sun),
+::view-transition-group(site-header) { animation: none; }
+::view-transition-old(desk-sun),
+::view-transition-old(site-header) { display: none; }
+::view-transition-new(desk-sun),
+::view-transition-new(site-header) { animation: none; }
+::view-transition-group(desk-sun) { z-index: 5; }
+::view-transition-group(site-header) { z-index: 100; }
+
+/* everything else is instant: nothing under the objects changes between the two pages
+   (the desk is the layout), so the root gets no crossfade — and the router's first
+   commit, which React runs as an empty view transition, must not hold the real one
+   back by the UA's 250ms. The classed rules below are more specific and keep their
+   durations. */
+::view-transition-group(*),
+::view-transition-image-pair(*),
+::view-transition-old(*),
+::view-transition-new(*) { animation-duration: 0s; }
+
+/* the plugins: off to the left, toward the camera, all the way out of the frame
+   (the layer is viewport-wide and grows to 1.28×, so 120vw clears the right edge);
+   back the same way. They travel, they never fade.
+   :only-child = the layer exists on one side only (a real exit or entry). The
+   router's preliminary commit snapshots it on both sides; that must stay a
+   zero-length morph, not an out-and-back. */
+::view-transition-old(desk-units):only-child {
+  animation: 360ms cubic-bezier(0.5, 0, 0.9, 0.5) both units-out;
+}
+::view-transition-new(desk-units):only-child {
+  animation: 480ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both units-in;
+}
+::view-transition-group(desk-units) { z-index: 1; }
+@keyframes units-out {
+  to { transform: translateX(-120vw) scale(1.28); }
+}
+@keyframes units-in {
+  from { transform: translateX(-120vw) scale(1.28); }
+}
+
+/* the notepad and the pen: in from beyond the right edge, settling flat; out the same
+   way. Like the plugins, they travel rather than fade. */
+::view-transition-new(.pad-in) {
+  animation: 480ms cubic-bezier(0.16, 1, 0.3, 1) 90ms both pad-in;
+}
+::view-transition-old(.pad-out) {
+  animation: 340ms cubic-bezier(0.5, 0, 0.9, 0.5) both pad-out;
+}
+@keyframes pad-in {
+  from { transform: translateX(110vw) scale(1.22) rotate(5deg); }
+}
+@keyframes pad-out {
+  to { transform: translateX(110vw) scale(1.18) rotate(4deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* the units layer, parked while another desk route is showing: off to the left where
+   its exit leaves it, unpainted, out of the tab order (DeskHero sets inert) */
+.desk-units[data-away] {
+  transform: translateX(-120vw);
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* a focused unit (DeskHero): the leaf shadows can't follow the camera, so they fade
+   out fast and only return once it's back on the desk; zoom-out cursor to let go */
+.desk-stage .sun {
+  z-index: 4; /* over everything lying on the desk; the nav (z 50) stays above */
+  transition: opacity 900ms ease-out 700ms;
+}
+[data-desk-focus] .desk-stage { cursor: zoom-out; }
+[data-desk-focus] .desk-stage .sun {
+  opacity: 0;
+  transition-duration: 400ms;
+  transition-delay: 0ms;
 }
