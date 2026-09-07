@@ -17,11 +17,20 @@ const MENU = [...products].sort(
   (a, b) => (MENU_ORDER.indexOf(a.slug) + 1 || 99) - (MENU_ORDER.indexOf(b.slug) + 1 || 99),
 )
 
+// The desk pages in left-to-right order. Going right along it (home → support →
+// account) slides the desk left: the old objects leave to the left, the new ones
+// come in from the right. Going back does the reverse. The direction is stamped on
+// <html data-desk-nav> before the push so the transition's CSS can read it.
+const DESK_ORDER = ["/", "/support", "/account"]
+
 export default function Navigation() {
   const pathname = usePathname()
   const router = useRouter()
   const go = (href: string) => (e: { preventDefault: () => void }) => {
     e.preventDefault()
+    const norm = (p: string) => p.replace(/\/+$/, "") || "/" // the site exports with trailing slashes
+    const from = DESK_ORDER.indexOf(norm(pathname)), to = DESK_ORDER.indexOf(norm(href))
+    if (from >= 0 && to >= 0 && from !== to) document.documentElement.dataset.deskNav = to > from ? "fwd" : "back"
     router.push(href)
   }
 
@@ -40,7 +49,7 @@ export default function Navigation() {
 
         <div className="flex items-center gap-8">
           <PluginsMenu active={pathname.startsWith("/plugins")} pathname={pathname} />
-          <NavLink href="/support" active={pathname === "/support"}>
+          <NavLink href="/support" active={pathname === "/support"} onNavigate={go("/support")}>
             support
           </NavLink>
           <NavLink href="/account" active={pathname.startsWith("/account")} onNavigate={go("/account")}>
@@ -167,16 +176,6 @@ function PluginsMenu({ active, pathname }: { active: boolean; pathname: string }
             </li>
           ))}
         </ul>
-        <div className="border-t border-line px-3 py-2">
-          <Link
-            href="/plugins"
-            role="menuitem"
-            tabIndex={open ? 0 : -1}
-            className="text-xs text-muted hover:text-ink outline-none focus-visible:text-ink transition-colors"
-          >
-            all plugins →
-          </Link>
-        </div>
       </div>
     </div>
   )

@@ -36,7 +36,7 @@ export function DeskStage({ children }: { children: React.ReactNode }) {
  * tip. Pure CSS (.pen-* in globals.css); the shadow is a drop-shadow so it
  * follows the taper.
  */
-function Pen() {
+export function Pen() {
   return (
     <div className="pen">
       <div className="pen-cap">
