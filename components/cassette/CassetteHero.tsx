@@ -52,10 +52,20 @@ export default function CassetteHero({ bodySvg, glassSvg }: { bodySvg: string; g
       className="min-h-dvh flex flex-col items-center justify-center px-4 py-16"
       style={{ background: "linear-gradient(90deg,#fff,#f5f1ee 60.5%)" }} // EP-133 page ground
     >
+      {/* native design width (894) — fractional upscaling smears the hairline work;
+          no CSS filter on the container — it rasterizes the SVG subtree and softens it */}
       <div
-        className="relative w-full max-w-[1040px]"
-        style={{ aspectRatio: "894/561", filter: "drop-shadow(0 34px 44px rgba(43,45,66,.16))" }}
+        className="relative isolate w-full max-w-[894px]"
+        style={{ aspectRatio: "894/561" }}
       >
+        {/* ground shadow — a sibling BEHIND the device (an ancestor CSS filter would
+            rasterize the SVG subtree and blur the hairline work) */}
+        <div
+          aria-hidden
+          className="absolute left-[2%] right-[2%] bottom-[-30px] h-[70px] -z-10"
+          style={{ background: "radial-gradient(50% 100% at 50% 40%, rgba(43,45,66,.20), transparent 72%)" }}
+        />
+
         {/* the device */}
         <div
           className="absolute inset-0 [&>svg]:block [&>svg]:w-full [&>svg]:h-full"
