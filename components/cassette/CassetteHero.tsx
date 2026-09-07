@@ -107,7 +107,7 @@ export default function CassetteHero() {
       <div
         ref={deviceRef}
         className="relative isolate z-10 w-full max-w-[680px]"
-        style={{ aspectRatio: "894/561" }}
+        style={{ aspectRatio: "3576/2241" }} // the Figma frame: 894 × 560.25
       >
         {/* contact shadow: seats the device on the desk (the SVG canvas pads the body by ~3px) */}
         <div
@@ -134,10 +134,12 @@ export default function CassetteHero() {
           className="absolute inset-0 w-full h-full"
         />
 
-        {/* live CRT content, clipped to the phosphor face */}
+        {/* live CRT content, clipped to the phosphor face. Painted phosphor-dark so the
+            glass baked into the Figma body export is hidden here — the glass overlay
+            above supplies the only reflections over the live content */}
         <div
           className="absolute overflow-hidden"
-          style={{ left: "9.575%", top: "19.763%", width: "37.56%", height: "42.513%", borderRadius: "12.6% / 17.8%" }}
+          style={{ left: "9.575%", top: "19.79%", width: "37.56%", height: "42.57%", borderRadius: "12.6% / 17.8%", background: "#1C1C1E" }}
         >
           <div
             className="absolute inset-[3%] origin-center transition-[opacity,transform] duration-150 ease-in"
@@ -165,14 +167,14 @@ export default function CassetteHero() {
         <button
           type="button" aria-label="previous plugin" onClick={() => paginate(-1)}
           className="absolute cursor-pointer group"
-          style={{ left: "79.0%", top: "38.35%", width: "7.16%", height: "11.41%" }}
+          style={{ left: "79.0%", top: "38.40%", width: "7.16%", height: "11.42%" }}
         >
           <span className="absolute inset-[3.5%] rounded-[14%] bg-black/0 group-active:bg-black/30 transition-colors duration-75" />
         </button>
         <button
           type="button" aria-label="next plugin" onClick={() => paginate(1)}
           className="absolute cursor-pointer group"
-          style={{ left: "87.5%", top: "38.35%", width: "7.16%", height: "11.41%" }}
+          style={{ left: "87.5%", top: "38.40%", width: "7.16%", height: "11.42%" }}
         >
           <span className="absolute inset-[3.5%] rounded-[14%] bg-black/0 group-active:bg-black/30 transition-colors duration-75" />
         </button>
