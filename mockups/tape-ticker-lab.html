@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>tape ticker — lab</title>
+<style>
+  /* ════════════════════════════════════════════════════════════════
+     🎨  TAPE TICKER LAB — the iFeature "NEW PLUGIN" marquee translated
+         into studio label tapes stuck to the desk. Four variants, each on
+         a slice of the real WoodTable CSS.
+     ════════════════════════════════════════════════════════════════ */
+  :root{
+    --ink:#2a1a0c;                 /* desk caption ink (DeskHero) */
+    --dymo:#141416; --dymo-hi:#3a3a40; --dymo-text:#f3f1ea;
+    --mask:#e6d6b4; --mask-ink:#3b2a17;
+    --paper:#f5f2ea; --paper-ink:#1f1a14;
+    --anno:#37b6c9;
+    --sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+    --mono:"Space Mono",ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#fff;font-family:var(--sans);color:#333;padding:34px 40px 60px}
+  h1{font:400 15px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:#777;margin-bottom:6px}
+  .lede{font:13px/1.6 var(--sans);color:#888;max-width:720px;margin-bottom:28px}
+  .lab{display:grid;gap:34px}
+  .case h2{font:600 11px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:#555;margin-bottom:8px}
+  .case h2 span{color:#999;font-weight:400;letter-spacing:.04em;text-transform:none;margin-left:10px}
+  .anno{display:inline-block;font:9.5px/1.4 ui-monospace,Consolas,monospace;color:var(--anno);border:1px solid #37b6c955;padding:3px 7px;margin-top:8px}
+
+  /* ── the desk slice (WoodTable, verbatim) ── */
+  .desk{position:relative;height:250px;overflow:hidden;background:#b27a48;border-radius:2px}
+  .desk > .wood-grain,.desk > .wood-planks,.desk > .wood-noise,.desk > .wood-light{position:absolute;inset:0}
+  .wood-grain{inset:-8%;background-color:#b98252;
+    background-image:
+      repeating-linear-gradient(180deg,#bb8352 0px,#cc955f 3px,#ad7443 5px,#d29c65 9px,#a06a3b 12px,#c68d58 14px,#b87f4d 19px,#d19c66 23px,#a36e3f 27px),
+      repeating-linear-gradient(179.3deg,rgba(255,228,190,.16) 0px,rgba(255,228,190,0) 11px,rgba(70,38,12,.26) 19px,rgba(70,38,12,0) 31px,rgba(255,228,190,.12) 40px,rgba(255,228,190,0) 53px);
+    background-blend-mode:normal,overlay;filter:url(#wood-warp)}
+  .wood-planks{background-image:
+      repeating-linear-gradient(180deg,rgba(60,34,12,.6) 0px,rgba(60,34,12,.6) 2px,rgba(255,236,205,.18) 2px,rgba(255,236,205,.18) 3px,rgba(0,0,0,0) 3px,rgba(0,0,0,0) 200px),
+      repeating-linear-gradient(180deg,rgba(255,214,160,.07) 0px,rgba(255,214,160,.07) 200px,rgba(0,0,0,.08) 200px,rgba(0,0,0,.08) 400px)}
+  .wood-noise{background-image:url("http://localhost:3000/assets/cassette/board-grain-noise.png");background-size:220px 220px;mix-blend-mode:multiply;opacity:.16}
+  .wood-light{background:
+      radial-gradient(70% 60% at 30% 20%,rgba(255,246,220,.5),rgba(255,246,220,0) 70%),
+      radial-gradient(60% 55% at 85% 30%,rgba(255,242,210,.4),rgba(255,242,210,0) 70%),
+      linear-gradient(115deg,rgba(255,240,210,.3),rgba(255,228,180,.1) 45%,rgba(255,240,210,.24)),
+      radial-gradient(95% 85% at 50% 50%,rgba(0,0,0,0) 65%,rgba(0,0,0,.14) 100%)}
+
+  /* ── marquee plumbing shared by every tape ── */
+  .tape{position:absolute;left:-2%;right:-2%;top:50%;transform:translateY(-50%) rotate(var(--tilt,0deg));
+        display:flex;align-items:center;overflow:hidden;white-space:nowrap}
+  .track{display:flex;flex:none;animation:ticker var(--speed,52s) linear infinite}
+  .track span{flex:none;padding-right:2.2em}
+  @keyframes ticker{to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){.track{animation:none}}
+
+  /* A · Dymo embossed tape — matte black vinyl, raised white letters */
+  .dymo{--tilt:-.55deg;height:38px;border-radius:5px;
+    background:linear-gradient(180deg,var(--dymo-hi) 0%,var(--dymo) 22%,#0f0f11 78%,#26262b 100%);
+    box-shadow:0 1px 0 rgba(255,255,255,.14) inset,0 -1px 0 rgba(0,0,0,.6) inset,
+               0 2px 2px rgba(0,0,0,.45),0 6px 10px -4px rgba(0,0,0,.5)}
+  .dymo .track{font:700 15.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--dymo-text);
+    text-shadow:0 -.6px 0 rgba(255,255,255,.55),0 .8px 0 rgba(0,0,0,.85),0 1.4px 1px rgba(0,0,0,.4)}
+  .dymo::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.07) 45%,transparent 55%);pointer-events:none}
+
+  /* B · masking tape — translucent beige, torn ends, stamped ink */
+  .mask{--tilt:.9deg;height:46px;left:2%;right:6%;
+    background:
+      repeating-linear-gradient(90deg,rgba(255,255,255,.08) 0 2px,transparent 2px 7px),
+      repeating-linear-gradient(0deg,rgba(120,90,50,.08) 0 1px,transparent 1px 4px),
+      linear-gradient(180deg,rgba(255,250,235,.55),rgba(230,214,180,.78));
+    background-color:var(--mask);
+    clip-path:polygon(0 8%,1.2% 0,2% 12%,98.5% 4%,99.4% 18%,100% 6%,99.6% 92%,98.8% 100%,97.9% 88%,1.6% 96%,.8% 82%,0 94%);
+    box-shadow:0 1px 2px rgba(0,0,0,.25);opacity:.94;mix-blend-mode:multiply}
+  .mask .track{font:600 15px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mask-ink);opacity:.86}
+  .mask .track span{transform:rotate(-.3deg)}
+
+  /* C · thermal receipt strip — thin paper, dot-matrix mono, perforated edge */
+  .receipt{--tilt:-.35deg;height:34px;left:4%;right:0;
+    background:linear-gradient(180deg,#fbf9f3,var(--paper) 55%,#ebe7dd);
+    background-image:repeating-linear-gradient(90deg,rgba(0,0,0,0) 0 9px,rgba(0,0,0,.035) 9px 10px);
+    box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 3px 4px -1px rgba(0,0,0,.35),0 8px 12px -6px rgba(0,0,0,.35)}
+  .receipt::before{content:"";position:absolute;left:0;right:0;top:3px;height:1px;
+    background:repeating-linear-gradient(90deg,rgba(0,0,0,.28) 0 3px,transparent 3px 8px)}
+  .receipt .track{font:400 12.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--paper-ink);opacity:.82;padding-top:3px}
+
+  /* D · clear laminated label (P-touch) — glossy transparent strip, black text */
+  .clear{--tilt:.25deg;height:40px;left:0;right:0;
+    background:linear-gradient(180deg,rgba(255,255,255,.28),rgba(255,255,255,.08) 40%,rgba(255,255,255,.04) 60%,rgba(255,255,255,.2));
+    border-top:1px solid rgba(255,255,255,.45);border-bottom:1px solid rgba(0,0,0,.2);
+    box-shadow:0 2px 3px rgba(0,0,0,.18)}
+  .clear .track{font:700 15px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:#151210}
+  .clear::after{content:"";position:absolute;inset:0;background:linear-gradient(95deg,transparent 40%,rgba(255,255,255,.22) 48%,transparent 56%);pointer-events:none}
+
+  /* a hint of the unit for scale — a flat dark slab casting a shadow */
+  .unit{position:absolute;width:190px;height:150px;left:9%;top:26px;border-radius:5px;background:#1a1b21;
+        box-shadow:0 10px 1px rgba(0,0,0,.55),3px 11px 6px -2px rgba(0,0,0,.4);opacity:.92}
+  .unit b{position:absolute;left:14px;bottom:12px;font:400 20px Georgia,serif;color:#e8e6f0;letter-spacing:.02em}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" focusable="false">
+  <filter id="wood-warp" x="0" y="0" width="100%" height="100%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.0022 0.018" numOctaves="3" seed="11" result="warp"/>
+    <feDisplacementMap in="SourceGraphic" in2="warp" scale="60" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<h1>tape ticker — lab</h1>
+<p class="lede">the iFeature "NEW PLUGIN" marquee, as a label tape stuck to the desk. same copy in all four; the strip crosses the desk at a hand-placed tilt; the slab is a stand-in unit for scale. hover nothing — they just run.</p>
+
+<div class="lab">
+
+  <section class="case">
+    <h2>A · dymo embossed <span>matte black vinyl, raised white type, glossy sheen</span></h2>
+    <div class="desk"><div class="wood-grain"></div><div class="wood-planks"></div><div class="wood-noise"></div><div class="wood-light"></div>
+      <div class="unit"><b>chorale</b></div>
+      <div class="tape dymo"><div class="track">
+        <span>NEW PLUGIN · CHORALE · PER-NOTE CONVOLUTION REVERB · $39 · RESONATOR · FREE ·</span>
+        <span>NEW PLUGIN · CHORALE · PER-NOTE CONVOLUTION REVERB · $39 · RESONATOR · FREE ·</span>
+      </div></div>
+    </div>
+    <span class="anno">the studio classic — reads as a labelled shelf/rack; strongest contrast on the wood, most "object"</span>
+  </section>
+
+  <section class="case">
+    <h2>B · masking tape <span>translucent beige, torn ends, stamped mono ink</span></h2>
+    <div class="desk"><div class="wood-grain"></div><div class="wood-planks"></div><div class="wood-noise"></div><div class="wood-light"></div>
+      <div class="unit"><b>chorale</b></div>
+      <div class="tape mask"><div class="track">
+        <span>NEW PLUGIN · CHORALE · PER-NOTE CONVOLUTION REVERB · $39 · RESONATOR · FREE ·</span>
+        <span>NEW PLUGIN · CHORALE · PER-NOTE CONVOLUTION REVERB · $39 · RESONATOR · FREE ·</span>
+      </div></div>
+    </div>
+    <span class="anno">most desk-like (multiply-blended so the grain shows through); the most casual/handmade of the four</span>
+  </section>
+
+  <section class="case">
+    <h2>C · receipt strip <span>thermal paper, dot-matrix mono, perforated edge</span></h2>
+    <div class="desk"><div class="wood-grain"></div><div class="wood-planks"></div><div class="wood-noise"></div><div class="wood-light"></div>
+      <div class="unit"><b>chorale</b></div>
+      <div class="tape receipt"><div class="track">
+        <span>NEW PLUGIN · CHORALE · PER-NOTE CONVOLUTION REVERB · $39 · RESONATOR · FREE ·</span>
+        <span>NEW PLUGIN · CHORALE · PER-NOTE CONVOLUTION REVERB · $39 · RESONATOR · FREE ·</span>
+      </div></div>
+    </div>
+    <span class="anno">closest to a literal "ticker tape"; paper on wood, lightest touch, quietest type</span>
+  </section>
+
+  <section class="case">
+    <h2>D · clear laminated label <span>P-touch style: transparent strip, bold black type, gloss</span></h2>
+    <div class="desk"><div class="wood-grain"></div><div class="wood-planks"></div><div class="wood-noise"></div><div class="wood-light"></div>
+      <div class="unit"><b>chorale</b></div>
+      <div class="tape clear"><div class="track">
+        <span>NEW PLUGIN · CHORALE · PER-NOTE CONVOLUTION REVERB · $39 · RESONATOR · FREE ·</span>
+        <span>NEW PLUGIN · CHORALE · PER-NOTE CONVOLUTION REVERB · $39 · RESONATOR · FREE ·</span>
+      </div></div>
+    </div>
+    <span class="anno">type sits directly on the wood behind glass — the least "added object", closest to iFeature's bar in spirit</span>
+  </section>
+
+</div>
+</body>
+</html>
