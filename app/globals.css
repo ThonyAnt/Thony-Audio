@@ -605,7 +605,10 @@ body::after {
    (DeskHero) stays mounted so its 3D scene is always drawn, and simply carries
    view-transition-name: desk-units on "/" only — the browser sees it appear or
    disappear and animates it in from / out to the left, fully rendered.
-   Swift: ~⅓ s out, ~½ s in, overlapping.
+   Timing (shared by the units and the pad): the old objects leave over ~0.4 s,
+   gathering speed; the new ones set off ~0.17 s in, once the exit is clearly
+   under way, and glide to rest over ~0.6 s on a soft deceleration — not an
+   expo-out, which used to land them before the others had left.
 
    Two things React needs for this to fire at all, both easy to lose:
    - the boundary must be the page component's root — a <ViewTransition> nested
@@ -615,6 +618,13 @@ body::after {
      a sync-lane optimistic "pending" update, so the nav goes through router.push
      (components/Navigation.tsx).
    --------------------------------------------------------------------------- */
+
+:root {
+  /* leave: a soft start, then away fast */
+  --desk-exit: 400ms cubic-bezier(0.55, 0, 0.9, 0.4);
+  /* arrive: set off once the exit is under way, then a long, even deceleration */
+  --desk-enter: 600ms cubic-bezier(0.22, 0.82, 0.3, 1) 170ms;
+}
 
 /* pinned: the leaf shadows stay over the moving objects; the nav doesn't crossfade */
 ::view-transition-group(desk-sun),
@@ -643,10 +653,10 @@ body::after {
    router's preliminary commit snapshots it on both sides; that must stay a
    zero-length morph, not an out-and-back. */
 ::view-transition-old(desk-units):only-child {
-  animation: 360ms cubic-bezier(0.5, 0, 0.9, 0.5) both units-out;
+  animation: var(--desk-exit) both units-out;
 }
 ::view-transition-new(desk-units):only-child {
-  animation: 480ms cubic-bezier(0.16, 1, 0.3, 1) 80ms both units-in;
+  animation: var(--desk-enter) both units-in;
 }
 ::view-transition-group(desk-units) { z-index: 1; }
 @keyframes units-out {
@@ -659,10 +669,10 @@ body::after {
 /* the notepad and the pen: in from beyond the right edge, settling flat; out the same
    way. Like the plugins, they travel rather than fade. */
 ::view-transition-new(.pad-in) {
-  animation: 480ms cubic-bezier(0.16, 1, 0.3, 1) 90ms both pad-in;
+  animation: var(--desk-enter) both pad-in;
 }
 ::view-transition-old(.pad-out) {
-  animation: 340ms cubic-bezier(0.5, 0, 0.9, 0.5) both pad-out;
+  animation: var(--desk-exit) both pad-out;
 }
 @keyframes pad-in {
   from { transform: translateX(110vw) scale(1.22) rotate(5deg); }
